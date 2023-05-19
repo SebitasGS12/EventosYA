@@ -1,5 +1,9 @@
 package Models;
 
 public class Evento {
-	 public int valor;
+	public String nombreEvento;
+	public int edad;
+	public double precioEntrada;
+  public int valor;
+
 }
