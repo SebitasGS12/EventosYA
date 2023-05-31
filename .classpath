@@ -13,10 +13,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="src/main/webapp/MenuPrincipal/ImagenesInicio/inicio1.jpg"/>
-	<classpathentry kind="lib" path="src/main/webapp/MenuPrincipal/ImagenesInicio/inicio2.jpg"/>
-	<classpathentry kind="lib" path="src/main/webapp/MenuPrincipal/ImagenesInicio/logo.jpg"/>
-	<classpathentry kind="lib" path="src/main/webapp/MenuPrincipal/ImagenesInicio/logoRegistro.jpg"/>
-	<classpathentry kind="lib" path="src/main/webapp/MenuPrincipal/ImagenesInicio/RegistrarUsuarioImg.jpg"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
