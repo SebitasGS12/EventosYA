@@ -85,13 +85,13 @@
     <header class="cabecera">  
     </header>
     <nav class="menu">
-        <img src="imgs/Logo_Grup.jpeg" alt="" class="logo">
+        <img src="../imgs/Logo_Grup.jpeg" alt="" class="logo">
      <h1 class="titu">EventosYa</h1>
     </nav>
     <section class="espacio_izqui">
       <div class="cuadro">
         <h2 class="bienve"> Bienvenido a Eventos Ya</h2>
-        <img src="imgs/cheque.png" alt="" class="check">
+        <img src="../imgs/cheque.png" alt="" class="check">
         <p class="textbie">Hola{nombre usuario},<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
         <button class="inic"><a href="CrearEvento.jsp">Iniciar Sesion</a></button>
       </div>
