@@ -212,7 +212,7 @@
         <header class="cabecera">  
         </header>
         <nav class="menu">
-            <img src="imgs/evento.png" alt="" class="logo">
+            <img src="../imgs/evento.png" alt="" class="logo">
          <h1 class="titu">CREAR EVENTO</h1>
         </nav>
         <section class="espacio_izqui">
@@ -257,7 +257,7 @@
           </div>
           
           <aside class="espacio_derec">
-            <img  class= "flayer"src="imgs/flayers.jpg" alt="">
+            <img  class= "flayer"src="../imgs/flayers.jpg" alt="">
         </aside>
         </section>
         
