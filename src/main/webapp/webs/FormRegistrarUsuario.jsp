@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,6 +228,6 @@
 <section>
   <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
 </section>
-
+    <%@include file="../comun/footer.jsp" %>
 </body>
 </html>
