@@ -97,7 +97,7 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
     <header class="hd-pag">
-        <img class="pag-img" src="img/IconoPag.png" alt="">        
+        <img class="pag-img" src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/ProyectoFinal_Workspace/EventosYa/src/main/webapp/imgs/logo.jpg" alt="">        
         <h1 class="pag-h1">EventosYa</h1>
         <div class="pag-boton">
             <form action="" method="">
@@ -126,6 +126,8 @@ pageEncoding="ISO-8859-1"%>
 
 
     </main>
+    
+    <%@include file="../comun/footer.jsp" %>
     
 </body>
 </html>

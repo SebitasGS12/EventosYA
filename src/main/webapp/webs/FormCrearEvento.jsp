@@ -261,9 +261,8 @@
         </aside>
         </section>
         
-        <footer class="fin">
-    
-        </footer>
+    <%@include file="../comun/footer.jsp" %>
+
      </div>      
 </body>
 </html>
