@@ -54,39 +54,6 @@ pageEncoding="ISO-8859-1"%>
         border: none;
     }
 
-    .pag-aside{
-        position: relative;
-        display:flex;
-        flex-direction: column;
-        background-color: rgb(255, 255, 255);
-        width: 20%;
-        height: 85vh;
-        margin: 0 20px;
-    }
-
-    
-    .aside-item{
-        display: flex;
-        color: white;
-        width: 100%;
-        height: 33%;
-        margin: auto;
-        background-color: #262525;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    .aside-item:hover{
-        background-color: grey;
-        cursor: pointer;
-        transition: 1s all;
-        color: #262525;
-    }
-    .aside-item-active{
-        background-color: rgb(158, 158, 158);
-        color: #262525;
-    }
-
 
 
 
@@ -97,7 +64,7 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
     <header class="hd-pag">
-        <img class="pag-img" src="../imgs/logo.jpg" alt="">        
+        <img class="pag-img" src="imgs/logo.jpg" alt="">        
         <h1 class="pag-h1">EventosYa</h1>
         <div class="pag-boton">
             <form action="" method="">
@@ -107,20 +74,7 @@ pageEncoding="ISO-8859-1"%>
             
     </header>
 
-    <aside class="pag-aside">
-        <div class="aside-item aside-item-active">
-            <img src="../imgs/asideMenu.png" alt="">
-            <h2>Menu</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="../imgs/asideAdminEventos.png" alt="">
-            <h2>Administrar<br>Eventos</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="../imgs/asideConfig.png" alt="">
-            <h2>Configuracion<br>de Cuenta</h2>
-        </div>
-    </aside>
+	<%@include file="../comun/aside.jsp" %>
     <main>
 
 

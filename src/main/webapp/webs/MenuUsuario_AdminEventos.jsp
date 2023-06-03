@@ -107,20 +107,8 @@ pageEncoding="ISO-8859-1"%>
             
     </header>
 
-    <aside class="pag-aside">
-        <div class="aside-item aside-item-active">
-            <img src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/libs/Imagenes_Repositorio/imgMenuIcon.png" alt="">
-            <h2>Menu</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/libs/Imagenes_Repositorio/imgAdmEvnIcon.png" alt="">
-            <h2>Administrar<br>Eventos</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/libs/Imagenes_Repositorio/imgConfigIcon.png" alt="">
-            <h2>Configuracion<br>de Cuneta</h2>
-        </div>
-    </aside>
+	<%@include file="../comun/aside.jsp" %>
+
     <main>
 
 

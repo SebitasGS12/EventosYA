@@ -3,7 +3,7 @@
   <display-name>EventosYa</display-name>
   <welcome-file-list>
     <welcome-file>webs/MenuUsuario_Menu.jsp</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>webs/MenuUsuario_AdminEventos.jsp</welcome-file>
     <welcome-file>ConfirmarRegistro.jsp</welcome-file>
     <welcome-file>CrearEvento.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>
