@@ -19,6 +19,13 @@
       align-items: center;
     }
     
+    .header a{
+    
+    	color:white;
+    	text-decoration: none;
+    
+    }
+    
     .header h1 {
       color: white;
       margin: 0;
@@ -68,7 +75,7 @@
 <div class="header">
     <h1>
       <img src="../imgs/logo.jpg" alt="logo">
-      <span style="font-family: Arial, sans-serif;">EventosYa</span>
+      <a href="Menu_inicio.jsp">EventosYa</a>
     </h1>
     <ul>
       <li><a href="#" style="color: white;">Comunidad</a></li>

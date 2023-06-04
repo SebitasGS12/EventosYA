@@ -6,13 +6,15 @@
   <meta charset="UTF-8">
   <title>Formulario - Registrar Usuario</title>
   <style>
-    /* Estilos CSS aquí */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    /* Estilos CSS aquI� */
+	@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Lexend', sans-serif;
 
+	}
     .header {
       background-color: #ddd;
       padding: 20px;
@@ -40,7 +42,7 @@
       margin-bottom: 20px;
     }
 
-    .button {
+    .button  ,a{
       display: inline-block;
       background-color: #FF0000;
       color: white;
@@ -154,6 +156,9 @@
     .centered-button {
       text-align: center;
     }
+    
+    
+
   </style>
 </head>
 <body>
@@ -165,7 +170,7 @@
 
     <div class="container">
       <div class="button-container centered-button">
-        <a href="inicio.html" class="button">Regresar INICIO</a>
+        <a href="Menu_inicio.jsp" class="button">REGRESAR INICIO</a>
       </div>
 
       <div class="button-container">
@@ -179,20 +184,20 @@
         </div>
 
         <div class="input-container">
-          <input type="text" placeholder="CORREO ELECTRÓNICO">
+          <input type="text" placeholder="CORREO ELECTRONICO">
         </div>
 
         <div class="input-container">
-          <input type="password" placeholder="CONTRASEÑA">
+          <input type="password" placeholder="CONTRASEёA">
         </div>
 
         <div class="input-container">
-          <input type="password" placeholder="REPETIR CONTRASEÑA">
+          <input type="password" placeholder="REPETIR CONTRASEёA">
         </div>
 
         <div class="input-container">
           <select>
-            <option value="PERÚ" selected>PERÚ</option>
+            <option value="PERU" selected>PERU�</option>
           </select>
           <select>
             <option value="CIUDAD" selected>CIUDAD</option>
@@ -201,7 +206,7 @@
 
         <div class="input-container">
           <select>
-            <option value="">GÉNERO</option>
+            <option value="">GE�NERO</option>
             <option value="masculino">Masculino</option>
             <option value="femenino">Femenino</option>
             <option value="otro">Otro</option>
@@ -210,16 +215,13 @@
 
         <div class="checkbox-container">
           <input type="checkbox" id="terms-checkbox">
-          <label for="terms-checkbox">HE LEÍDO LOS TÉRMINOS Y CONDICIONES</label>
+          <label for="terms-checkbox">HE LEI�DO LOS TE�RMINOS Y CONDICIONES</label>
         </div>
 
-        <div class="checkbox-container">
-          <input type="checkbox" id="info-checkbox">
-          <label for="info-checkbox">¿USTED DESEA QUE ENTRADAS YA ENVÍE INFORMACIÓN DE EVENTOS?</label>
-        </div>
+
 
         <div class="create-account-button">
-          <button>Crear Cuenta</button>
+          <a href="ConfirmarRegistro.jsp">Crear Cuenta</a>
         </div>
       </div>
     </div>
@@ -228,6 +230,7 @@
 <section>
   <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
 </section>
-    <%@include file="../comun/footer.jsp" %>
+<%@include file="../comun/footer.jsp" %>
+
 </body>
 </html>
