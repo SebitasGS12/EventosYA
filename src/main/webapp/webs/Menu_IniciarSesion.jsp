@@ -119,11 +119,11 @@
         
         <div class="container_escritura">
           <div class="escritura_div">          
-            <label for="inputUsuario" ><img src="../imgs/icoUsuario.png" alt="" />Usuario o Correo</label>
+            <label for="inputUsuario" ><img src="${pageContext.request.contextPath}/imgs/icoUsuario.png" alt="" />Usuario o Correo</label>
             <input type="text" name="" id="inputUsuario" value="" />
           </div>
           <div class="escritura_div" >          
-            <label for="inputPass" ><img src="../imgs/icoPassword.png" alt="" />Password</label>
+            <label for="inputPass" ><img src="${pageContext.request.contextPath}/imgs/icoPassword.png" alt="" />Password</label>
             <input type="password" name="" id="inputPass" value="" />
           </div>
           <div class="escritura_botones">          

@@ -74,14 +74,14 @@
 </style>
 <div class="header">
     <h1>
-      <img src="../imgs/logo.jpg" alt="logo">
+      <img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="logo">
       <a href="Menu_inicio.jsp">EventosYa</a>
     </h1>
     <ul>
       <li><a href="#" style="color: white;">Comunidad</a></li>
       <li><a href="#" style="color: white;">Acerca de</a></li>
       <li><a href="#" style="color: white;">Contacto</a></li>
-      <li><a href="../webs/Menu_IniciarSesion.jsp" class="inicio-sesion">Iniciar Sesión</a></li>
+      <li><a href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp" class="inicio-sesion">Iniciar Sesión</a></li>
     </ul>
   </div>
 

@@ -372,7 +372,7 @@ pageEncoding="ISO-8859-1"%>
             <br>
             <div class="fotope">
                 <label>Foto de Perfil</label>
-                <img src="imgs/perfil.png" alt="">
+                <img src="../imgs/perfil.png" alt="">
             </div>
         <input class="confcamb" type="submit"value="Confirmar cambio">
         </form>

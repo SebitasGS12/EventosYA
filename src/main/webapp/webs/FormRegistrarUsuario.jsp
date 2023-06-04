@@ -176,60 +176,72 @@
       <div class="button-container">
         <p class="welcome-text" style="margin-left: 20px;">BIENVENIDO A: <span>ENTRADAS YA</span></p>
       </div>
-
-      <div class="form-container">
-        <div class="input-container">
-          <input type="text" placeholder="NOMBRES">
-          <input type="text" placeholder="APELLIDOS">
-        </div>
-
-        <div class="input-container">
-          <input type="text" placeholder="CORREO ELECTRONICO">
-        </div>
-
-        <div class="input-container">
-          <input type="password" placeholder="CONTRASE—ëA">
-        </div>
-
-        <div class="input-container">
-          <input type="password" placeholder="REPETIR CONTRASE—ëA">
-        </div>
-
-        <div class="input-container">
-          <select>
-            <option value="PERU" selected>PERUö</option>
-          </select>
-          <select>
-            <option value="CIUDAD" selected>CIUDAD</option>
-          </select>
-        </div>
-
-        <div class="input-container">
-          <select>
-            <option value="">GEâNERO</option>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
-          </select>
-        </div>
-
-        <div class="checkbox-container">
-          <input type="checkbox" id="terms-checkbox">
-          <label for="terms-checkbox">HE LEIçDO LOS TEâRMINOS Y CONDICIONES</label>
-        </div>
-
-
-
-        <div class="create-account-button">
-          <a href="ConfirmarRegistro.jsp">Crear Cuenta</a>
-        </div>
+      
+      
+      
+      
+      <form action="usuario" method="post">
+	     <div class="form-container">
+	       <div class="input-container">
+	         <input type="text" name="txtNombre" placeholder="NOMBRES">
+	         <input type="text" name="txtApellidos" placeholder="APELLIDOS">
+	       </div>
+	
+	       <div class="input-container">
+	         <input type="text" name="txtCorreo" placeholder="CORREO ELECTRONICO">
+	       </div>
+	
+	       <div class="input-container">
+	         <input type="password" name="txtContraseÒa" placeholder="CONTRASE—ëA">
+	       </div>
+			<!-- 
+			
+	       <div class="input-container">
+	         <input type="password" placeholder="REPETIR CONTRASE—ëA">
+	       </div>
+			
+			 -->
+			
+	
+	       <div class="input-container">
+	         <select name="pais"  >
+	           <option value="PERU" selected>PERUö</option>
+	         </select>
+	         <select name="ciudad"  >
+	           <option value="CIUDAD " selected>CIUDAD</option>
+	         </select>
+	       </div>
+	
+	       <div class="input-container">
+	         <select name="genero">
+	           <option value="">GEâNERO</option>
+	           <option value="masculino">Masculino</option>
+	           <option value="femenino">Femenino</option>
+	           <option value="otro">Otro</option>
+	         </select>
+	       </div>
+	
+	       <div class="checkbox-container">
+	         <input type="checkbox" id="terms-checkbox">
+	         <label for="terms-checkbox">HE LEIçDO LOS TEâRMINOS Y CONDICIONES</label>
+	       </div>
+	
+	
+	
+	       <div class="create-account-button">
+				<button type="submit" name="opcion" value="log" class="btn" >Crear Cuenta</button>
+	       </div>
+	     </div>
+     
+      </form>
+      
       </div>
-    </div>
+
   </section>
 
-<section>
-  <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
-</section>
+	<section>
+	  <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
+	</section>
 <%@include file="../comun/footer.jsp" %>
 
 </body>
