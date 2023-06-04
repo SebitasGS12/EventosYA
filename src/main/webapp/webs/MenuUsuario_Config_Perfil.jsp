@@ -308,6 +308,11 @@ pageEncoding="ISO-8859-1"%>
             
         }
         
+        .confcamb:hover{
+        	cursor: pointer;
+        
+        }
+        
       .section{
      display: flex;
      flex-direction: row;
