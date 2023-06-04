@@ -86,11 +86,7 @@ pageEncoding="ISO-8859-1"%>
         background-color: rgb(158, 158, 158);
         color: #262525;
     }
-
-
-
-
-
+    
 
 </style>
 
@@ -106,7 +102,7 @@ pageEncoding="ISO-8859-1"%>
         </div>
             
     </header>
-
+ 
     <aside class="pag-aside">
         <div class="aside-item aside-item-active">
             <img src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/libs/Imagenes_Repositorio/imgMenuIcon.png" alt="">
@@ -118,15 +114,13 @@ pageEncoding="ISO-8859-1"%>
         </div>
         <div class="aside-item ">
             <img src="https://cibertecedu-my.sharepoint.com/personal/i202124082_cibertec_edu_pe/Documents/CIBERTEC%20CICLO%204/Lenguaje%20de%20Programacion%20II/PF_LPI/libs/Imagenes_Repositorio/imgConfigIcon.png" alt="">
-            <h2>Configuracion<br>de Cuneta</h2>
+            <h2>Configuracion<br>de Cuenta</h2>
         </div>
     </aside>
-    <main>
+<main>
 
-
-
-    </main>
-    
+</main>
+ 
     <%@include file="../comun/footer.jsp" %>
     
 </body>
