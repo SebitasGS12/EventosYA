@@ -81,6 +81,9 @@
     </style>
 </head>
 <body>
+<% String NombreCompleto =(String) request.getAttribute("nombreCompleto");%>
+
+
 <div class="container">
     <header class="cabecera">  
     </header>
@@ -92,8 +95,8 @@
       <div class="cuadro">
         <h2 class="bienve"> Bienvenido a Eventos Ya</h2>
         <img src="../imgs/cheque.png" alt="" class="check">
-        <p class="textbie">Hola{nombre usuario},<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
-        <button class="inic"><a href="CrearEvento.jsp">Iniciar Sesion</a></button>
+        <p class="textbie">Hola <strong><%=NombreCompleto %></strong> ,<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
+        <button class="inic"><a href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp">Iniciar Sesion</a></button>
       </div>
     </section>
     <aside class="espacio_derec">

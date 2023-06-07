@@ -4,34 +4,35 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import DAO.UsuarioDAO;
-import Models.UsuarioDTO;
-import Coneccion.MysqlConector;
+import java.util.ArrayList;
 
-public class MySQLUsuarioDAO implements UsuarioDAO {
+import Coneccion.MysqlConector;
+import DAO.PaisDAO;
+import Models.PaisDTO;
+
+public class MySQLPaisDAO implements PaisDAO {
 
 	@Override
-	public int registrar(UsuarioDTO u) {
-
+	public ArrayList<PaisDTO> listarPaises() {
+		// TODO Auto-generated method stub
 		
-		int rs = 0;
+		ArrayList<PaisDTO> lista = new ArrayList<PaisDTO>();
+		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement pst = null;
 		
 		try {
 			con = MysqlConector.getConexion();
-			String sql = " insert into Usuarios values (null,?,?,?,?,?,?,?) ";
+			String sql = " select id,nombre from paises  ";
 			pst = con.prepareStatement(sql);
-			
-			pst.setString(1, u.getNombreUsu());
-			pst.setString(2, u.getApellidoUsu());
-			pst.setString(3, u.getCorreoUsu());
-			pst.setString(4, u.getContraseniaUsu());
-			pst.setString(5, u.getPaisUsu());
-			pst.setString(6, u.getCiudadUsu());
-			pst.setString(7, u.getGeneroUsu());
-			
-			rs =pst.executeUpdate();
+			rs=pst.executeQuery();	
+			while (rs.next()) {
+		 
+				PaisDTO p = new PaisDTO();				
+				p.setId(rs.getInt(1)); 
+				p.setNombre(rs.getString(2));				 
+				lista.add(p);
+			}
 			
 		} catch (Exception e) {
 			
@@ -39,13 +40,15 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		}finally {
 			try {
 				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
 				if(con!=null)con.close();
 			} catch (SQLException e2) {
 				System.out.println("Error al cerrar "+e2.getMessage());
 			}
 		}
+	
 		
-		return rs;
+		return lista;
 	}
 
 }

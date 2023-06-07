@@ -105,6 +105,16 @@
     
     
   </style>
+   <script>
+    function verContra() {
+      var passwordInput = document.getElementById("inputPass");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+  </script>
 </head>
 <body>
 <%@include file="../comun/header_normal.jsp" %>	
@@ -112,7 +122,7 @@
       <div class="container">
         <div class="container_opciones">
             <a href="Menu_IniciarSesion.jsp">Iniciar Sesion</a>
-            <a href="FormRegistrarUsuario.jsp">Registrarse</a>
+            <a href="${pageContext.request.contextPath}/webs/FormRegistrarUsuario.jsp">Registrarse</a>
             
        		 <hr style="width: 100% ; margin:10px 0;" />
         </div>
@@ -127,8 +137,8 @@
             <input type="password" name="" id="inputPass" value="" />
           </div>
           <div class="escritura_botones">          
-            <input type="checkbox" name="" id="checkbox_RecordarUsuario" />
-            <label for="checkbox_RecordarUsuario">Recordar Usuario</label>
+            <input type="checkbox" name="" onclick="verContra()" id="checkBoxVer" />
+            <label for=checkBoxVer>Ver Contrasenia</label>
             
             
             <a href="id=""">Iniciar Sesion</a><!-- Pasa por un servlet tener cuidado -->

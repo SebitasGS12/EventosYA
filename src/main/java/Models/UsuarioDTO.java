@@ -4,7 +4,7 @@ public class UsuarioDTO {
 
 	private int idUsuario;
 	private String nombreUsu,apellidoUsu,correoUsu;
-	private String contraseñaUsu,paisUsu,ciudadUsu,generoUsu;
+	private String contraseniaUsu,paisUsu,ciudadUsu,generoUsu;
 	
 	//Getters y Setters
 	
@@ -13,7 +13,7 @@ public class UsuarioDTO {
 		this.nombreUsu = nombreUsu;
 		this.apellidoUsu = apellidoUsu;
 		this.correoUsu = correoUsu;
-		this.contraseñaUsu = contraseñaUsu;
+		this.contraseniaUsu = contraseñaUsu;
 		this.paisUsu = paisUsu;
 		this.ciudadUsu = ciudadUsu;
 		this.generoUsu = generoUsu;
@@ -45,11 +45,11 @@ public class UsuarioDTO {
 	public void setCorreoUsu(String correoUsu) {
 		this.correoUsu = correoUsu;
 	}
-	public String getContraseñaUsu() {
-		return contraseñaUsu;
+	public String getContraseniaUsu() {
+		return contraseniaUsu;
 	}
-	public void setContraseñaUsu(String contraseñaUsu) {
-		this.contraseñaUsu = contraseñaUsu;
+	public void setContraseniaUsu(String contraseñaUsu) {
+		this.contraseniaUsu = contraseñaUsu;
 	}
 	public String getPaisUsu() {
 		return paisUsu;

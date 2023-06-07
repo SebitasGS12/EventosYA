@@ -1,3 +1,7 @@
+<%@page import="Models.CiudadDTO"%>
+<%@page import="DAO.DAOFactory"%>
+<%@page import="Models.PaisDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -162,6 +166,9 @@
   </style>
 </head>
 <body>
+	<script src="../comun/ciudades.js" >
+		 cargarCiudades();
+	</script>
   <section>
     <div class="header">
       <img src="../imgs/logoRegistro.jpg" alt="logo">
@@ -180,19 +187,19 @@
       
       
       
-      <form action="usuario" method="post">
+      <form action="${pageContext.request.contextPath}/usuario" method="post">
 	     <div class="form-container">
 	       <div class="input-container">
-	         <input type="text" name="txtNombre" placeholder="NOMBRES">
-	         <input type="text" name="txtApellidos" placeholder="APELLIDOS">
+	         <input type="text" name="txtNombre" placeholder="NOMBRES" required="required">
+	         <input type="text" name="txtApellidos" placeholder="APELLIDOS" required="required">
 	       </div>
 	
 	       <div class="input-container">
-	         <input type="text" name="txtCorreo" placeholder="CORREO ELECTRONICO">
+	         <input type="text" name="txtCorreo" placeholder="CORREO ELECTRONICO" required="required">
 	       </div>
 	
 	       <div class="input-container">
-	         <input type="password" name="txtContraseÒa" placeholder="CONTRASE—ëA">
+	         <input type="password" name="txtContrasenia" placeholder="CONTRASE—ëA" required="required">
 	       </div>
 			<!-- 
 			
@@ -204,12 +211,25 @@
 			
 	
 	       <div class="input-container">
-	         <select name="pais"  >
-	           <option value="PERU" selected>PERUö</option>
+	         <select name="pais" id="selectPaises"  onchange="cargarCiudades()" >
+	           <option value="null"  selected >Seleccioneö su Pais </option>
+	           <% DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+	           	ArrayList<PaisDTO> listaPaises = fabric.getPaisDAO().listarPaises();
+	           	if(listaPaises != null){
+	           		for(PaisDTO p : listaPaises){
+	           	%>
+	           	<option value="<%=p.getId()%>"  ><%=p.getNombre() %></option>		
+	           	<%
+	           			
+	           		}
+	           		
+	           	}%>	
+
 	         </select>
-	         <select name="ciudad"  >
-	           <option value="CIUDAD " selected>CIUDAD</option>
+	         <select name="ciudad" id="selectCiudades" >
 	         </select>
+
+	         
 	       </div>
 	
 	       <div class="input-container">
@@ -225,18 +245,13 @@
 	         <input type="checkbox" id="terms-checkbox">
 	         <label for="terms-checkbox">HE LEIçDO LOS TEâRMINOS Y CONDICIONES</label>
 	       </div>
-	
-	
-	
+
 	       <div class="create-account-button">
 				<button type="submit" name="opcion" value="log" class="btn" >Crear Cuenta</button>
 	       </div>
 	     </div>
-     
       </form>
-      
       </div>
-
   </section>
 
 	<section>

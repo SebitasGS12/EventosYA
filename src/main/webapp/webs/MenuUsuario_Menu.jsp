@@ -54,14 +54,7 @@
             flex-direction: row;
             margin-top: 20px;
         }
-        .pag-aside {
-            width: 20%;
-            min-width: 200px;
-            background-color: #f1f1f1;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin-right: 20px;
-        }
+
         .pag-main {
             width: 80%;
             display: flex;
@@ -83,7 +76,7 @@
             margin-right: 10px;
         }
 
-<<<<<<< HEAD
+
         .pag-search-container {
             display: flex;
             align-items: center;
@@ -119,8 +112,8 @@
             width: 80%;
             margin-top: 20px;
         }
-    </style>
-=======
+
+
     .pag-boton form button{
         color: white;
         width: 200px;
@@ -132,7 +125,6 @@
     }
 </style>
 
->>>>>>> branch 'main' of https://github.com/SebitasGS12/EventosYa
 </head>
 <body>
 <header class="hd-pag">
@@ -145,10 +137,10 @@
     </div>
 </header>
 
-<div class="pag-container">
-    <div class="pag-aside">
-        <%@include file="../comun/aside.jsp" %>
-    </div>
+	<div class="pag-container">
+
+	<%@include file="../comun/aside.jsp" %>
+
 
     <div class="pag-main">
         <div class="pag-subtitle-container">

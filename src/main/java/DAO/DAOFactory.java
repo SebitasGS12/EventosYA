@@ -7,6 +7,8 @@ public abstract class DAOFactory {
 	
 	//Metodos de las DTO Models
 	public abstract UsuarioDAO getUsuarioDAO();
+	public abstract PaisDAO getPaisDAO();
+	public abstract CiudadDAO getCiudadDAO();
 	
 	public static  DAOFactory getDaoFactory(int qBD) {
 		

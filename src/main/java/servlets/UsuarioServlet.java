@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import mantenimiento.MySQLUsuarioDAO;
+import Models.CiudadDTO;
 import Models.UsuarioDTO;
 
 import java.io.IOException;
@@ -46,18 +48,27 @@ public class UsuarioServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String opcion =request.getParameter("opcion");
+		
+		
+		
 		System.out.println(" opcion -->" +opcion);
 		 
 		switch (opcion) {
 		case "log":  
 					registrarUsurio(request,response); 
 					break;
+
 	 
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + opcion);
 		}
+		
+		
+
 		 
 	}
+
+
 
 	private void registrarUsurio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -67,9 +78,9 @@ public class UsuarioServlet extends HttpServlet {
 		
 		//Entradas
 		String nombre= request.getParameter("txtNombre");
-		String apellido= request.getParameter("txtApellido");
+		String apellido= request.getParameter("txtApellidos");
 		String correo= request.getParameter("txtCorreo");
-		String contraseña= request.getParameter("txtContraseña");
+		String contraseña= request.getParameter("txtContrasenia");
 		String pais= request.getParameter("pais");
 		String ciudad= request.getParameter("ciudad");
 		String genero= request.getParameter("genero");
@@ -87,24 +98,16 @@ public class UsuarioServlet extends HttpServlet {
 		
 		if(ok==0) {
 			mensaje+="Error al registrar los datos, revisar";
-			url="usuario/registrar.jsp";
+			url="webs/Menu_inicio.jsp";
 		}else {
 			mensaje+=" <script> alert('"+"Registro del usuario <strong>"+nombre+"</strong> OK, ingrese al sistema" +"') </script>";
-			url="/login.jsp";
+			url="webs/ConfirmarRegistro.jsp";
 		}
 		
 		request.setAttribute("mensaje", mensaje);
+		request.setAttribute("nombreCompleto", nombre+" "+apellido);
 		request.getRequestDispatcher(url).forward(request, response);
 
-	
-	
-		
-		
-		
-		
-		
-			
-		
 		
 	}
 
