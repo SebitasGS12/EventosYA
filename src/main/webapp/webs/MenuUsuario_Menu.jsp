@@ -83,6 +83,7 @@
             margin-right: 10px;
         }
 
+<<<<<<< HEAD
         .pag-search-container {
             display: flex;
             align-items: center;
@@ -119,6 +120,19 @@
             margin-top: 20px;
         }
     </style>
+=======
+    .pag-boton form button{
+        color: white;
+        width: 200px;
+        height: 40px;
+        font-size: 1.3em;
+        border-radius: 20px;
+        background-color: #00B4CC;
+        border: none;
+    }
+</style>
+
+>>>>>>> branch 'main' of https://github.com/SebitasGS12/EventosYa
 </head>
 <body>
 <header class="hd-pag">
@@ -149,6 +163,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

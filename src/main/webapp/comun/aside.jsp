@@ -46,16 +46,16 @@
 
 </style>
 <aside class="pag-aside">
-        <div class="aside-item aside-item-active">
-            <img src="imgs/asideMenu.png" alt="">
-            <h2>Menu</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="imgs/asideAdminEventos.png" alt="">
-            <h2>Administrar<br>Eventos</h2>
-        </div>
-        <div class="aside-item ">
-            <img src="imgs/asideConfig.png" alt="">
-            <h2>Configuracion<br>de Cuenta</h2>
-        </div>
-    </aside>
+	 <div class="aside-item aside-item-active">
+	     <img src="imgs/asideMenu.png" alt="">
+	     <h2>Menu</h2>
+	 </div>
+	 <div class="aside-item ">
+	     <img src="imgs/asideAdminEventos.png" alt="">
+	     <h2>Administrar<br>Eventos</h2>
+	 </div>
+	 <div class="aside-item ">
+	     <img src="imgs/asideConfig.png" alt="">
+	     <h2>Configuracion<br>de Cuenta</h2>
+	 </div>
+</aside>

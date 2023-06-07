@@ -6,9 +6,9 @@ public abstract class DAOFactory {
 	public static final int SQL =2;
 	
 	//Metodos de las DTO Models
+	public abstract UsuarioDAO getUsuarioDAO();
 	
-	
-	public static  DAOFactory geDaoFactory(int qBD) {
+	public static  DAOFactory getDaoFactory(int qBD) {
 		
 		switch (qBD) {
 		case MySQL: {

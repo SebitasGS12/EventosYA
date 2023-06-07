@@ -24,8 +24,8 @@
 	
 	<%@include file="../comun/header_normal.jsp" %>		
   <div class="image-container">
-    <img src="../imgs/inicio1.jpg" alt="inicio1">
-    <img src="../imgs/inicio2.jpg" alt="inicio2">
+    <img src="${pageContext.request.contextPath}/imgs/inicio1.jpg" alt="inicio1">
+    <img src="${pageContext.request.contextPath}/imgs/inicio2.jpg" alt="inicio2">
   </div>
   
   

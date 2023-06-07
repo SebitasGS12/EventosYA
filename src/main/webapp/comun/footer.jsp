@@ -10,12 +10,13 @@ font-family: 'Lexend', sans-serif;
 }
 
 footer{
-	margin-top:20px;
+
 	background-color: #005F6B;
 	width: 100%;
-	position:absolute;
-	bottom: 0;
-	
+
+	display: flex;
+	flex-direction:column;
+	align-self: flex-end;
 
 }
 

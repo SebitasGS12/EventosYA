@@ -8,9 +8,22 @@ public class UsuarioDTO {
 	
 	//Getters y Setters
 	
+	public UsuarioDTO(String nombreUsu, String apellidoUsu, String correoUsu, String contraseñaUsu, String paisUsu,
+			String ciudadUsu, String generoUsu) {
+		this.nombreUsu = nombreUsu;
+		this.apellidoUsu = apellidoUsu;
+		this.correoUsu = correoUsu;
+		this.contraseñaUsu = contraseñaUsu;
+		this.paisUsu = paisUsu;
+		this.ciudadUsu = ciudadUsu;
+		this.generoUsu = generoUsu;
+	}
+	
+	
 	public int getIdUsuario() {
 		return idUsuario;
 	}
+
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
