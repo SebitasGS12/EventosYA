@@ -20,6 +20,12 @@ footer{
 
 }
 
+a {
+		
+	text-decoration: none !important;
+	
+}
+
 .lista-footer{
 	font-size: 1.3em;
 	color: white;

@@ -165,11 +165,11 @@ pageEncoding="ISO-8859-1"%>
         
     }
 
-.section{
-     display: flex;
-     flex-direction: row;
-     margin-top:20px;
-    }
+	.section{
+	     display: flex;
+	     flex-direction: row;
+	     margin-top:20px;
+	    }
     
     
       #itemConfig{

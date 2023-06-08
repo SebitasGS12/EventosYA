@@ -10,26 +10,35 @@
 
 
     }
-
-    .hd-pag{
-        background-color: #343838;
-        height: 15vh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        box-shadow: 0px 0px 7px  gray;
+    
+      .header {
+      background-color: #343838;
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-
-
-    .pag-img{
-        height: 80%;
-        margin: 10px;
+    
+    .header a{
+    
+    	color:white;
+    	text-decoration: none;
+    
     }
-    .pag-h1{
-        margin: 10px;
-        color: white;
+    
+    .header h1 {
+      color: white;
+      margin: 0;
+      display: flex;
+      align-items: center;
     }
-
+    
+    .header h1 a img {
+      margin-right: 10px;
+      max-width: 30px;
+    }
+    
 
     .pag-boton{
         position: absolute;
@@ -49,13 +58,19 @@
     }
 </style>
 
-<header class="hd-pag">
-       <img class="pag-img" src="../imgs/logo.jpg" alt="logo">        
-       <h1 class="pag-h1">EventosYa</h1>
-       <div class="pag-boton">
-           <form action="" method="">
-               <button type="submit">Salir</button>
-           </form>
-       </div>
+
+       
+<div class="header">
+    <h1>
+      
+      <a href="Menu_inicio.jsp">
+      	<img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="logo">EventosYa
+      	</a>
+    </h1>
+     <div class="pag-boton">
+          <form action="" method="">
+                <button type="submit">Salir</button>
+            </form>
+        </div>
            
-  </header>
+  </div>

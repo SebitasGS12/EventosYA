@@ -29,9 +29,6 @@
 		
 		
 	}
-	.container_opciones{
-
-	}
 	
 	.container_opciones a{
 		margin:10px;
