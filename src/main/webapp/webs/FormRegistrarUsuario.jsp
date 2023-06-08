@@ -247,7 +247,7 @@
 	       </div>
 
 	       <div class="create-account-button">
-				<button type="submit" name="opcion" value="log" class="btn" >Crear Cuenta</button>
+				<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
 	       </div>
 	     </div>
       </form>

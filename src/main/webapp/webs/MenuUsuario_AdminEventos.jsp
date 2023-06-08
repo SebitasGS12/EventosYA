@@ -82,11 +82,10 @@ pageEncoding="ISO-8859-1"%>
         transition: 1s all;
         color: #262525;
     }
-    .aside-item-active{
-        background-color: rgb(158, 158, 158);
+    #itemAdminEventos{
+    	background-color: rgb(158, 158, 158);
         color: #262525;
     }
-
 
 
 
@@ -107,7 +106,7 @@ pageEncoding="ISO-8859-1"%>
             
     </header>
 
-	<%@include file="../comun/aside.jsp" %>
+	<%@include file="../comun/aside.html" %>
 
     <main>
 

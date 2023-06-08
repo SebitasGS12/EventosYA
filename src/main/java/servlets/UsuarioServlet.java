@@ -5,7 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import mantenimiento.MySQLUsuarioDAO;
@@ -54,9 +57,13 @@ public class UsuarioServlet extends HttpServlet {
 		System.out.println(" opcion -->" +opcion);
 		 
 		switch (opcion) {
-		case "log":  
+		case "reg":  
 					registrarUsurio(request,response); 
 					break;
+		case"log":
+					validarUsuario(request,response); 
+					break;
+	 
 
 	 
 		default:
@@ -69,6 +76,61 @@ public class UsuarioServlet extends HttpServlet {
 	}
 
 
+
+	private void validarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		//Variables
+		String mensaje ="",url="";
+		
+		//Entrada de Datos
+		String usuario = request.getParameter("txtCorreo");
+		String clave= request.getParameter("txtContra");
+
+		System.out.println(usuario);
+		System.out.println(clave);
+
+		//Proceso
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		UsuarioDTO u = fabrica.getUsuarioDAO().validar(usuario, clave);
+		
+		
+		
+		if (u!=null) {
+			mensaje += "<script>alert('"+"Bienvenido"+u.getNombreUsu()+"');</script>";
+			url = "webs/MenuUsuario_Menu.jsp";
+			//Mostrar Informacion
+			HttpSession miSession= request.getSession();
+			System.out.println("ID Session " + miSession.getId());
+			System.out.println("Fecha --- " +  new SimpleDateFormat().format(miSession.getCreationTime()));
+			System.out.println("Duracion ---" + miSession.getMaxInactiveInterval() );
+			
+			request.getSession().setAttribute("mensaje", mensaje);
+			request.getSession().setAttribute("datousu", u);	
+			
+		}else {
+			mensaje += "<script>alert(' Usuario o clave incorrecto');</script>";
+			url = "webs/Menu_IniciarSesion.jsp";	
+			
+			request.getSession().setAttribute("mensaje",mensaje);
+
+		}
+	
+		
+		//Salida a la pagina principal
+		request.getRequestDispatcher(url).forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 
 	private void registrarUsurio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

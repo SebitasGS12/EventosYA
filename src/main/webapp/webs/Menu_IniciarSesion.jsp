@@ -86,15 +86,17 @@
 		margin-top:70px;
 	}
 	
-	.escritura_botones a{
+	.escritura_botones button{
 	
 		background-color: #00B4CC;
 		color:white;
 		text-decoration: none;
 		margin: 5px;
 		padding:15px;
+		border:none;
+		font-size: 1.1em;
 	}
-		.escritura_botones a:hover{
+		.escritura_botones button:hover{
 			background-color:#046A78;
 			transition:.4s all;
 		}
@@ -126,27 +128,27 @@
             
        		 <hr style="width: 100% ; margin:10px 0;" />
         </div>
-        
+        <form action="${pageContext.request.contextPath}/usuario">
         <div class="container_escritura">
           <div class="escritura_div">          
-            <label for="inputUsuario" ><img src="${pageContext.request.contextPath}/imgs/icoUsuario.png" alt="" />Usuario o Correo</label>
-            <input type="text" name="" id="inputUsuario" value="" />
+            <label for="inputUsuario" ><img src="${pageContext.request.contextPath}/imgs/icoUsuario.png" alt="" /> Correo</label>
+            <input type="text" name="txtCorreo" id="inputUsuario" value="" />
           </div>
           <div class="escritura_div" >          
             <label for="inputPass" ><img src="${pageContext.request.contextPath}/imgs/icoPassword.png" alt="" />Password</label>
-            <input type="password" name="" id="inputPass" value="" />
+            <input type="password" name="txtContra" id="inputPass" value="" />
           </div>
           <div class="escritura_botones">          
             <input type="checkbox" name="" onclick="verContra()" id="checkBoxVer" />
             <label for=checkBoxVer>Ver Contrasenia</label>
             
             
-            <a href="id=""">Iniciar Sesion</a><!-- Pasa por un servlet tener cuidado -->
+            <button type="submit" name="opcion" value="log" >Iniciar Sesion</button><!-- Pasa por un servlet tener cuidado -->
             
           
           
           </div>
-          
+          </form>
           
         </div>
   

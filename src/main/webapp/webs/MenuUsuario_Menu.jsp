@@ -123,37 +123,46 @@
         background-color: #00B4CC;
         border: none;
     }
+    
+    
+    #itemMenu{
+    	background-color: rgb(158, 158, 158);
+        color: #262525;
+    }
 </style>
 
 </head>
 <body>
-<header class="hd-pag">
-    <img class="pag-img" src="imgs/logo.jpg" alt="">
-    <h1 class="pag-h1">EventosYa</h1>
-    <div class="pag-boton">
-        <form action="" method="">
-            <button type="submit">Salir</button>
-        </form>
-    </div>
-</header>
+<% String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg="";
+
+
+	
+%>
+<%=msg %>
+<!-- Usted se ha identificado como: <strong> ${datosusu.nombre} ${datosusu.apellido} </strong> 
+ -->
+	<%@include file="../comun/header_Salir.jsp" %>
 
 	<div class="pag-container">
 
-	<%@include file="../comun/aside.jsp" %>
+	<%@include file="../comun/aside.html" %>
 
 
-    <div class="pag-main">
-        <div class="pag-subtitle-container">
-            <h2 class="pag-subtitle">Buscar Evento</h2>
-        </div>
-        <div class="pag-search-container">
-            <input type="text" class="pag-search-input" placeholder="Buscar evento">
-            <button class="pag-search-button">&#128269;</button>
-        </div>
-        <div class="pag-event-container">
-            <p> Aquí se mostrarán los eventos</p>
-        </div>
-    </div>
-</div>
+	    <div class="pag-main">
+	        <div class="pag-subtitle-container">
+	            <h2 class="pag-subtitle">Buscar Evento</h2>
+	        </div>
+	        <div class="pag-search-container">
+	            <input type="text" class="pag-search-input" placeholder="Buscar evento">
+	            <button class="pag-search-button">&#128269;</button>
+	        </div>
+	        <div class="pag-event-container">
+	            <p> Aquí se mostrarán los eventos</p>
+	        </div>
+	    </div>
+	    
+	</div>
+    <%@include file="../comun/footer.jsp" %>
 </body>
 </html>

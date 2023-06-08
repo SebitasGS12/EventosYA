@@ -20,6 +20,10 @@ public class UsuarioDTO {
 	}
 	
 	
+	public UsuarioDTO() {
+	}
+
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}

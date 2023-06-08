@@ -50,7 +50,7 @@
 </style>
 
 <header class="hd-pag">
-       <img class="pag-img" src="imgs/logo.jpg" alt="">        
+       <img class="pag-img" src="../imgs/logo.jpg" alt="logo">        
        <h1 class="pag-h1">EventosYa</h1>
        <div class="pag-boton">
            <form action="" method="">
