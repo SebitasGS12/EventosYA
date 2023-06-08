@@ -55,6 +55,7 @@
         border-radius: 20px;
         background-color: #00B4CC;
         border: none;
+        cursor: pointer;
     }
 </style>
 
@@ -68,8 +69,8 @@
       	</a>
     </h1>
      <div class="pag-boton">
-          <form action="" method="">
-                <button type="submit">Salir</button>
+          <form action="${pageContext.request.contextPath}/usuario" method="post">
+                <button type="submit" name="opcion" value="salir" class="btn">Salir</button>
             </form>
         </div>
            

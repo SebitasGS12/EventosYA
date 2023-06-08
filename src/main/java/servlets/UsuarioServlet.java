@@ -63,6 +63,10 @@ public class UsuarioServlet extends HttpServlet {
 		case"log":
 					validarUsuario(request,response); 
 					break;
+					
+		case"salir":
+				salir(request,response); 
+				break;
 	 
 
 	 
@@ -76,6 +80,15 @@ public class UsuarioServlet extends HttpServlet {
 	}
 
 
+
+	private void salir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String url = "webs/Menu_inicio.jsp";	
+		
+		request.getRequestDispatcher(url).forward(request, response);
+		
+		
+	}
 
 	private void validarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
