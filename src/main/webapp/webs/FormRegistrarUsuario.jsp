@@ -1,3 +1,7 @@
+<%@page import="Models.CiudadDTO"%>
+<%@page import="DAO.DAOFactory"%>
+<%@page import="Models.PaisDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -6,13 +10,15 @@
   <meta charset="UTF-8">
   <title>Formulario - Registrar Usuario</title>
   <style>
-    /* Estilos CSS aquí */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    /* Estilos CSS aquI� */
+	@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Lexend', sans-serif;
 
+	}
     .header {
       background-color: #ddd;
       padding: 20px;
@@ -40,7 +46,7 @@
       margin-bottom: 20px;
     }
 
-    .button {
+    .button  ,a{
       display: inline-block;
       background-color: #FF0000;
       color: white;
@@ -154,9 +160,15 @@
     .centered-button {
       text-align: center;
     }
+    
+    
+
   </style>
 </head>
 <body>
+	<script src="../comun/ciudades.js" >
+		 cargarCiudades();
+	</script>
   <section>
     <div class="header">
       <img src="../imgs/logoRegistro.jpg" alt="logo">
@@ -165,69 +177,87 @@
 
     <div class="container">
       <div class="button-container centered-button">
-        <a href="inicio.html" class="button">Regresar INICIO</a>
+        <a href="Menu_inicio.jsp" class="button">REGRESAR INICIO</a>
       </div>
 
       <div class="button-container">
         <p class="welcome-text" style="margin-left: 20px;">BIENVENIDO A: <span>ENTRADAS YA</span></p>
       </div>
+      
+      
+      
+      
+      <form action="${pageContext.request.contextPath}/usuario" method="post">
+	     <div class="form-container">
+	       <div class="input-container">
+	         <input type="text" name="txtNombre" placeholder="NOMBRES" required="required">
+	         <input type="text" name="txtApellidos" placeholder="APELLIDOS" required="required">
+	       </div>
+	
+	       <div class="input-container">
+	         <input type="text" name="txtCorreo" placeholder="CORREO ELECTRONICO" required="required">
+	       </div>
+	
+	       <div class="input-container">
+	         <input type="password" name="txtContrasenia" placeholder="CONTRASEёA" required="required">
+	       </div>
+			<!-- 
+			
+	       <div class="input-container">
+	         <input type="password" placeholder="REPETIR CONTRASEёA">
+	       </div>
+			
+			 -->
+			
+	
+	       <div class="input-container">
+	         <select name="pais" id="selectPaises"  onchange="cargarCiudades()" >
+	           <option value="null"  selected >Seleccione� su Pais </option>
+	           <% DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+	           	ArrayList<PaisDTO> listaPaises = fabric.getPaisDAO().listarPaises();
+	           	if(listaPaises != null){
+	           		for(PaisDTO p : listaPaises){
+	           	%>
+	           	<option value="<%=p.getId()%>"  ><%=p.getNombre() %></option>		
+	           	<%
+	           			
+	           		}
+	           		
+	           	}%>	
 
-      <div class="form-container">
-        <div class="input-container">
-          <input type="text" placeholder="NOMBRES">
-          <input type="text" placeholder="APELLIDOS">
-        </div>
+	         </select>
+	         <select name="ciudad" id="selectCiudades" >
+	         </select>
 
-        <div class="input-container">
-          <input type="text" placeholder="CORREO ELECTRÓNICO">
-        </div>
+	         
+	       </div>
+	
+	       <div class="input-container">
+	         <select name="genero">
+	           <option value="">GE�NERO</option>
+	           <option value="masculino">Masculino</option>
+	           <option value="femenino">Femenino</option>
+	           <option value="otro">Otro</option>
+	         </select>
+	       </div>
+	
+	       <div class="checkbox-container">
+	         <input type="checkbox" id="terms-checkbox">
+	         <label for="terms-checkbox">HE LEI�DO LOS TE�RMINOS Y CONDICIONES</label>
+	       </div>
 
-        <div class="input-container">
-          <input type="password" placeholder="CONTRASEÑA">
-        </div>
-
-        <div class="input-container">
-          <input type="password" placeholder="REPETIR CONTRASEÑA">
-        </div>
-
-        <div class="input-container">
-          <select>
-            <option value="PERÚ" selected>PERÚ</option>
-          </select>
-          <select>
-            <option value="CIUDAD" selected>CIUDAD</option>
-          </select>
-        </div>
-
-        <div class="input-container">
-          <select>
-            <option value="">GÉNERO</option>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
-          </select>
-        </div>
-
-        <div class="checkbox-container">
-          <input type="checkbox" id="terms-checkbox">
-          <label for="terms-checkbox">HE LEÍDO LOS TÉRMINOS Y CONDICIONES</label>
-        </div>
-
-        <div class="checkbox-container">
-          <input type="checkbox" id="info-checkbox">
-          <label for="info-checkbox">¿USTED DESEA QUE ENTRADAS YA ENVÍE INFORMACIÓN DE EVENTOS?</label>
-        </div>
-
-        <div class="create-account-button">
-          <button>Crear Cuenta</button>
-        </div>
+	       <div class="create-account-button">
+				<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
+	       </div>
+	     </div>
+      </form>
       </div>
-    </div>
   </section>
 
-<section>
-  <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
-</section>
-    <%@include file="../comun/footer.jsp" %>
+	<section>
+	  <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
+	</section>
+<%@include file="../comun/footer.jsp" %>
+
 </body>
 </html>
