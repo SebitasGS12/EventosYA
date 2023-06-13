@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.DAOFactory"%>
+<%@page import="Models.EventoDTO"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -113,12 +117,28 @@ if (msg==null) msg="";
 	            <input type="text" class="pag-search-input" placeholder="Buscar evento">
 	            <button class="pag-search-button">&#128269;</button>
 	        </div>
-	        <div class="pag-event-container">
+	        <div class="pag-event-container" id="contenedor-eventos">
 	            <p> Aquí se mostrarán los eventos</p>
+	            
+	            <% DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+	           	ArrayList<EventoDTO> listaEventos = fabric.getEventoDAO().listarEvento();
+	           	if(listaEventos != null){
+	           		for(EventoDTO p : listaEventos){
+	           	%>
+				
+				<p><%=p.getNombreEvento()  %></p>
+
+	           	<%
+	           			
+	           		}
+	           		
+	           	}%>	
 	        </div>
 	    </div>
 	    
 	</div>
     <%@include file="../comun/footer.jsp" %>
+    
 </body>
+<script src="../comun/cargarEventosMenu.js"></script>
 </html>

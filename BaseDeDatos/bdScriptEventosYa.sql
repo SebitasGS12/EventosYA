@@ -61,8 +61,10 @@ CREATE TABLE Comentario (
   constraint fkIdAsistente_Comentario FOREIGN KEY (idAsistente) REFERENCES Asistente(idAsistente)
 )auto_increment=10000;
 
+ALTER TABLE evento MODIFY COLUMN imagenEvento LONGBLOB;
 
 insert into categoria values (null,"Popular","Evento Popular ");
 insert into categoria values (null,"Cultural","Evento Cultural ");
 insert into categoria values (null,"Urbano","Evento Urbano ");
 insert into categoria values (null,"Privado","Evento Privado ");
+ select idEvento, nombreEvento,descripcionEvento,ubicacionEvento,imagenEvento,fechaInicio,fechaFin,idCategoria from evento  
