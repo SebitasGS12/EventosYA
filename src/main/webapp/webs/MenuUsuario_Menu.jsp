@@ -146,7 +146,7 @@ if (msg==null) msg="";
 	                    imagenInputStream.close();
 	                    byteArrayOutputStream.close();
 	           	%>
-				
+					<p><%=p.getNombreEvento() %></p>
     				<img src="data:image/jpeg;base64, <%= imagenBase64 %>" alt="Imagen del evento">
 
 	           	<%

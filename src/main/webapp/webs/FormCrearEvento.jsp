@@ -283,17 +283,17 @@
             	<div class="contenedor-formulario">
 
 	            	<div class="inputs-contenedor">
-		            	<div class="name">
+		            	<div class="name ">
 		                    <label>Nombre</label>
 		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre">
 		                </div>
 		                <div class="categ">
 		                   <label>Categoria</label>
 		                   <select name="txtCategoria" id="">
-		                           <option value="1">Popular </option>
-		                           <option value="2">Cultural </option>
-		                           <option value="3">Urbano </option>
-		                           <option value="4">Privado </option>
+		                           <option value="300">Popular </option>
+		                           <option value="301">Cultural </option>
+		                           <option value="302">Urbano </option>
+		                           <option value="303">Privado </option>
 		                   </select>
 		                </div>
 		                <div class="descrip">
