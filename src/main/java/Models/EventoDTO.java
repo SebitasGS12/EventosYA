@@ -1,15 +1,40 @@
 package Models;
 
+import java.io.InputStream;
+
 public class EventoDTO {
 	//Atributos de Evento
 	private int idEvento;
-	private String nombreEvento,descripcionEvento,ubicacionEvento,imagenEvento;
+	private String nombreEvento,descripcionEvento,ubicacionEvento;
 	private String fechaIncio,fechaFin;
 	private int idCategoria;
+	private InputStream imagenEvento;
 	
 	
 	//Getters and Setters
 	
+	public EventoDTO(String nombreEvento, String descripcionEvento, String ubicacionEvento, InputStream imagenEvento,
+			String fechaIncio, String fechaFin, int idCategoria) {
+		this.nombreEvento = nombreEvento;
+		this.descripcionEvento = descripcionEvento;
+		this.ubicacionEvento = ubicacionEvento;
+		this.imagenEvento = imagenEvento;
+		this.fechaIncio = fechaIncio;
+		this.fechaFin = fechaFin;
+		this.idCategoria = idCategoria;
+	}
+	
+	
+	
+	
+	
+	public EventoDTO() {
+	}
+
+
+
+
+
 	public int getIdEvento() {
 		return idEvento;
 	}
@@ -34,10 +59,10 @@ public class EventoDTO {
 	public void setUbicacionEvento(String ubicacionEvento) {
 		this.ubicacionEvento = ubicacionEvento;
 	}
-	public String getImagenEvento() {
+	public InputStream getImagenEvento() {
 		return imagenEvento;
 	}
-	public void setImagenEvento(String imagenEvento) {
+	public void setImagenEvento(InputStream imagenEvento) {
 		this.imagenEvento = imagenEvento;
 	}
 	public String getFechaIncio() {

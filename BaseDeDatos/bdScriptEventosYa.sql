@@ -21,12 +21,12 @@ create table Categoria(
 )auto_increment = 300;
 
 
-create  table Evento(
+create table Evento(
 	idEvento int auto_increment primary key,
     nombreEvento varchar(30),
     descripcionEvento varchar(500),
     ubicacionEvento varchar(30),
-    imagenEvento varchar(500),
+    imagenEvento longblob,
     fechaInicio datetime ,
     fechaFin datetime,
     idCategoria int,
@@ -62,4 +62,7 @@ CREATE TABLE Comentario (
 )auto_increment=10000;
 
 
-select * from usuarios;
+insert into categoria values (null,"Popular","Evento Popular ");
+insert into categoria values (null,"Cultural","Evento Cultural ");
+insert into categoria values (null,"Urbano","Evento Urbano ");
+insert into categoria values (null,"Privado","Evento Privado ");

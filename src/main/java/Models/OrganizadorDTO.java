@@ -3,7 +3,15 @@ package Models;
 public class OrganizadorDTO {
 
 	
+	
+	
 	private int idOrganizador,idUsuario,idEvento;
+
+	public OrganizadorDTO(int idOrganizador, int idUsuario, int idEvento) {
+		this.idOrganizador = idOrganizador;
+		this.idUsuario = idUsuario;
+		this.idEvento = idEvento;
+	}
 
 	public int getIdOrganizador() {
 		return idOrganizador;

@@ -156,6 +156,10 @@
   </style>
 </head>
 <body>
+<% String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg="";
+%>
+<%=msg %>
 
 	<%@include file="../comun/header_Salir.jsp" %>
 
@@ -174,11 +178,11 @@
 	
 	    <div class="registration-section section">
 	      <div class="create-event">
-	       <a href="FormCrearEvento.jsp">Crear Evento</a>
+	       <a href="${pageContext.request.contextPath}/webs/FormCrearEvento.jsp">Crear Evento</a>
 	      </div>
 	      
 	      <div class="registration-header">
-	        <img src="../imgs/perfil.png" alt="Icono">
+	        <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Icono">
 		    <p>Número de registros: <br> <span id="numero-registros">0</span></p>
 	      </div>
 	      <hr>

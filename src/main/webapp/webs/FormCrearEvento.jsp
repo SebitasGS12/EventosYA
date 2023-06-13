@@ -278,39 +278,39 @@
           
           <div class="formulario">
             <h2 class="datev">Datos del Evento</h2>
-            <form method="post">
+            <form  action="${pageContext.request.contextPath}/evento" method="POST"  enctype="multipart/form-data">
             
             	<div class="contenedor-formulario">
 
 	            	<div class="inputs-contenedor">
 		            	<div class="name">
 		                    <label>Nombre</label>
-		                    <input type="text" name="nombre" placeholder="Ingrese el Nombre">
+		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre">
 		                </div>
 		                <div class="categ">
 		                   <label>Categoria</label>
-		                   <select name="Categoria" id="">
-		                           <option value="">Popular </option>
-		                           <option value="">Cultural </option>
-		                           <option value="">Urbano </option>
-		                           <option value="">Privado </option>
+		                   <select name="txtCategoria" id="">
+		                           <option value="1">Popular </option>
+		                           <option value="2">Cultural </option>
+		                           <option value="3">Urbano </option>
+		                           <option value="4">Privado </option>
 		                   </select>
 		                </div>
 		                <div class="descrip">
 		                	<label>Descripción</label>
-		                	<input  type="text" name="descripcion" placeholder="Ingrese la Descripción">
+		                	<input  type="text" name="txtDescripcion" placeholder="Ingrese la Descripción">
 		                </div>
 		                <div class="ubica">
 		                	<label>Ubicación</label>
-		                	<input   type="text" name="ubicacion" placeholder="Ingrese la Ubicación">
+		                	<input   type="text" name="txtUbicaion" placeholder="Ingrese la Ubicación">
 		                </div>
 		                <div class="fechini">
 		                	<label>Fecha Inicio</label>
-		                	<input type="date">
+		                	<input name="txtFechaIni" type="date">
 		                </div>
 		                <div class="fechfin">
 		                	<label>Fecha Fin</label>
-		                	<input type="date">
+		                	<input name="txtFechaFin" type="date">
 		                </div>
 	            	</div>
 	            	
@@ -319,8 +319,7 @@
 		            	<br />
 	            		<h2>Imagen de Evento</h2>
 		            	<br />
-						
-            			<input type="file"  accept="image/*" class= "flayer" name="file" id="file"alt="" >
+            			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file"alt="" >
             			<label for="file" id="preview"><img  alt="" src="../imgs/cameraImagen.png"></label>
 	       	 			<h3>Medidas 400x300</h3>
 	       	 			<br />
@@ -328,8 +327,8 @@
 
               	</div>
                 <div class="botones-div">
-		            <button class="tbut" type="submit" class="creaeven" value="reg">Crear</button>
-	    	        <button class="tbut" type="submit" class="creaeven" value="sal">Salir</button>
+		            <button class="tbut" type="submit" class="creaeven"  name="opcion" value="reg">Crear</button>
+	    	        <button class="tbut" type="submit" class="creaeven"  name="opcion" value="sal">Salir</button>
                  </div>
             </form>
             

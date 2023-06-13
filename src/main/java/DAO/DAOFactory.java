@@ -1,5 +1,7 @@
 package DAO;
 
+import Models.OrganizadorDTO;
+
 public abstract class DAOFactory {
 
 	public static final int MySQL =1;
@@ -9,6 +11,9 @@ public abstract class DAOFactory {
 	public abstract UsuarioDAO getUsuarioDAO();
 	public abstract PaisDAO getPaisDAO();
 	public abstract CiudadDAO getCiudadDAO();
+	public abstract OrganizadorDAO getOrganizadorDAO();
+	public abstract EventoDAO getEventoDAO();
+
 	
 	public static  DAOFactory getDaoFactory(int qBD) {
 		
