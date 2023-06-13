@@ -26,6 +26,12 @@
            margin-left: 3%;
            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
+        
+        .button-container {
+     	text-align: center;
+      	margin-bottom: 20px;
+    	}
+        
         .logo{
             width: 5%;
             height: auto;
@@ -37,8 +43,6 @@
         /*Forms*/
         .espacio_izqui{
             background-color: #ffffff;
-            width: 1300px; 
-            margin-left: 60px;
             border-radius: 15px;
             
             
@@ -55,13 +59,11 @@
             border-radius: 20px;
             height: auto;
         }
-        .formulario form {
-            padding: 0 30px;
-            
-        }
+
         form .name{
             position: relative;
             margin: 30px 0;
+            width: 80%;
         }
         .name label{
          position: absolute;
@@ -75,12 +77,13 @@
             margin-top: 20px;
             border-radius: 9px;
             border: 0;
-            width: 55%;
+            width: 100%;  
             background-color: #b8b8b6e0;
         }
         form .categ{
             position: relative;
             margin: 30px 0;
+                        width: 80%;
         }
         .categ label{
          position: absolute;
@@ -94,13 +97,14 @@
             margin-top: 8px;
             border-radius: 9px;
             border: 0;
-            width: 59%;
+            width: 100%;  
             background-color: #b8b8b6e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         form .descrip{
             position: relative;
             margin: 30px 0;
+                        width: 80%;
         }
         .descrip label{
          position: absolute;
@@ -115,12 +119,13 @@
             margin-top: 5px;
             border-radius: 9px;
             border: 0;
-            width: 55%; 
+            width: 100%;  
             background-color: #b8b8b6e0;         
         }
         form .ubica{
             position: relative;
             margin: 30px 0;
+                    width: 80%;
         }
         
         .ubica label{
@@ -136,12 +141,13 @@
             margin-top: 5px;
             border-radius: 9px;
             border: 0;
-            width: 55%; 
+            width: 100%;  
             background-color: #b8b8b6e0;          
         }
         form .fechini{
             position: relative;
             margin: 30px 0;
+                        width: 80%;
         }
         .fechini label{
          position: absolute;
@@ -156,12 +162,13 @@
             margin-top: 5px;
             border-radius: 9px;
             border: 0;
-            width: 55%; 
+            width: 100%;  
             background-color: #b8b8b6e0;          
         }
         form .fechfin{
             position: relative;
             margin: 30px 0;
+                        width: 80%;
         }
         
         .fechfin label{
@@ -178,7 +185,7 @@
             margin-top: 6px;
             border-radius: 9px;
             border: 0;
-            width: 55%;  
+            width: 100%;  
             background-color: #b8b8b6e0;        
         }
         .tbut{
@@ -188,22 +195,74 @@
             border: 0;
             padding: 6px;
             font-size: 25px;
-            margin-left: 70%;
-            margin-top: -60px;
-            margin-bottom: 30px;
+	
             font-family: monospace;
   
         }
         .espacio_izqui{
             display: flex;
             flex-direction: row;
+                width: 100%;
+            align-items: center;
         }
+        
+        .contenedor-formulario{
+        	margin-top:30px;
+        	display: flex; 
+        	justify-content: center;
+        	align-items: center;
+        }
+        .inputs-contenedor{
+        	width: 50%;
+        	display: flex; 
+        	flex-direction:column;
+        	justify-content: center;
+        	align-items: flex-start;
+        }
+        
+        .imagen-contenedor{
+        	height: 100%;
+        	width: 30%;
+        	margin:30px 10px;
+        	border: 3px black solid;
+        	border-radius: 5px;
+        	        	text-align: center;
+        	
+        }
+        
+        
         .flayer{
-            width: 100%;
-            height: 80%;
-            margin-top: 20%;
-            border-radius: 10px;
+			display: none;
         }
+        #preview{
+        	margin: auto 5px;
+        }
+        
+        #preview:hover{
+        	cursor: pointer;
+        
+        }
+        #preview img{
+        	
+        	 height: 400px;
+        	 width: 90% !important;
+        }
+        
+        .botones-div{
+        	display: flex;
+        	gap:15px;
+
+        	text-align: center;
+        	justify-content: space-evenly;
+        	align-items: center;
+        	margin:15px;
+        	padding:5px;
+        }
+        
+         .botones-div button:hover{
+         	cursor: pointer;
+         }
+        
     </style>
 
 </head>
@@ -220,49 +279,68 @@
           <div class="formulario">
             <h2 class="datev">Datos del Evento</h2>
             <form method="post">
-                <div class="name">
-                    <label>Nombre</label>
-                    <input type="text" name="nombre" placeholder="Ingrese el Nombre">
-                </div>
-                <div class="categ">
-                   <label>Categoria</label>
-                   <select name="Categoria" id="">
-                           <option value="">Popular </option>
-                           <option value="">Cultural </option>
-                           <option value="">Urbano </option>
-                           <option value="">Privado </option>
-                   </select>
+            
+            	<div class="contenedor-formulario">
 
-                </div>
-                <div class="descrip">
-                 <label>Descripción</label>
-                 <input  type="text" name="descripcion" placeholder="Ingrese la Descripción">
+	            	<div class="inputs-contenedor">
+		            	<div class="name">
+		                    <label>Nombre</label>
+		                    <input type="text" name="nombre" placeholder="Ingrese el Nombre">
+		                </div>
+		                <div class="categ">
+		                   <label>Categoria</label>
+		                   <select name="Categoria" id="">
+		                           <option value="">Popular </option>
+		                           <option value="">Cultural </option>
+		                           <option value="">Urbano </option>
+		                           <option value="">Privado </option>
+		                   </select>
+		                </div>
+		                <div class="descrip">
+		                	<label>Descripción</label>
+		                	<input  type="text" name="descripcion" placeholder="Ingrese la Descripción">
+		                </div>
+		                <div class="ubica">
+		                	<label>Ubicación</label>
+		                	<input   type="text" name="ubicacion" placeholder="Ingrese la Ubicación">
+		                </div>
+		                <div class="fechini">
+		                	<label>Fecha Inicio</label>
+		                	<input type="date">
+		                </div>
+		                <div class="fechfin">
+		                	<label>Fecha Fin</label>
+		                	<input type="date">
+		                </div>
+	            	</div>
+	            	
+	            	
+	            	<div class="imagen-contenedor">
+		            	<br />
+	            		<h2>Imagen de Evento</h2>
+		            	<br />
+						
+            			<input type="file"  accept="image/*" class= "flayer" name="file" id="file"alt="" >
+            			<label for="file" id="preview"><img  alt="" src="../imgs/cameraImagen.png"></label>
+	       	 			<h3>Medidas 400x300</h3>
+	       	 			<br />
+	       	 		</div>
 
-                </div>
-                <div class="ubica">
-                 <label>Ubicación</label>
-                 <input   type="text" name="ubicacion" placeholder="Ingrese la Ubicación">
-                </div>
-                 <div class="fechini">
-                 <label>Fecha Inicio</label>
-                 <input type="date">
+              	</div>
+                <div class="botones-div">
+		            <button class="tbut" type="submit" class="creaeven" value="reg">Crear</button>
+	    	        <button class="tbut" type="submit" class="creaeven" value="sal">Salir</button>
                  </div>
-                 <div class="fechfin">
-                 <label>Fecha Fin</label>
-                 <input type="date">
-                 </div>
-            <input class="tbut" type="submit" class="creaeven" value="Crear">
             </form>
             
           </div>
           
-          <aside class="espacio_derec">
-            <img  class= "flayer"src="../imgs/flayers.jpg" alt="">
-        </aside>
+       
         </section>
         
     <%@include file="../comun/footer.jsp" %>
 
      </div>      
 </body>
+<script src="../comun/previsualizarImagen.js"></script>
 </html>

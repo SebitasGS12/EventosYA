@@ -3,7 +3,7 @@ package DAO;
 public abstract class DAOFactory {
 
 	public static final int MySQL =1;
-	public static final int SQL =2;
+	public static final int SQL =2; 
 	
 	//Metodos de las DTO Models
 	public abstract UsuarioDAO getUsuarioDAO();

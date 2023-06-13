@@ -22,14 +22,41 @@
       background-color: rgb(158, 158, 158);
       color: #262525;
     }
+    
+    
 
+    
+    
     /* Estilo: AdminEvento */
 
+    .contenido{
+    
+    	display: flex;
+    	width: 100%;
+
+    }
+    
+    .container-main{
+    	width: 80vw;
+    	display: flex;
+    	flex-direction:column;
+    	align-items: center;
+    	
+    	height:auto;
+    	
+    }
+    
+    .section{
+    	width: 100%;
+    	height: 100%;
+    }
+    
     .organize-section {
-      background-color: #00B4CC;
-      margin-left: 20%;
+      background-color: #3D4CD2;
       padding: 20px;
       color: white;
+	  text-align: left;      
+      height: 30% !important;
     }
 
     .organize-section h2 {
@@ -38,115 +65,151 @@
 
     .create-event {
       display: flex;
-      justify-content: flex-start;
-      padding: 20px;
+      justify-content: flex-end;
+      padding: 10px;
     }
 
-    .create-event button {
-      background-color: #00B4CC;
+    .create-event a {
+      background-color: #5B72EF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+	.create-event a:hover {
+       	cursor: pointer;   
+       	opacity: .4;
+       	transition:.4s all;
+    }
+    
+    
+
+    .registration-section {
+      background-color: white;
+      padding: 20px;
+      height: 60% !important;
+    }
+
+    .registration-header {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom:20px; 
+    }
+
+    .registration-header img {
+      width: 100px;
+
+    }
+
+    .registration-header p {
+      font-size: 1.2em;
+
+    }
+    
+    .registration-header span{
+          font-size: 2em;
+          font-weight: bold;
+          text-align: right;
+    	
+    }
+
+    .event-list-section {
+		color:white;
+    }
+
+
+    .event-list-header{
+       background-color: #3D4CD2;
+       display: flex;
+       justify-content: space-between;
+       gap:10px;
+       padding: 5px 20px;
+       align-items: center;
+    }
+     .event-list-header a {
+      background-color: #5B72EF;
       color: white;
       border: none;
       border-radius: 5px;
       padding: 10px 20px;
     }
-
-    .registration-section {
-      background-color: white;
-      margin-left: 20%;
-      padding: 20px;
+	.event-list-header a:hover {
+       	cursor: pointer;   
+       	opacity: .4;
+       	transition:.4s all;
     }
-
-    .registration-header {
-      display: flex;
-      align-items: center;
-    }
-
-    .registration-header img {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-    }
-
-    .registration-header h3 {
-      margin: 0;
-    }
-
-    .event-list-section {
-      background-color: #00B4CC;
-      color: white;
-      margin-left: 20%;
-      padding: 20px;
-    }
-
-    .event-list-section h3 {
-      margin: 0;
-    }
+    
 
     .event-list {
       list-style: none;
       padding: 0;
+      background-color: white;
+      color:black;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 1.1em;
     }
+    
 
-    .event-list li {
-      display: flex;
-      align-items: center;
-    }
 
-    .event-list li span {
-      margin-right: 5px;
-    }
-
-    .event-list li button {
-      background-color: #00B4CC;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      margin-left: 10px;
-    }
   </style>
 </head>
 <body>
 
 	<%@include file="../comun/header_Salir.jsp" %>
 
+	<div class="contenido">
+	
+		<%@include file="../comun/aside.html" %> 
+		<main class="container-main">
+	
+	
+	    <div class="organize-section section">
+	      <h2>Organizar Evento</h2>
+	      <br>
+	      <p>En esta sección puede ver la lista de eventos registrados en la base de datos</p>
 
-	<%@include file="../comun/aside.html" %>
+	    </div>
+	
+	    <div class="registration-section section">
+	      <div class="create-event">
+	       <a href="FormCrearEvento.jsp">Crear Evento</a>
+	      </div>
+	      
+	      <div class="registration-header">
+	        <img src="../imgs/perfil.png" alt="Icono">
+		    <p>Número de registros: <br> <span id="numero-registros">0</span></p>
+	      </div>
+	      <hr>
+	      <br />
+	      <p>Número de eventos registrados actualmente en la base de datos</p>
+	    
+	    
+	    </div>
+	
+	    <div class="event-list-section section">
+    		<div class="event-list-header">
+	      		<h3>Lista de Eventos</h3>
+    			<a>Ver Evento</a>
+    		</div>
+	      <table class="event-list">
+		      <tbody>
+				<tr >
+					<th>ID</th>
+					<th>Nombre</th>
+				</tr>
+				<!-- 	Aca se haria un foreach -->	
 
-    <main>
+	
+		      </tbody>
+	      </table>
+	    </div>
+	  </main>
 
+	
+	
+	</div>
 
-    <section class="organize-section">
-      <h2>Organizar Evento</h2>
-      <div class="create-event">
-        <button>Crear Evento</button>
-      </div>
-    </section>
-
-    <section class="registration-section">
-      <div class="registration-header">
-        <img src="ruta-de-la-imagen" alt="Icono">
-        <h3>Registros</h3>
-      </div>
-      <p>Número de registros: <span id="numero-registros">0</span></p>
-      <p>Número de registros en la base de datos: <span id="numero-registros-bd">0</span></p>
-    </section>
-
-    <section class="event-list-section">
-      <h3>Lista de Eventos</h3>
-      <ul class="event-list">
-        <li>
-          <span>Evento 1</span>
-          <button>Editar</button>
-          <button>Eliminar</button>
-        </li>
-        <li>
-          <span>Evento 2</span>
-          <button>Editar</button>
-          <button>Eliminar</button>
-        </li>
-      </ul>
-    </section>
-  </main>
 </body>
 </html>

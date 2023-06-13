@@ -3,7 +3,6 @@
   <display-name>EventosYa</display-name>
   <welcome-file-list>
     <welcome-file>webs/Menu_inicio.jsp</welcome-file>
-
   </welcome-file-list>
   <servlet>
     <description></description>
@@ -14,5 +13,15 @@
   <servlet-mapping>
     <servlet-name>UsuarioServlet</servlet-name>
     <url-pattern>/UsuarioServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EventoServlet</display-name>
+    <servlet-name>EventoServlet</servlet-name>
+    <servlet-class>servlets.EventoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EventoServlet</servlet-name>
+    <url-pattern>/EventoServlet</url-pattern>
   </servlet-mapping>
 </web-app>
