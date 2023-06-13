@@ -319,8 +319,8 @@
 		            	<br />
 	            		<h2>Imagen de Evento</h2>
 		            	<br />
-            			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file"alt="" >
-            			<label for="file" id="preview"><img  alt="" src="../imgs/cameraImagen.png"></label>
+            			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
+            			<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/cameraImagen.png"></label>
 	       	 			<h3>Medidas 400x300</h3>
 	       	 			<br />
 	       	 		</div>
