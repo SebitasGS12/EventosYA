@@ -233,7 +233,7 @@ pageEncoding="ISO-8859-1"%>
 		<div class="article_pa">
 		    <div class="formu">
 		        <h2 class="modper">Editar Perfil</h2>
-		        <form method="post">
+		        <form method="post" action="${pageContext.request.contextPath}/usuario">
 		            <div class="nombre">
 		                <label>Nombre</label>
 		                <input type="text" name="nam" placeholder="Inserte Nombre">
