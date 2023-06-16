@@ -283,17 +283,17 @@
             	<div class="contenedor-formulario">
 
 	            	<div class="inputs-contenedor">
-		            	<div class="name">
+		            	<div class="name ">
 		                    <label>Nombre</label>
 		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre">
 		                </div>
 		                <div class="categ">
 		                   <label>Categoria</label>
 		                   <select name="txtCategoria" id="">
-		                           <option value="1">Popular </option>
-		                           <option value="2">Cultural </option>
-		                           <option value="3">Urbano </option>
-		                           <option value="4">Privado </option>
+		                           <option value="300">Popular </option>
+		                           <option value="301">Cultural </option>
+		                           <option value="302">Urbano </option>
+		                           <option value="303">Privado </option>
 		                   </select>
 		                </div>
 		                <div class="descrip">
@@ -319,8 +319,8 @@
 		            	<br />
 	            		<h2>Imagen de Evento</h2>
 		            	<br />
-            			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file"alt="" >
-            			<label for="file" id="preview"><img  alt="" src="../imgs/cameraImagen.png"></label>
+            			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
+            			<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/cameraImagen.png"></label>
 	       	 			<h3>Medidas 400x300</h3>
 	       	 			<br />
 	       	 		</div>

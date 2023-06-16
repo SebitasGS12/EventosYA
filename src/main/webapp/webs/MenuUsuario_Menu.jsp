@@ -1,6 +1,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
 <%@page import="Models.EventoDTO"%>
+<%@page import="java.io.InputStream" %>
+<%@ page import="java.io.ByteArrayOutputStream" %>
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -124,9 +127,27 @@ if (msg==null) msg="";
 	           	ArrayList<EventoDTO> listaEventos = fabric.getEventoDAO().listarEvento();
 	           	if(listaEventos != null){
 	           		for(EventoDTO p : listaEventos){
+	           			
+	                    InputStream imagenInputStream = p.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+	                    
+	                    // Leer los bytes de la imagen del InputStream
+	                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+	                    byte[] buffer = new byte[4096];
+	                    int bytesRead;
+	                    while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
+	                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+	                    }
+	                    byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+	                    
+	                    // Convertir los bytes de la imagen a una cadena Base64
+	                    String imagenBase64 = java.util.Base64.getEncoder().encodeToString(imagenBytes);
+	                    
+	                    // Cerrar el InputStream y el ByteArrayOutputStream
+	                    imagenInputStream.close();
+	                    byteArrayOutputStream.close();
 	           	%>
-				
-				<p><%=p.getNombreEvento()  %></p>
+					<p><%=p.getNombreEvento() %></p>
+    				<img src="data:image/jpeg;base64, <%= imagenBase64 %>" alt="Imagen del evento">
 
 	           	<%
 	           			

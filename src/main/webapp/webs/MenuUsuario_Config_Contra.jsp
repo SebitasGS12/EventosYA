@@ -200,7 +200,7 @@ pageEncoding="ISO-8859-1"%>
 <div class="article_pa">
     <div class="formu">
         <h2 class="modcont">Modificar Contraseña</h2>
-        <form method="post">
+        <form method="post" action="${pageContext.request.contextPath}/usuario">
             <div class="contra">
                 <label>Contraseña</label>
                 <input type="text" name="con" placeholder="Escriba la contraseña">
