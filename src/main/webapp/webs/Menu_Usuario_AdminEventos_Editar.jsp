@@ -79,18 +79,31 @@
         }
 
         .form-input-transparent {
-            width: 300px;
+            width: 90%;
             height: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border: none;
             border-bottom: 1px solid #ccc;
             padding: 5px;
             background-color: transparent;
         }
-
+        
+        input[type="text"]:focus{
+        	color:blue;
+        	outline:none;
+        	font-size:1.1rem;
+        	transition:.4s all;
+        }
+        
+		input[type="text"]:not(:focus){
+        	color:gray;
+        	font-size:16px;
+        	transition:.3s all;
+        }
+	
         .form-input-description {
-            width: 380px;
-            height: 180px;
+            width:  95%;
+  			height: 280px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -108,44 +121,104 @@
         }
 
         .add-image-button {
-position: absolute;
-width: 353px;
-height: 174px;
-left: 1px;
-top: 250px;
-background: #DADADA;
-border-radius: 30px;
+			position: absolute;
+			width: 353px;
+			height: 174px;
+			left: 1px;
+			top: 250px;
+			background: #DADADA;
+			border-radius: 30px;
         }
 
         .action-buttons {
             display: flex;
-            justify-content: flex-start;
-            margin-top: 120px;
+            justify-content: space-around;
+            align-items:center;
+            gap:20px;
+            margin: 20px;
         }
 
         .action-buttons button {
-            margin-right: 10px;
             background-color: #3d4cd2;
+            
             color: white;
             border: none;
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
         } 
-          .form-container1 {
-margin:0 1000px 7px 7px; 
-border-color:blue;
- float:left; 
- }
-            .form-container2 {
-position: absolute;
-width: 326px;
-height: 46px;
-left: 1007px;
-top: 190px;
-background: #FFFFFF;
-border-radius: 10px;
- }        
+
+ 		.form-head{
+ 			width: 100%;
+ 		}
+ 	
+	 	.formulario-contenido{
+	 		display: flex;
+	 		flex-direction: row;
+	 		width: 100%;
+
+	 	}
+	 	
+	 	.form-container1 ,.form-container2{
+	 		display: flex;
+	 		flex-direction: column;
+	 		width: 45%;
+	 		padding: 5px 10px;
+	 		justify-content: center;
+	 	}
+	 	
+	 	.form-container1 label{
+	 	
+	 		margin-top: 10px;
+	 	}
+	 	
+	 	.form-control{
+	 	
+	 		width: 50%;
+	 		
+	 		outline: none;
+	 		border:none;
+	 		padding: 2px;
+	 	
+	 	}
+	 	
+	 	.item-fecha{
+	 		display: flex;
+	 		flex-direction: row;
+	 		gap: 10px;
+	 		justify-content: space-around;
+	 		margin:5px;
+	 		
+	 	}
+	 	
+	 	.flayer{
+			display: none;
+			
+        }
+        #preview{
+        	margin: auto 5px;
+
+        	
+        }
+        
+        #preview:hover{
+        	cursor: pointer;
+        
+        }
+        #preview img{
+        	
+        	 height: 280px;
+        	 width: 90% !important;
+        	 margin-top:5px;
+        	border: 2.5px #0911D4 solid;
+        	border-radius:5px ;
+
+        }
+	 	
+	 	.img-item{
+	 		margin-top:20px;
+	 	}
+	 	
     </style>
 
 </head>
@@ -165,61 +238,63 @@ if (msg==null) msg="";
 	        <div class="pag-subtitle-container">
 	            <h2 class="pag-subtitle">Editar Evento</h2>
 	        </div>
-	        <div class="form-container1">
-	            <label for="name">Nombre:</label>
-	            <input type="text" id="name" class="form-input" placeholder="Ingrese su nombre">
-	            <label for="location">Ubicación:</label>
-	            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación">
-	            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"></textarea>
-	        </div>
 	        
-	        <div class="form-container2">
-	            <label for="category">Categoría:</label>
-	            <input type="text" id="category" class="form-input" placeholder="Ingrese la categoría">
-	            <label for="from">Desde:</label>
-	            <%@page import="java.text.DateFormat"%>
-<%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
-<input type="date" class="form-control form-control-lg" id="fromBookingDate" path="fromBookingDate" placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
-	            <label for="to">Hasta:</label>
-	            <%@page import="java.text.DateFormat"%>
-<%DateFormat d = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
-<input type="date" class="form-control form-control-lg" id="fromBookingDate" path="fromBookingDate" placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
-<form method="post" action="" enctype="multipart/form-data">
-	           
-	         </form>
-	          <table>
-	            <tr><td><img id="imgPrueba" style="width:250px; height:300px ; border: dashed blueviolet"></td></tr>
-	            <tr><td><input type="file" onchange="mosttrarimagen();"></td></tr>
-	            <tr><td></td></tr>
-	            
-	            </table>
-	             <script type="text/javascript">
-	            function mosttrarimagen(){
-	            	var preview=document.getElementById('imgPrueba');
-	            	var file=document.querySelector('input[type=file]').files[0];
-	            	var leer = new FileReader();
-	            	if(file){
-	            		leer.readAsDataURL(file);
-	            		leer.onloadend=function(){
-	            			preview.src=leer.result;
-	            		}
-	            		;
-	            	}
-	            	else{
-	            		preview.src="";
-	            	}
-	            }
-	            </script>
-	        </div>
+	        <form action="" method="Post" class="form-head">
 	        
-	        <div class="action-buttons">
-	            <button>Cancelar</button>
-	            <button>Actualizar Evento</button>
-	        </div>
+	        
+	        	<div class="formulario-contenido">
+	        		<div class="form-container1">
+			            <label for="name" class="label-nombre">Nombre:</label>
+			            <input type="text" id="name" class="form-input-transparent" placeholder="Ingrese su nombre">
+			            <label for="location">Ubicación:</label>
+			            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación">
+			            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"></textarea>
+	       			</div>
+	         	        
+		     	   <div class="form-container2">
+		     	   
+		     	   
+		            <label for="category">Categoría:</label>
+		            <input type="text" id="category" class="form-input-transparent" placeholder="Ingrese la categoría">
+					
+					<div class="item-fecha">
+						
+						<label for="from">Desde:</label>
+						<%@page import="java.text.DateFormat"%><%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
+						<input type="date" class="form-control" min="<%= df.format(new java.util.Date())%>"/>
+						 
+					</div>
+		           
+					<div class="item-fecha">
+						<label for="to">Hasta:</label>
+						<input type="date" class="form-control"  placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
+					
+					</div>
+
+		          	<div class="img-item">
+   						<label for="file" class="label-nombre">Imagen de Evento</label>
+   						<br />
+						<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
+						<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/imagenEditarEvento.png"></label>			            
+		            </div>
+		        </div>
+
+	        	</div>
+				<div class="action-buttons">
+					<button>Cancelar</button>
+					<button>Actualizar Evento</button>
+				</div>
+	        
+	        </form>
+
+
+	 
 	    </div>
 	    
 	</div>
     <%@include file="../comun/footer.jsp" %>
       
 </body>
+<script src="../comun/previsualizarImagen.js"></script>
+
 </html>

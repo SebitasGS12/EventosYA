@@ -35,6 +35,12 @@ public class MySQLEventoDAO implements EventoDAO {
 			rs =pst.executeUpdate();
 			
 			
+			
+			
+			
+			
+			
+			
 		} catch (Exception e) {
 			
 			  System.out.println("Error al agregar Evento -> en la sentencia "+e.getMessage());
@@ -95,4 +101,23 @@ public class MySQLEventoDAO implements EventoDAO {
 		return lista;
 	}
 
-}
+	@Override
+	public EventoDTO UltimoCodigo() {
+		ArrayList<EventoDTO> lista = listarEvento();
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		
+		EventoDTO ultimovalor = lista.get( lista.size()-1 );
+		
+		
+		
+		return ultimovalor;
+		
+		
+		
+	}
+
+	
+}	

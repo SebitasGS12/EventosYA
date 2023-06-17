@@ -180,6 +180,7 @@ public class UsuarioServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("mensaje", mensaje);
+		
 		request.setAttribute("nombreCompleto", nombre+" "+apellido);
 		request.getRequestDispatcher(url).forward(request, response);
 

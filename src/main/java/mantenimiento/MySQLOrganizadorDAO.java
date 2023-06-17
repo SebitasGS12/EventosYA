@@ -6,12 +6,14 @@ import java.sql.SQLException;
 
 import Coneccion.MysqlConector;
 import DAO.OrganizadorDAO;
+import Models.EventoDTO;
 import Models.OrganizadorDTO;
+import Models.UsuarioDTO;
 
 public class MySQLOrganizadorDAO implements OrganizadorDAO {
 
 	@Override
-	public int registrar(OrganizadorDTO u) {
+	public int registrar(UsuarioDTO u,EventoDTO eve ) {
 		int rs = 0;
 		PreparedStatement pst =null;
 		Connection cn = null;
@@ -25,7 +27,7 @@ public class MySQLOrganizadorDAO implements OrganizadorDAO {
 			
 
 			pst.setInt(1, u.getIdUsuario() );
-			pst.setInt(2, u.getIdEvento() );
+			pst.setInt(2, eve.getIdEvento() );
 			
 			rs = pst.executeUpdate();
 			

@@ -1,3 +1,8 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="DAO.DAOFactory"%>
+<%@page import="Models.EventoDTO"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,6 +162,14 @@
 </head>
 <body>
 <% String msg = (String) request.getAttribute("mensaje");
+
+//aca es en general , pero solo debe de contar los eventos creados llamados desde la tabla Organizador
+DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+ArrayList<EventoDTO> listaEventos = fabric.getEventoDAO().listarEvento();
+
+int can = listaEventos.size();
+if(listaEventos == null) can =  0;
+
 if (msg==null) msg="";
 %>
 <%=msg %>
@@ -183,7 +196,7 @@ if (msg==null) msg="";
 	      
 	      <div class="registration-header">
 	        <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Icono">
-		    <p>Número de registros: <br> <span id="numero-registros">0</span></p>
+		    <p>Número de registros: <br> <span id="numero-registros"><%=can %> </span></p>
 	      </div>
 	      <hr>
 	      <br />

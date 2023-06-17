@@ -9,4 +9,6 @@ public interface EventoDAO {
 	
 	public ArrayList<EventoDTO> listarEvento();
 
+	
+	public EventoDTO UltimoCodigo( ); 
 }
