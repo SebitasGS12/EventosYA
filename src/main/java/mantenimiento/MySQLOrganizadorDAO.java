@@ -2,7 +2,9 @@ package mantenimiento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Coneccion.MysqlConector;
 import DAO.OrganizadorDAO;
@@ -48,4 +50,53 @@ public class MySQLOrganizadorDAO implements OrganizadorDAO {
 		return rs;
 	}
 
+	@Override
+	public ArrayList<OrganizadorDTO> listarOrganizadorPorUsuario(int id) {
+		// TODO Auto-generated method stub
+
+		ArrayList<OrganizadorDTO> lista = new ArrayList<OrganizadorDTO>();
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idOrganizador,idUsuario,idEvento from organizador where idUsuario = ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+
+			
+			rs=pst.executeQuery();	
+			while (rs.next()) {
+		 
+				 
+				OrganizadorDTO p = new OrganizadorDTO();		
+				
+				p.setIdOrganizador(rs.getInt(1)); 
+				p.setIdUsuario(rs.getInt(2)); 
+				p.setIdEvento(rs.getInt(3)); 
+			
+				
+				lista.add(p);
+			}
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Organizador -> en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		return lista;
+	}
+
+	
+	
 }

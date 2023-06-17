@@ -344,5 +344,5 @@
 
      </div>      
 </body>
-<script src="../comun/previsualizarImagen.js"></script>
+<script src="${pageContext.request.contextPath}/comun/previsualizarImagen.js"></script>
 </html>

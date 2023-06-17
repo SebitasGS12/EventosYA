@@ -11,4 +11,7 @@ public interface EventoDAO {
 
 	
 	public EventoDTO UltimoCodigo( ); 
+	
+	public ArrayList<EventoDTO> listarEventoPorId(int id);
+	public EventoDTO buscarEvento(int id) ;
 }

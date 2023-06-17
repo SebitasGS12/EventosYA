@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Coneccion.MysqlConector;
 import DAO.EventoDAO;
+import Models.CiudadDTO;
 import Models.EventoDTO;
 
 
@@ -71,7 +72,8 @@ public class MySQLEventoDAO implements EventoDAO {
 			rs=pst.executeQuery();	
 			while (rs.next()) {
 		 
-				EventoDTO p = new EventoDTO();				
+				EventoDTO p = new EventoDTO();	
+				
 				p.setIdEvento(rs.getInt(1)); 
 				p.setNombreEvento(rs.getString(2));
 				p.setDescripcionEvento(rs.getString(3));
@@ -119,5 +121,109 @@ public class MySQLEventoDAO implements EventoDAO {
 		
 	}
 
+	public ArrayList<EventoDTO> listarEventoPorId(int id) {
+		
+		// TODO Auto-generated method stub
+
+		ArrayList<EventoDTO> lista = new ArrayList<EventoDTO>();
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idEvento, nombreEvento,descripcionEvento,ubicacionEvento,imagenEvento,fechaInicio,fechaFin,idCategoria  from evento where idEvento =  ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+
+			
+			rs=pst.executeQuery();	
+			while (rs.next()) {
+		 
+				 
+				EventoDTO p = new EventoDTO();		
+				
+				p.setIdEvento(rs.getInt(1)); 
+				p.setNombreEvento(rs.getString(2));
+				p.setDescripcionEvento(rs.getString(3));
+				p.setUbicacionEvento(rs.getString(4));
+				p.setImagenEvento(rs.getBinaryStream(5));
+				p.setFechaIncio(rs.getString(6));
+				p.setFechaFin(rs.getString(7));
+				p.setIdCategoria(rs.getInt(8));				
+				
+				lista.add(p);
+			}
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Evento > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		return lista;
+		
+	}
+
+	public EventoDTO buscarEvento(int id) {
+			
+			// TODO Auto-generated method stub
+			EventoDTO p = null;
+			ResultSet rs = null;
+			Connection con = null;
+			PreparedStatement pst = null;
+			
+			try {
+				con = MysqlConector.getConexion();
+				String sql = " select idEvento, nombreEvento,descripcionEvento,ubicacionEvento,imagenEvento,fechaInicio,fechaFin,idCategoria  from evento where idEvento =  ? ";
+				pst = con.prepareStatement(sql);
+				pst.setInt(1, id);
+	
+				
+				rs=pst.executeQuery();	
+				
+				while (rs.next()) {
+					 
+					  p= new EventoDTO(rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getBinaryStream(5),
+						rs.getString(6),
+						rs.getString(7),
+						rs.getInt(8));		 
+				}
+				
+
+
+				
+			} catch (Exception e) {
+				
+				  System.out.println("Error al buscar Evento > en la sentencia "+e.getMessage());
+			}finally {
+				try {
+					if(pst!=null)pst.close();
+					if(rs!=null)rs.close();
+					if(con!=null)con.close();
+				} catch (SQLException e2) {
+					System.out.println("Error al cerrar "+e2.getMessage());
+				}
+			}
+		
+			
+			
+			return p;
+			
+		}
+
+		
 	
 }	

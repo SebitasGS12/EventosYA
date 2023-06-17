@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -118,8 +119,13 @@ public class UsuarioServlet extends HttpServlet {
 			System.out.println("Fecha --- " +  new SimpleDateFormat().format(miSession.getCreationTime()));
 			System.out.println("Duracion ---" + miSession.getMaxInactiveInterval() );
 			
+			ServletContext serverContext = getServletContext();
+			serverContext.setAttribute("datousuario", u);
+			
 			request.getSession().setAttribute("mensaje", mensaje);
 			request.getSession().setAttribute("datousu", u);	
+			
+			
 			
 		}else {
 			mensaje += "<script>alert(' Usuario o clave incorrecto');</script>";
@@ -132,12 +138,6 @@ public class UsuarioServlet extends HttpServlet {
 		
 		//Salida a la pagina principal
 		request.getRequestDispatcher(url).forward(request, response);
-		
-		
-		
-		
-		
-		
 		
 		
 		

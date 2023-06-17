@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
@@ -57,6 +59,10 @@ public class EventoServlet extends HttpServlet {
 		System.out.println(" opcion -->" +opcion);
 		 
 		switch (opcion) {
+		case "irReg":
+			cargarRegistroEvento(request,response);
+			break;
+		
 		case "reg":  
 					registrarEvento(request,response); 
 					break;
@@ -70,6 +76,13 @@ public class EventoServlet extends HttpServlet {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + opcion);
 		}
+		
+	}
+
+	private void cargarRegistroEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = "webs/FormCrearEvento.jsp";
+		request.getRequestDispatcher(url).forward(request, response);
+
 		
 	}
 
@@ -102,9 +115,14 @@ public class EventoServlet extends HttpServlet {
 		
 		
 		//Obtener datos Usu
-		HttpSession miSession= request.getSession();
-		UsuarioDTO u = (UsuarioDTO) miSession.getAttribute("datousu"); 
 
+		
+		
+		
+		UsuarioDTO u  = (UsuarioDTO) request.getSession().getAttribute("datousu");
+		
+		
+		
 		//Procesos 
 		int ok=daoEve.registrar(e);
 		
@@ -114,13 +132,13 @@ public class EventoServlet extends HttpServlet {
 		
 		//Registramos la tabla Organizador
 		
-		int okOrg = daoOrg.registrar(u, ultEve);
 		
+		int okOrg = daoOrg.registrar(u, ultEve);
 		
 
 		if(ok==0) {
 			mensaje+= "<script> alert('"+"Error al registrar el evento, revisar"+"')</script>";
-			url="webs/MenuUsuario_AdminEventos.jsp";
+			url="webs/FormCrearEvento.jsp";
 		}else {
 			mensaje+=" <script> alert('"+"Registro del evento <strong>"+ nombre +"</strong> OK " +"') </script>";
 			url="webs/MenuUsuario_AdminEventos.jsp";
@@ -128,14 +146,15 @@ public class EventoServlet extends HttpServlet {
 		
 		
 		if(okOrg==0) {
-			mensaje+= "<script> alert('"+"Error al registrar el oraganizador, revisar"+"')</script>";
-			url="webs/MenuUsuario_AdminEventos.jsp";
+			mensaje+= "<script> alert('"+"Error al registrar el organizador, revisar"+"')</script>";
+			url="webs/FormCrearEvento.jsp";
 		}else {
 			mensaje+=" <script> alert('"+"Registro del organizador <strong>"+ nombre +"</strong> OK " +"') </script>";
 			url="webs/MenuUsuario_AdminEventos.jsp";
 		}
 		
 		request.setAttribute("mensaje", mensaje);
+		request.setAttribute("usuario", u);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
