@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.EventoDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -132,7 +134,18 @@
 
 </head>
 <body>
-<% String msg = (String) request.getAttribute("mensaje");
+<% 
+try{
+	
+	
+ArrayList<EventoDTO> eve = (ArrayList<EventoDTO>) request.getAttribute("listaDeEventosDelUsuario");
+	
+}catch(Exception e){
+	 System.out.println("Error al listar Evento > en la sentencia "+e.getMessage());
+} 
+
+
+String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";	
 %>
 <%=msg %>

@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
 <%@page import="Models.EventoDTO"%>
-<%@page import="Models.EventoDTO"%>
+
 <%@page import="Models.UsuarioDTO"%>
 <%@page import="Models.OrganizadorDTO"%>
 <%@page import="java.io.InputStream" %>

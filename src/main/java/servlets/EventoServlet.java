@@ -66,7 +66,10 @@ public class EventoServlet extends HttpServlet {
 		case "reg":  
 					registrarEvento(request,response); 
 					break;
-					
+		
+		case "lis":  
+			listarEvento(request,response); 
+			break;
 		case "sal":
 				salir(request,response); 
 				break;
@@ -76,6 +79,50 @@ public class EventoServlet extends HttpServlet {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + opcion);
 		}
+		
+	}
+
+	private void listarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String url ="";
+		try {	
+		
+			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+			ArrayList<EventoDTO> lstaEvento = new ArrayList<EventoDTO>();
+			
+			ArrayList<OrganizadorDTO> lstaOrganizador = (ArrayList<OrganizadorDTO>) request.getAttribute("listaOrganizador");
+			
+			if (lstaOrganizador!= null) {
+					
+				for (OrganizadorDTO o : lstaOrganizador) {
+					
+					EventoDTO e = fabrica.getEventoDAO().buscarEvento(o.getIdEvento());
+					lstaEvento.add(e);
+					
+				}
+			}
+
+			
+			
+			request.setAttribute("listaDeEventosDelUsuario", lstaEvento);
+			
+			String opcionURL = (String) request.getParameter("url");
+			
+			
+			switch (opcionURL) {
+			case "ver" :
+				url = "webs/AdministrarEvento_EventoRegistrados.jsp";
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + opcionURL);
+			}
+		} catch (Exception e) {
+			 System.out.println("Error al listar Evento > en la sentencia "+e.getMessage());
+		}
+		
+		request.getRequestDispatcher(url).forward(request, response);
+		
+		
 		
 	}
 

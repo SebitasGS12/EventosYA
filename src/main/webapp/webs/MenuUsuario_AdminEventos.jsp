@@ -168,7 +168,10 @@ UsuarioDTO user = (UsuarioDTO) request.getSession().getAttribute("datousu");
 
 //aca es en general , pero solo debe de contar los eventos creados llamados desde la tabla Organizador
 DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+
 ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizadorPorUsuario(user.getIdUsuario());
+
+request.setAttribute("listaOrganizador", listaOrganizador);
 
 int can = listaOrganizador.size();
 if(listaOrganizador == null) can =  0;
@@ -211,7 +214,7 @@ if (msg==null) msg="";
 	    <div class="event-list-section section">
     		<div class="event-list-header">
 	      		<h3>Lista de Eventos</h3>
-    			<a>Ver Evento</a>
+    			<a href="${pageContext.request.contextPath}/evento?opcion=lis&url=ver">Ver Evento</a>
     		</div>
 	      <table class="event-list">
 		      <tbody>
