@@ -1,6 +1,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
 <%@page import="Models.EventoDTO"%>
+<%@page import="Models.EventoDTO"%>
+<%@page import="Models.UsuarioDTO"%>
+<%@page import="Models.OrganizadorDTO"%>
 <%@page import="java.io.InputStream" %>
 <%@ page import="java.io.ByteArrayOutputStream" %>
 
@@ -99,6 +102,11 @@
 <% String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";
 
+UsuarioDTO user = (UsuarioDTO) request.getSession().getAttribute("datousu");
+
+System.out.print(user.getIdUsuario());
+//aca es en general , pero solo debe de contar los eventos creados llamados desde la tabla Organizador
+DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 
 	
 %>
@@ -123,31 +131,39 @@ if (msg==null) msg="";
 	        <div class="pag-event-container" id="contenedor-eventos">
 	            <p> Aquí se mostrarán los eventos</p>
 	            
-	            <% DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
-	           	ArrayList<EventoDTO> listaEventos = fabric.getEventoDAO().listarEvento();
-	           	if(listaEventos != null){
-	           		for(EventoDTO p : listaEventos){
+	            <% 
+	            ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizadorPorUsuario(user.getIdUsuario());
+	           	if(listaOrganizador != null){
+	           		for(OrganizadorDTO p : listaOrganizador){
 	           			
-	                    InputStream imagenInputStream = p.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
-	                    
-	                    // Leer los bytes de la imagen del InputStream
-	                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-	                    byte[] buffer = new byte[4096];
-	                    int bytesRead;
-	                    while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
-	                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+	           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
+	           			
+	                    InputStream imagenInputStream = eve.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+	                    String imagenBase64 = null;
+	                    if(imagenInputStream != null){
+	                    	
+	                    	 // Leer los bytes de la imagen del InputStream
+		                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		                    byte[] buffer = new byte[4096];
+		                    int bytesRead;
+		                    while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
+		                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+		                    }
+		                    byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+		                    
+		                    // Convertir los bytes de la imagen a una cadena Base64
+		                    imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
+		                    
+		                    // Cerrar el InputStream y el ByteArrayOutputStream
+		                    imagenInputStream.close();
+		                    byteArrayOutputStream.close();
 	                    }
-	                    byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+
 	                    
-	                    // Convertir los bytes de la imagen a una cadena Base64
-	                    String imagenBase64 = java.util.Base64.getEncoder().encodeToString(imagenBytes);
-	                    
-	                    // Cerrar el InputStream y el ByteArrayOutputStream
-	                    imagenInputStream.close();
-	                    byteArrayOutputStream.close();
+	                   
 	           	%>
-					<p><%=p.getNombreEvento() %></p>
-    				<img src="data:image/jpeg;base64, <%= imagenBase64 %>" alt="Imagen del evento">
+					<p><%=eve.getNombreEvento() %></p>
+    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
 
 	           	<%
 	           			

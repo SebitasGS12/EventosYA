@@ -21,33 +21,44 @@
         }
 
         .pag-main {
-            width: 75%;
+            width: 80%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-              background-color: #f3f3f3;
-              font-size: 1.5em;
+            margin-top: 50px;
         }
 
         .pag-subtitle-container {
             display: flex;
             align-items: center;
-            justify-content: start;
+            justify-content: center;
             margin-bottom: 10px;
-            background-color: #3d4cd2;
-            padding: 20px;
-            width: 100%;
-                        font-family: 'Lexend';
+            background-color: #00B4CC;
+            padding: 10px;
         }
 
         .pag-subtitle {
             font-size: 2em;
             color: white;
-
         }
 
 
+        .pag-search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .pag-search-input {
+            width: 600px;
+            height: 40px;
+            padding: 5px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
         .pag-search-button {
             width: 40px;
@@ -66,6 +77,14 @@
             padding: 20px;
             font-size: 1.2em;
             width: 80%;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
             margin-top: 20px;
         }
 
@@ -89,8 +108,8 @@
         }
 
         .form-input-description {
-            width: 380px;
-            height: 180px;
+            width: 600px;
+            height: 150px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -98,7 +117,7 @@
         }
 
         .form-input-grayed {
-            width: 100px;
+            width: 300px;
             height: 30px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -108,44 +127,32 @@
         }
 
         .add-image-button {
-position: absolute;
-width: 353px;
-height: 174px;
-left: 1px;
-top: 250px;
-background: #DADADA;
-border-radius: 30px;
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            font-size: 1.2em;
+            border-radius: 50%;
+            border: none;
+            background-color: transparent;
+            color: gray;
+            cursor: pointer;
         }
 
         .action-buttons {
             display: flex;
             justify-content: flex-start;
-            margin-top: 120px;
+            margin-top: 20px;
         }
 
         .action-buttons button {
             margin-right: 10px;
-            background-color: #3d4cd2;
+            background-color: #00B4CC;
             color: white;
             border: none;
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
-        } 
-          .form-container1 {
-margin:0 1000px 7px 7px; 
-border-color:blue;
- float:left; 
- }
-            .form-container2 {
-position: absolute;
-width: 326px;
-height: 46px;
-left: 1007px;
-top: 190px;
-background: #FFFFFF;
-border-radius: 10px;
- }        
+        }
     </style>
 
 </head>
@@ -165,51 +172,33 @@ if (msg==null) msg="";
 	        <div class="pag-subtitle-container">
 	            <h2 class="pag-subtitle">Editar Evento</h2>
 	        </div>
-	        <div class="form-container1">
+	        <div class="form-container">
 	            <label for="name">Nombre:</label>
 	            <input type="text" id="name" class="form-input" placeholder="Ingrese su nombre">
 	            <label for="location">Ubicación:</label>
 	            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación">
+	            <label for="description">Descripción:</label>
 	            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"></textarea>
 	        </div>
 	        
-	        <div class="form-container2">
+	        <div class="form-container">
 	            <label for="category">Categoría:</label>
 	            <input type="text" id="category" class="form-input" placeholder="Ingrese la categoría">
 	            <label for="from">Desde:</label>
-	            <%@page import="java.text.DateFormat"%>
-<%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
-<input type="date" class="form-control form-control-lg" id="fromBookingDate" path="fromBookingDate" placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
+	            <select id="from" class="form-input">
+	                <option value="option1">Opción 1</option>
+	                <option value="option2">Opción 2</option>
+	            </select>
 	            <label for="to">Hasta:</label>
-	            <%@page import="java.text.DateFormat"%>
-<%DateFormat d = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
-<input type="date" class="form-control form-control-lg" id="fromBookingDate" path="fromBookingDate" placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
-<form method="post" action="" enctype="multipart/form-data">
-	           
-	         </form>
-	          <table>
-	            <tr><td><img id="imgPrueba" style="width:250px; height:300px ; border: dashed blueviolet"></td></tr>
-	            <tr><td><input type="file" onchange="mosttrarimagen();"></td></tr>
-	            <tr><td></td></tr>
-	            
-	            </table>
-	             <script type="text/javascript">
-	            function mosttrarimagen(){
-	            	var preview=document.getElementById('imgPrueba');
-	            	var file=document.querySelector('input[type=file]').files[0];
-	            	var leer = new FileReader();
-	            	if(file){
-	            		leer.readAsDataURL(file);
-	            		leer.onloadend=function(){
-	            			preview.src=leer.result;
-	            		}
-	            		;
-	            	}
-	            	else{
-	            		preview.src="";
-	            	}
-	            }
-	            </script>
+	            <select id="to" class="form-input">
+	                <option value="option1">Opción 1</option>
+	                <option value="option2">Opción 2</option>
+	            </select>
+	            <div class="image-container">
+	                <label for="add-image">Añadir imagen:</label>
+	                <input type="text" id="add-image" class="form-input-grayed" placeholder="Añadir imagen" readonly>
+	                <button class="add-image-button">+</button>
+	            </div>
 	        </div>
 	        
 	        <div class="action-buttons">
@@ -220,6 +209,5 @@ if (msg==null) msg="";
 	    
 	</div>
     <%@include file="../comun/footer.jsp" %>
-      
 </body>
 </html>

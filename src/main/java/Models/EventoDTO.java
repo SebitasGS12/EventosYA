@@ -28,6 +28,22 @@ public class EventoDTO {
 	
 	
 	
+	public EventoDTO(int idEvento, String nombreEvento, String descripcionEvento, String ubicacionEvento, InputStream imagenEvento
+			,String fechaIncio, String fechaFin, int idCategoria) {
+		this.idEvento = idEvento;
+		this.nombreEvento = nombreEvento;
+		this.descripcionEvento = descripcionEvento;
+		this.ubicacionEvento = ubicacionEvento;
+		this.fechaIncio = fechaIncio;
+		this.fechaFin = fechaFin;
+		this.idCategoria = idCategoria;
+		this.imagenEvento = imagenEvento;
+	}
+
+
+
+
+
 	public EventoDTO() {
 	}
 

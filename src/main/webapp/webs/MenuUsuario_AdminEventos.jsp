@@ -1,3 +1,10 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="DAO.DAOFactory"%>
+<%@page import="Models.EventoDTO"%>
+<%@page import="Models.UsuarioDTO"%>
+<%@page import="Models.OrganizadorDTO"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,6 +164,15 @@
 </head>
 <body>
 <% String msg = (String) request.getAttribute("mensaje");
+UsuarioDTO user = (UsuarioDTO) request.getSession().getAttribute("datousu");
+
+//aca es en general , pero solo debe de contar los eventos creados llamados desde la tabla Organizador
+DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizadorPorUsuario(user.getIdUsuario());
+
+int can = listaOrganizador.size();
+if(listaOrganizador == null) can =  0;
+
 if (msg==null) msg="";
 %>
 <%=msg %>
@@ -178,12 +194,12 @@ if (msg==null) msg="";
 	
 	    <div class="registration-section section">
 	      <div class="create-event">
-	       <a href="${pageContext.request.contextPath}/webs/FormCrearEvento.jsp">Crear Evento</a>
+	       <a href="${pageContext.request.contextPath}/evento?opcion=irReg">Crear Evento</a>
 	      </div>
 	      
 	      <div class="registration-header">
 	        <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Icono">
-		    <p>Número de registros: <br> <span id="numero-registros">0</span></p>
+		    <p>Número de registros: <br> <span id="numero-registros"><%=can %> </span></p>
 	      </div>
 	      <hr>
 	      <br />

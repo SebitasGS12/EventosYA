@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.text.DateFormat"%><%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -304,13 +306,14 @@
 		                	<label>Ubicación</label>
 		                	<input   type="text" name="txtUbicaion" placeholder="Ingrese la Ubicación">
 		                </div>
+		                
 		                <div class="fechini">
 		                	<label>Fecha Inicio</label>
-		                	<input name="txtFechaIni" type="date">
+		                	<input name="txtFechaIni" type="date" min="<%= df.format(new java.util.Date())%>" >
 		                </div>
 		                <div class="fechfin">
 		                	<label>Fecha Fin</label>
-		                	<input name="txtFechaFin" type="date">
+		                	<input name="txtFechaFin" type="date" min="<%= df.format(new java.util.Date())%>">
 		                </div>
 	            	</div>
 	            	
@@ -341,5 +344,5 @@
 
      </div>      
 </body>
-<script src="../comun/previsualizarImagen.js"></script>
+<script src="${pageContext.request.contextPath}/comun/previsualizarImagen.js"></script>
 </html>

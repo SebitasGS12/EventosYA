@@ -71,13 +71,14 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 			rs=pst.executeQuery();
 			while(rs.next()) {
 				u = new UsuarioDTO();
-				u.setNombreUsu(rs.getString(1));
-				u.setApellidoUsu(rs.getString(2));
-				u.setCorreoUsu(rs.getString(3));
-				u.setContraseniaUsu(rs.getString(4));
-				u.setPaisUsu(rs.getString(5));
-				u.setCiudadUsu(rs.getString(6));
-				u.setGeneroUsu(rs.getString(7));
+				u.setIdUsuario(Integer.parseInt(rs.getString(1)));
+				u.setNombreUsu(rs.getString(2));
+				u.setApellidoUsu(rs.getString(3));
+				u.setCorreoUsu(rs.getString(4));
+				u.setContraseniaUsu(rs.getString(5));
+				u.setPaisUsu(rs.getString(6));
+				u.setCiudadUsu(rs.getString(7));
+				u.setGeneroUsu(rs.getString(8));
 				
 				
 			}

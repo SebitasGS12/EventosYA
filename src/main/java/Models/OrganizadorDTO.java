@@ -13,6 +13,10 @@ public class OrganizadorDTO {
 		this.idEvento = idEvento;
 	}
 
+	public OrganizadorDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdOrganizador() {
 		return idOrganizador;
 	}
