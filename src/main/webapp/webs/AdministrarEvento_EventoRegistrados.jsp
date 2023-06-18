@@ -1,5 +1,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.EventoDTO"%>
+
+<%@page import="DAO.DAOFactory"%>
+
+
+<%@page import="Models.UsuarioDTO"%>
+<%@page import="Models.OrganizadorDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -68,39 +74,31 @@
             margin-top: 20px;
         }
 
-        .form-input {
-            width: 300px;
-            height: 30px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-        }
 
-        .form-input-transparent {
-            width: 300px;
-            height: 30px;
-            margin-bottom: 10px;
-            border: none;
-            border-bottom: 1px solid #ccc;
-            padding: 5px;
-            background-color: transparent;
-        }
  		.styled {
-		 	top: 190px;
 		    border: 0;
-		    line-height: 2.5;
+		    height: 50%;
 		    padding: 0 30px;
 		    font-size: 1rem;
 		    text-align: center;
+		    display:flex;
+		    align-items: center;
 		    color: #fff;
-		    text-shadow: 1px 1px 1px #000;
 		    border-radius: 30px;
 		    background-color: #5b72ef;
 		    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0));
 		    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 		}
-		footer input, textarea {
+		
+		 .styled:hover {
+			cursor: pointer;
+		background-image:none;
+		box-shadow:none;
+
+
+		}
+
+		footer, input, textarea {
 		    background: #fff;
 		    border: none;
 		    -webkit-box-shadow: 0px 1px 4px 2px rgba(0,0,0,0.16);
@@ -117,10 +115,7 @@
 		    border-radius: 15px;    
 		}
 		.NombreEdi{
-			width: 400px;
-			height: 30px;
-			left: 300px;
-			top: 200px;
+
 			font-family: 'Lexend';
 			font-style: normal;
 			font-weight: 400;
@@ -129,20 +124,52 @@
 			/* identical to box height */
 			text-align: start;
 			color: #000000;
+			width: 100%;
+			margin-bottom: 15px;
 		}
+		
+		
+		.contenido{
+			display: flex;
+			width: 100%;
+			flex-direction: column;
+			padding: 5px;
+			align-items: center;
+			
+		}
+		
+		
+		.item{
+			width: 95%;
+			margin:10px 0;
+			display:flex;
+			flex-direction: row;
+			gap:5px;
+			flex-wrap: wrap;
+		}
+		
+		
+		.item .Detalles{
+			width:70%;
+			background-color: white;
+			text-align:left;
+			padding:5px;
+			border-radius:10px ;
+		
+		}
+		
+		
     </style>
 
 </head>
 <body>
 <% 
-try{
+
+
 	
 	
-ArrayList<EventoDTO> eve = (ArrayList<EventoDTO>) request.getAttribute("listaDeEventosDelUsuario");
+ArrayList<EventoDTO> listaEventos = (ArrayList<EventoDTO>) request.getAttribute("listaDeEventosDelUsuario");
 	
-}catch(Exception e){
-	 System.out.println("Error al listar Evento > en la sentencia "+e.getMessage());
-} 
 
 
 String msg = (String) request.getAttribute("mensaje");
@@ -156,25 +183,35 @@ if (msg==null) msg="";
 	        <div class="pag-subtitle-container">
 	            <h2 class="pag-subtitle">Editar Evento</h2>
 	        </div>
-	        <div style="text-align: center; font-size: 50px;"><span style="color: #000000; left: 20px">
-		        <div class="form-group row">
-		        <div class="NombreEdi">Pollada Bailable</div>
-	            <textarea name="message" id="Area" cols="140" rows="12"></textarea>
-				<input class="favorite styled" type="button" value="Edit">
-	       		<input class="favorite styled" type="button" value="Delete">
+	        <div class="contenido" style="text-align: center; font-size: 1rem;">
+	        	<%
+	        	
+				if (listaEventos != null) {
+					
+					for (EventoDTO e : listaEventos) {					
+				%>
+						        
+		        <div class="elemento1 item">
+			        <h2 class="NombreEdi"><%=e.getNombreEvento() %></h2>
+		            <div class="Detalles" name="Detalles" id="Area">
+						<p>Descripcion de Evento : <%=e.getDescripcionEvento()%> </p>		            
+						<p>Ubicacion : <%=e.getUbicacionEvento() %></p>		            
+						<p>Desde: <%=e.getFechaIncio() %>  Hasta : <%=e.getFechaFin() %></p>		            
+		            	<p>Categoria: <%=e.getIdCategoria() %> </p>
+		            </div>
+					<a class="styled button" href="${pageContext.request.contextPath}/evento?opcion=bus&cod=<%=e.getIdEvento() %>">Editar</a>
+		       		<a class="styled button" href="${pageContext.request.contextPath}/evento?opcion=eli&cod=<%=e.getIdEvento() %>">Eliminar</a>
 	       		</div>
-	       		 <div class="form-group row">
-		        <div class="NombreEdi">Concierto de Maluma</div>
-	            <textarea name="message" id="Area" cols="140" rows="12"></textarea>
-				<input class="favorite styled" type="button" value="Edit">
-	       		<input class="favorite styled" type="button" value="Delete">
-	       		</div>
-	       		 <div class="form-group row">
-		        <div class="NombreEdi">Conferencia con OpenAI</div>
-	            <textarea name="message" id="Area" cols="140" rows="12"></textarea>
-				<input class="favorite styled" type="button" value="Edit">
-	       		<input class="favorite styled" type="button" value="Delete">
-	       		</div>
+				<hr style="width: 90%;text-align: center; height: 1px;"  />
+				
+				<%
+					}
+				}
+	        	%>
+	        	
+	        
+
+	       	
 			</div>
  		</div>
     </div>

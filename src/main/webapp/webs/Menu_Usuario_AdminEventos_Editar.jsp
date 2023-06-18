@@ -1,4 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@page import="Models.EventoDTO" %>
+<%@page import="Models.CategoriaDTO" %>
+<%@page import="DAO.DAOFactory" %>
+<%@page import="DAO.CategoriaDAO" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.io.InputStream" %>
+
+<%@page import="java.text.DateFormat"%><%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,6 +236,9 @@
 <% String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";
 	
+EventoDTO evento = (EventoDTO) request.getAttribute("evento");
+
+
 %>
 <%=msg %>
 
@@ -245,29 +258,43 @@ if (msg==null) msg="";
 	        	<div class="formulario-contenido">
 	        		<div class="form-container1">
 			            <label for="name" class="label-nombre">Nombre:</label>
-			            <input type="text" id="name" class="form-input-transparent" placeholder="Ingrese su nombre">
+			            <input type="text" id="name" class="form-input-transparent" placeholder="Ingrese su nombre"  value="<%=evento.getNombreEvento()%>">
 			            <label for="location">Ubicación:</label>
-			            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación">
-			            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"></textarea>
+			            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación" value="<%=evento.getUbicacionEvento()%>">
+			            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"><%=evento.getDescripcionEvento()%></textarea>
 	       			</div>
 	         	        
 		     	   <div class="form-container2">
 		     	   
 		     	   
 		            <label for="category">Categoría:</label>
-		            <input type="text" id="category" class="form-input-transparent" placeholder="Ingrese la categoría">
+		            <select type="text" id="category" class="form-input-transparent">
+		            	 <%
+		                 	 	 DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		                 	 	 CategoriaDAO dao = fabrica.getCategoriaDAO();
+		                 	 	 ArrayList<CategoriaDTO> lstCategorias = dao.listarCategoria();
+		                 	 	 out.print("<option value='-1'>Seleccione...</option>");
+		                 	 	 for(CategoriaDTO c:lstCategorias){
+		                 	 		 String selected  ="";
+		                 	 		if(c.getIdCategoria() == evento.getIdCategoria()){selected = "selected";}else{selected = " ";}
+		                 	 		 out.print("<option "+ selected   +" value='"+ c.getIdCategoria()+ "'  >"+c.getNombreCategoria()+"</option>");
+		                 	 	 }
+		                 	  
+		                 	 %>
+		            
+		            
+		            </select>
 					
 					<div class="item-fecha">
 						
 						<label for="from">Desde:</label>
-						<%@page import="java.text.DateFormat"%><%DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
-						<input type="date" class="form-control" min="<%= df.format(new java.util.Date())%>"/>
+						<input type="date" class="form-control" value="<%=evento.getFechaIncio()  %>" min="<%= df.format(new java.util.Date())%>"  />
 						 
 					</div>
 		           
 					<div class="item-fecha">
 						<label for="to">Hasta:</label>
-						<input type="date" class="form-control"  placeholder="dd/MM/yyyy" min="<%= df.format(new java.util.Date())%>"/>
+						<input type="date" class="form-control" value="<%=evento.getFechaFin()  %>" min="<%= df.format(new java.util.Date())%>"/>
 					
 					</div>
 
@@ -275,14 +302,24 @@ if (msg==null) msg="";
    						<label for="file" class="label-nombre">Imagen de Evento</label>
    						<br />
 						<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
-						<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/imagenEditarEvento.png"></label>			            
+						<%
+						
+		                    InputStream imagenInputStream = evento.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+		                    
+		                    String imagenBase64 = fabrica.getEventoDAO().ConvertirIMG(imagenInputStream);
+			
+						
+						%>
+						
+						
+						<label for="file" id="preview"><img  alt="" src="<%=imagenBase64%>"></label>			            
 		            </div>
 		        </div>
 
 	        	</div>
 				<div class="action-buttons">
-					<button>Cancelar</button>
-					<button>Actualizar Evento</button>
+					<button  type="submit" name="opcion" value="cancelEdit">Cancelar</button>
+					<button type="submit"  name="opcion" value="Edit">Actualizar Evento</button>
 				</div>
 	        
 	        </form>
@@ -295,6 +332,7 @@ if (msg==null) msg="";
     <%@include file="../comun/footer.jsp" %>
       
 </body>
-<script src="../comun/previsualizarImagen.js"></script>
+<script src="${pageContext.request.contextPath}/comun/previsualizarImagen.js"></script>
+
 
 </html>

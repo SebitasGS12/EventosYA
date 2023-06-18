@@ -171,7 +171,7 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 
 ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizadorPorUsuario(user.getIdUsuario());
 
-request.setAttribute("listaOrganizador", listaOrganizador);
+request.getSession().setAttribute("listaOrganizador", listaOrganizador);
 
 int can = listaOrganizador.size();
 if(listaOrganizador == null) can =  0;
@@ -202,7 +202,7 @@ if (msg==null) msg="";
 	      
 	      <div class="registration-header">
 	        <img src="${pageContext.request.contextPath}/imgs/perfil.png" alt="Icono">
-		    <p>Número de registros: <br> <span id="numero-registros"><%=can %> </span></p>
+		    <p>Número de registros: <br> <span id="numero-registros"><%= can %> </span></p>
 	      </div>
 	      <hr>
 	      <br />

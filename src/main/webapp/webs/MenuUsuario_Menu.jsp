@@ -139,25 +139,8 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
 	           			
 	                    InputStream imagenInputStream = eve.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
-	                    String imagenBase64 = null;
-	                    if(imagenInputStream != null){
-	                    	
-	                    	 // Leer los bytes de la imagen del InputStream
-		                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		                    byte[] buffer = new byte[4096];
-		                    int bytesRead;
-		                    while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
-		                        byteArrayOutputStream.write(buffer, 0, bytesRead);
-		                    }
-		                    byte[] imagenBytes = byteArrayOutputStream.toByteArray();
-		                    
-		                    // Convertir los bytes de la imagen a una cadena Base64
-		                    imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
-		                    
-		                    // Cerrar el InputStream y el ByteArrayOutputStream
-		                    imagenInputStream.close();
-		                    byteArrayOutputStream.close();
-	                    }
+	                    
+	                    String imagenBase64 = fabric.getEventoDAO().ConvertirIMG(imagenInputStream);
 
 	                    
 	                   
@@ -177,5 +160,4 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
     <%@include file="../comun/footer.jsp" %>
     
 </body>
-<script src="../comun/cargarEventosMenu.js"></script>
 </html>

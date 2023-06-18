@@ -66,7 +66,9 @@ public class EventoServlet extends HttpServlet {
 		case "reg":  
 					registrarEvento(request,response); 
 					break;
-		
+		case "bus":
+			buscarEvento(request,response); 
+			break;
 		case "lis":  
 			listarEvento(request,response); 
 			break;
@@ -82,29 +84,52 @@ public class EventoServlet extends HttpServlet {
 		
 	}
 
+	private void buscarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int idEvento = Integer.parseInt(request.getParameter("cod"));
+
+				
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		
+		EventoDTO evento = fabrica.getEventoDAO().buscarEvento(idEvento);
+		
+		request.setAttribute("evento", evento);
+		
+		request.getRequestDispatcher("webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
+
+	}
+
 	private void listarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url ="";
+		ArrayList<EventoDTO> lstaEvento = new ArrayList<EventoDTO>();
 		try {	
 		
 			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
-			ArrayList<EventoDTO> lstaEvento = new ArrayList<EventoDTO>();
+
 			
-			ArrayList<OrganizadorDTO> lstaOrganizador = (ArrayList<OrganizadorDTO>) request.getAttribute("listaOrganizador");
+			ArrayList<OrganizadorDTO> lstaOrganizador = (ArrayList<OrganizadorDTO>) request.getSession().getAttribute("listaOrganizador");
 			
 			if (lstaOrganizador!= null) {
 					
 				for (OrganizadorDTO o : lstaOrganizador) {
-					
+					try {
+						
+
 					EventoDTO e = fabrica.getEventoDAO().buscarEvento(o.getIdEvento());
-					lstaEvento.add(e);
+
 					
+					lstaEvento.add(e);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
 				}
+			}else {
+				System.out.println("hay nulidad de eventos");
 			}
 
 			
 			
-			request.setAttribute("listaDeEventosDelUsuario", lstaEvento);
 			
 			String opcionURL = (String) request.getParameter("url");
 			
@@ -120,6 +145,9 @@ public class EventoServlet extends HttpServlet {
 			 System.out.println("Error al listar Evento > en la sentencia "+e.getMessage());
 		}
 		
+		
+		request.setAttribute("listaDeEventosDelUsuario", lstaEvento);
+
 		request.getRequestDispatcher(url).forward(request, response);
 		
 		
