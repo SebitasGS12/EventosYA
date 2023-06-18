@@ -1,3 +1,4 @@
+<%@page import="Models.UsuarioDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -70,6 +71,7 @@ pageEncoding="ISO-8859-1"%>
           font-size: 20px;
           padding-top: 4px;
           margin-right: 123px;
+          
 
         }
         .nombre input{
@@ -213,6 +215,45 @@ pageEncoding="ISO-8859-1"%>
     	background-color: rgb(158, 158, 158);
         color: #262525;
     }
+    
+    .Id{
+            flex-direction: column;
+            height: auto;
+            width: 80%;
+
+            flex-direction: row;
+            justify-content: space-evenly;
+            display: flex;
+            margin-left: 60px;
+            margin-top: -10px;
+            margin-bottom : 20px;
+        }
+
+        .Id label{
+          width: 50%;
+         
+          height: 40px;
+          margin-left: -100px;
+          margin-top: 26px;
+          text-align: left;
+          color: white;
+          font-size: 20px;
+          padding-top: 4px;
+          padding-left:100px;
+          
+         
+
+        }
+        .Id input{
+          width: 46%;
+          
+          height: 40px;
+          margin-left: -320px;
+        
+          margin-top: 15px;
+          border-radius: 10px;
+          
+        }
 
     
 
@@ -220,6 +261,7 @@ pageEncoding="ISO-8859-1"%>
 
 </head>
 <body>
+
 	<%@include file="../comun/header_Salir.jsp" %>
 	
  <section class="section">
@@ -234,18 +276,22 @@ pageEncoding="ISO-8859-1"%>
 		    <div class="formu">
 		        <h2 class="modper">Editar Perfil</h2>
 		        <form method="post" action="${pageContext.request.contextPath}/usuario">
+		        <div class="Id">
+		                <label>Id</label>
+		                <input type="text" name="txtid" placeholder="Inserte Id"  required="required">
+		            </div>
 		            <div class="nombre">
 		                <label>Nombre</label>
-		                <input type="text" name="nam" placeholder="Inserte Nombre">
+		                <input type="text" name="txtnom" placeholder="Inserte Nombre" required="required">
 		            </div>
 		            <div class="nombreusu">
 		             <label>Nombre  de Usuario</label>
-		             <input  type="text" name="nusu" placeholder="Ingrese nombre de cuenta">
+		             <input  type="text" name="txtnusu" placeholder="Ingrese nombre de cuenta" required="required">
 		
 		            </div>
 		            <div class="corre">
 		             <label>Correo</label>
-		             <input   type="text" name="corr" placeholder="Correo Registrado">
+		             <input   type="text" name="txtcorr" placeholder="Correo Registrado" required="required">
 		            </div>
 		            <br>
 		            <br>
@@ -253,7 +299,7 @@ pageEncoding="ISO-8859-1"%>
 		                <label>Foto de Perfil</label>
 		                <img src="../imgs/perfil.png" alt="">
 		            </div>
-		        <input class="confcamb" type="submit"value="Confirmar cambio">
+		        <input class="confcamb" type="submit"value="actUsu" name="opcion" >
 		        </form>
 		      </div>
 		</div>
