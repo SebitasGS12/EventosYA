@@ -13,7 +13,7 @@ public abstract class DAOFactory {
 	public abstract CiudadDAO getCiudadDAO();
 	public abstract OrganizadorDAO getOrganizadorDAO();
 	public abstract EventoDAO getEventoDAO();
-
+	public abstract CategoriaDAO getCategoriaDAO();
 	
 	public static  DAOFactory getDaoFactory(int qBD) {
 		

@@ -64,7 +64,7 @@
 <div class="header">
     <h1>
       
-      <a href="Menu_inicio.jsp">
+      <a href="${pageContext.request.contextPath}/usuario?opcion=salir">
       	<img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="logo">EventosYa
       	</a>
     </h1>

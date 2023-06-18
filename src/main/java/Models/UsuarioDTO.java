@@ -85,6 +85,9 @@ public class UsuarioDTO {
 	public void setGeneroUsu(String generoUsu) {
 		this.generoUsu = generoUsu;
 	}
+
+
+
 	
 	
 }

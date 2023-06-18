@@ -249,7 +249,6 @@ pageEncoding="ISO-8859-1"%>
             <div class="nuecontra">
              <label>Nueva Contraseña</label>
              <input  type="text" name="txtnuecontra" placeholder="Digite nueva contraseña" required="required">
-
             </div>
             <div class="confcontra">
              <label>Confirmar Contraseña</label>
