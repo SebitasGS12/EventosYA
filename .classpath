@@ -16,6 +16,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Sebastian/OneDrive - CIBERTEC/CIBERTEC CICLO 4/Lenguaje de Programacion II/PF_LPI/libs/mysql-connector-java-8.0.30.jar"/>
+	<classpathentry kind="lib" path="D:/Cibertec ciclo 5/Lenguaje de programacion II/PF_Worspace/conector build/mysql-connector-java-8.0.30.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
