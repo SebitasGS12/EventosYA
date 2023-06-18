@@ -274,6 +274,48 @@ public class MySQLEventoDAO implements EventoDAO {
 		
 	}
 
+	@Override
+	public int actualizar(EventoDTO u) {
+
+		int rs = 0;
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " UPDATE evento SET nombreEvento= ?, descripcionEvento= ?, ubicacionEvento= ?, imagenEvento = ? , fechaInicio = ? ,fechaFin = ? , idCategoria = ? WHERE idEvento = ? ";
+			pst = con.prepareStatement(sql);
+			
+			pst.setString(1, u.getNombreEvento());
+			pst.setString(2, u.getDescripcionEvento());
+			pst.setString(3, u.getUbicacionEvento());
+			pst.setBlob(4, u.getImagenEvento());
+			pst.setString(5, u.getFechaIncio());
+			pst.setString(6, u.getFechaFin());
+			pst.setInt(7, u.getIdCategoria());
+			pst.setInt(8, u.getIdEvento());
+			
+			
+			
+			rs =pst.executeUpdate();
+			
+			
+			
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al actualizar Evento -> en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+		
+		return rs;
+	}
+
 		
 	
 }	

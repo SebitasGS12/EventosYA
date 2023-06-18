@@ -7,7 +7,8 @@ import Models.EventoDTO;
 
 public interface EventoDAO {
 	public int registrar(EventoDTO u);
-	
+	public int actualizar(EventoDTO u);
+
 	public ArrayList<EventoDTO> listarEvento();
 
 	

@@ -252,23 +252,24 @@ EventoDTO evento = (EventoDTO) request.getAttribute("evento");
 	            <h2 class="pag-subtitle">Editar Evento</h2>
 	        </div>
 	        
-	        <form action="" method="Post" class="form-head">
+	        <form action="${pageContext.request.contextPath}/evento" method="Post"    enctype="multipart/form-data" class="form-head">
 	        
 	        
 	        	<div class="formulario-contenido">
 	        		<div class="form-container1">
+			            <input type="text" id="name" class="form-input-transparent" style="display: none" name="cod" value="<%=evento.getIdEvento()%>">
 			            <label for="name" class="label-nombre">Nombre:</label>
-			            <input type="text" id="name" class="form-input-transparent" placeholder="Ingrese su nombre"  value="<%=evento.getNombreEvento()%>">
+			            <input type="text" id="name" class="form-input-transparent" placeholder="Ingrese su nombre" name="txtNombre" value="${evento.nombreEvento}">
 			            <label for="location">Ubicación:</label>
-			            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación" value="<%=evento.getUbicacionEvento()%>">
-			            <textarea id="description" class="form-input-description" placeholder="Ingrese la descripción"><%=evento.getDescripcionEvento()%></textarea>
+			            <input type="text" id="location" class="form-input-transparent" placeholder="Ingrese su ubicación" name="txtUbicacion" value="${evento.ubicacionEvento}">
+			            <textarea id="description" class="form-input-description" value="${evento.descripcionEvento}"  name="txtDescripcion" placeholder="Ingrese la descripción">${evento.descripcionEvento}</textarea>
 	       			</div>
 	         	        
 		     	   <div class="form-container2">
 		     	   
 		     	   
 		            <label for="category">Categoría:</label>
-		            <select type="text" id="category" class="form-input-transparent">
+		            <select  id="category" name="txtCategoria" class="form-input-transparent">
 		            	 <%
 		                 	 	 DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		                 	 	 CategoriaDAO dao = fabrica.getCategoriaDAO();
@@ -288,13 +289,13 @@ EventoDTO evento = (EventoDTO) request.getAttribute("evento");
 					<div class="item-fecha">
 						
 						<label for="from">Desde:</label>
-						<input type="date" class="form-control" value="<%=evento.getFechaIncio()  %>" min="<%= df.format(new java.util.Date())%>"  />
+						<input type="date" class="form-control" name="txtFechaIni" value="<%=evento.getFechaIncio()  %>" min="<%= df.format(new java.util.Date())%>"  />
 						 
 					</div>
 		           
 					<div class="item-fecha">
 						<label for="to">Hasta:</label>
-						<input type="date" class="form-control" value="<%=evento.getFechaFin()  %>" min="<%= df.format(new java.util.Date())%>"/>
+						<input type="date" class="form-control" name="txtFechaFin" value="<%=evento.getFechaFin()  %>" min="<%= df.format(new java.util.Date())%>"/>
 					
 					</div>
 
@@ -319,7 +320,7 @@ EventoDTO evento = (EventoDTO) request.getAttribute("evento");
 	        	</div>
 				<div class="action-buttons">
 					<button  type="submit" name="opcion" value="cancelEdit">Cancelar</button>
-					<button type="submit"  name="opcion" value="Edit">Actualizar Evento</button>
+					<button type="submit"  name="opcion" value="edit">Actualizar Evento</button>
 				</div>
 	        
 	        </form>

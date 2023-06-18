@@ -72,6 +72,12 @@ public class EventoServlet extends HttpServlet {
 		case "lis":  
 			listarEvento(request,response); 
 			break;
+		case "cancelEdit":  
+			cancelarEdit(request,response); 
+			break;
+		case "edit":  
+			Actualizar(request,response); 
+			break;
 		case "sal":
 				salir(request,response); 
 				break;
@@ -81,6 +87,81 @@ public class EventoServlet extends HttpServlet {
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + opcion);
 		}
+		
+	
+	}
+	private void Actualizar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
+		//Var
+		String mensaje = "";
+		String url = "";
+		int ok = 5;
+		//Entradas
+		try {
+		
+			
+		String nombre= request.getParameter("txtNombre");
+		String descripcion= request.getParameter("txtDescripcion");
+		String ubicacion= request.getParameter("txtUbicacion");
+		
+		//Codigo especial para la imagen :D
+		Part archivoImagen = request.getPart("txtImagen");
+		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
+		
+		
+		String fechaIni= request.getParameter("txtFechaIni");
+		String fechaFin= request.getParameter("txtFechaFin");
+		int categoria= Integer.parseInt(request.getParameter("txtCategoria"));
+		int idEvento = Integer.parseInt(request.getParameter("cod"));
+		System.out.println("Nombre: " + nombre);
+		System.out.println("Descripción: " + descripcion);
+		System.out.println("Ubicación: " + ubicacion);
+		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
+		System.out.println("Fecha de Inicio: " + fechaIni);
+		System.out.println("Fecha de Fin: " + fechaFin);
+		System.out.println("ID de Categoría: " + categoria);
+			//Fabrica
+			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+			EventoDAO dao = fabrica.getEventoDAO();
+			
+			EventoDTO e = new EventoDTO(idEvento,nombre,descripcion,ubicacion,imagen,fechaIni,fechaFin,categoria);
+			 ok=dao.actualizar(e);
+			 
+			 System.out.println(ok);
+		} catch (Exception e) {
+			System.out.print(""+e.getMessage());
+		}
+		
+
+		//Procesos 
+		
+		
+		if(ok==0) {
+			mensaje+= "<script> alert('"+"Error al actualizar el evento, revisar"+"')</script>";
+			
+			request.setAttribute("mensaje", mensaje);
+
+			buscarEvento(request, response);
+		}else {
+			mensaje+=" <script> alert('"+"Registro del evento <strong>"+ "s" +"</strong> OK " +"') </script>";
+			url="evento?opcion=lis&url=ver";
+			request.setAttribute("mensaje", mensaje);
+
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+
+
+		
+	}
+
+	private void cancelarEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String url = "evento?opcion=lis&url=ver";
+		
+		request.getRequestDispatcher(url).forward(request, response);
+
+		
 		
 	}
 
@@ -176,7 +257,8 @@ public class EventoServlet extends HttpServlet {
 		Part archivoImagen = request.getPart("txtImagen");
 		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
 		
-		
+		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
+
 		String fechaIni= request.getParameter("txtFechaIni");
 		String fechaFin= request.getParameter("txtFechaFin");
 		int categoria= Integer.parseInt(request.getParameter("txtCategoria"));
@@ -190,10 +272,6 @@ public class EventoServlet extends HttpServlet {
 		
 		
 		//Obtener datos Usu
-
-		
-		
-		
 		UsuarioDTO u  = (UsuarioDTO) request.getSession().getAttribute("datousu");
 		
 		
