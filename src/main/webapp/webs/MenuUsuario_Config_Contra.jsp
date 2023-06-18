@@ -206,7 +206,7 @@ pageEncoding="ISO-8859-1"%>
                 <input type="text" name="con" placeholder="Escriba la contraseña">
             </div>
             <div class="nuecontra">
-             <label>Nueva Contraseña</label>
+             <label>Nueva Contrasenia</label>
              <input  type="text" name="nuecon" placeholder="Digite nueva contraseña">
 
             </div>
