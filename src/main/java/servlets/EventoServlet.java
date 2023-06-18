@@ -78,6 +78,9 @@ public class EventoServlet extends HttpServlet {
 		case "edit":  
 			Actualizar(request,response); 
 			break;
+		case "eli":  
+			Eliminar(request,response); 
+			break;
 		case "sal":
 				salir(request,response); 
 				break;
@@ -90,6 +93,50 @@ public class EventoServlet extends HttpServlet {
 		
 	
 	}
+	private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//variables
+		String mensaje="";
+		String url;
+		
+		//Entradas
+		int codigo=   Integer.parseInt(request.getParameter("cod"));
+	  
+		
+		//Obtenemos la fabrica DAO 
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		EventoDAO daoEve = fabrica.getEventoDAO();
+		OrganizadorDAO daoOrg = fabrica.getOrganizadorDAO();
+		//Procesos 
+		
+		//Primero eliminamos al organizador
+		int ok2 = daoOrg.eliminar(codigo);
+		
+		int ok=daoEve.eliminar(codigo);
+		
+		if(ok==0) {
+			mensaje+=" <script> alert('"+" Error al eliminar los datos" +"') </script>";
+			 
+		}else {
+			mensaje+=" <script> alert('"+"Eliminación del Vendedor  "+codigo+" OK" +"') </script>";
+		 
+		}
+		
+		if(ok2==0) {
+			mensaje+=" <script> alert('"+" Error al eliminar los datos" +"') </script>";
+			 
+		}else {
+			mensaje+=" <script> alert('"+"Eliminación del Organizador  "+codigo+" OK" +"') </script>";
+		 
+		}
+		
+		
+		url="evento?opcion=lis&url=verGeneral";
+		request.setAttribute("mensaje", mensaje);
+		request.getRequestDispatcher(url).forward(request, response);		 
+
+		
+	}
+
 	private void Actualizar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 
@@ -176,13 +223,15 @@ public class EventoServlet extends HttpServlet {
 		
 		request.setAttribute("evento", evento);
 		
-		request.getRequestDispatcher("webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
+		request.getRequestDispatcher("EventosYa/webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
 
 	}
 
 	private void listarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url ="";
+		
+	
 		ArrayList<EventoDTO> lstaEvento = new ArrayList<EventoDTO>();
 		try {	
 		
@@ -218,6 +267,13 @@ public class EventoServlet extends HttpServlet {
 			switch (opcionURL) {
 			case "ver" :
 				url = "webs/AdministrarEvento_EventoRegistrados.jsp";
+				break;
+			case "verGeneral" :
+				UsuarioDTO u  = (UsuarioDTO) request.getSession().getAttribute("datousu");
+				request.setAttribute("usuario", u);
+				
+				
+				url = "webs/MenuUsuario_AdminEventos.jsp";
 				break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + opcionURL);
@@ -291,7 +347,7 @@ public class EventoServlet extends HttpServlet {
 
 		if(ok==0) {
 			mensaje+= "<script> alert('"+"Error al registrar el evento, revisar"+"')</script>";
-			url="webs/FormCrearEvento.jsp";
+			url="evento?opcion=irReg";
 		}else {
 			mensaje+=" <script> alert('"+"Registro del evento <strong>"+ nombre +"</strong> OK " +"') </script>";
 			url="webs/MenuUsuario_AdminEventos.jsp";

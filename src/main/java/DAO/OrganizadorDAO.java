@@ -1,3 +1,4 @@
+
 package DAO;
 
 import java.util.ArrayList;
@@ -11,6 +12,9 @@ public interface OrganizadorDAO {
 	
 	public int registrar(UsuarioDTO u,EventoDTO eve  );
 
+	public int eliminar(int codigo  );
+
+	
 	public ArrayList<OrganizadorDTO> listarOrganizadorPorUsuario(int id);
 	
 	
