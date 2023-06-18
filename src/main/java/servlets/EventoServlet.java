@@ -155,26 +155,33 @@ public class EventoServlet extends HttpServlet {
 		//Codigo especial para la imagen :D
 		Part archivoImagen = request.getPart("txtImagen");
 		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
-		
+
 		
 		String fechaIni= request.getParameter("txtFechaIni");
 		String fechaFin= request.getParameter("txtFechaFin");
 		int categoria= Integer.parseInt(request.getParameter("txtCategoria"));
 		int idEvento = Integer.parseInt(request.getParameter("cod"));
+		
 		System.out.println("Nombre: " + nombre);
 		System.out.println("Descripción: " + descripcion);
 		System.out.println("Ubicación: " + ubicacion);
+		System.out.println("Imagen 1: " + archivoImagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 		System.out.println("Fecha de Inicio: " + fechaIni);
 		System.out.println("Fecha de Fin: " + fechaFin);
 		System.out.println("ID de Categoría: " + categoria);
-			//Fabrica
-			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
-			EventoDAO dao = fabrica.getEventoDAO();
+		//Fabrica
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		EventoDAO dao = fabrica.getEventoDAO();
+		
+
 			
-			EventoDTO e = new EventoDTO(idEvento,nombre,descripcion,ubicacion,imagen,fechaIni,fechaFin,categoria);
-			 ok=dao.actualizar(e);
-			 
+			
+			
+			
+		EventoDTO e = new EventoDTO(idEvento,nombre,descripcion,ubicacion,imagen,fechaIni,fechaFin,categoria);
+		ok=dao.actualizar(e);
+						 
 			 System.out.println(ok);
 		} catch (Exception e) {
 			System.out.print(""+e.getMessage());
@@ -223,7 +230,7 @@ public class EventoServlet extends HttpServlet {
 		
 		request.setAttribute("evento", evento);
 		
-		request.getRequestDispatcher("EventosYa/webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
+		request.getRequestDispatcher("webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
 
 	}
 

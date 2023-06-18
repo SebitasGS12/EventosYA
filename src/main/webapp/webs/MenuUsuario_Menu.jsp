@@ -84,8 +84,22 @@
             border: 1px solid #ccc;
             padding: 20px;
             font-size: 1.2em;
+			display:flex;
+			flex-wrap:wrap;
+			
             width: 80%;
             margin-top: 20px;
+        }
+        .item-evento{
+        	display:flex;
+        	flex-direction:row;
+        	gap:5px;
+        	justify-content:flex-start;
+        	width: 95%;
+        }
+        
+        .item-evento img{
+        	width: 70%;
         }
 
 
@@ -145,8 +159,15 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	                    
 	                   
 	           	%>
-					<p><%=eve.getNombreEvento() %></p>
-    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
+	           	
+	           		<div class="item-evento">
+	           		
+	    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
+						<p><%=eve.getNombreEvento() %></p>
+		           		
+	           		
+	           	
+	           		</div>
 
 	           	<%
 	           			
