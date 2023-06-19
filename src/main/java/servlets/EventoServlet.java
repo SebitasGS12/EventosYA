@@ -223,7 +223,7 @@ public class EventoServlet extends HttpServlet {
 		
 		request.setAttribute("evento", evento);
 		
-		request.getRequestDispatcher("EventosYa/webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
+		request.getRequestDispatcher("webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
 
 	}
 
