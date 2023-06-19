@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import DAO.UsuarioDAO;
+import Models.OrganizadorDTO;
 import Models.UsuarioDTO;
 import Coneccion.MysqlConector;
 
@@ -172,6 +173,58 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		}
 		
 		return rso;
+	}
+
+	@Override
+	public UsuarioDTO buscarUsuario(int codigo) {
+		// TODO Auto-generated method stub
+		UsuarioDTO p = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idUsuario, nombreUsu, apellidoUsu, correoUsu, contraseñaUsu, paisUsu, ciudadUsu, generoUsu from usuarios where idUsuario =  ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, codigo);
+
+			
+			rs=pst.executeQuery();	
+			
+			while (rs.next()) {
+				 
+				  p= new UsuarioDTO(
+					rs.getInt(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getString(5),
+					rs.getString(6),
+					rs.getString(7),
+					rs.getString(8));
+
+			}
+			
+
+
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Usuario > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		
+		return p;
 	}
 	
 }

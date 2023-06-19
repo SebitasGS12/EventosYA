@@ -8,4 +8,7 @@ public interface CategoriaDAO {
 
 	
 	public ArrayList<CategoriaDTO> listarCategoria();
+	
+	public CategoriaDTO buscarCategoria(int id);
+	
 }

@@ -199,7 +199,7 @@ if (msg==null) msg="";
 						<p>Desde: <%=e.getFechaIncio() %>  Hasta : <%=e.getFechaFin() %></p>		            
 		            	<p>Categoria: <%=e.getIdCategoria() %> </p>
 		            </div>
-					<a class="styled button" href="${pageContext.request.contextPath}/evento?opcion=bus&cod=<%=e.getIdEvento() %>">Editar</a>
+					<a class="styled button" href="${pageContext.request.contextPath}/evento?opcion=bus&cod=<%=e.getIdEvento() %>&url=edit">Editar</a>
 		       		<a class="styled button" href="${pageContext.request.contextPath}/evento?opcion=eli&cod=<%=e.getIdEvento() %>">Eliminar</a>
 	       		</div>
 				<hr style="width: 90%;text-align: center; height: 1px;"  />

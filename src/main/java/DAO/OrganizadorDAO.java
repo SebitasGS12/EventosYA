@@ -18,5 +18,7 @@ public interface OrganizadorDAO {
 	public ArrayList<OrganizadorDTO> listarOrganizadorPorUsuario(int id);
 	
 	
+	public OrganizadorDTO buscarOrganizador(int codigo);
+	
 	
 }

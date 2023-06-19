@@ -20,6 +20,19 @@ public class UsuarioDTO {
 	}
 	
 	
+	public UsuarioDTO(int idUsuario, String nombreUsu, String apellidoUsu, String correoUsu, String contraseniaUsu,
+			String paisUsu, String ciudadUsu, String generoUsu) {
+		this.idUsuario = idUsuario;
+		this.nombreUsu = nombreUsu;
+		this.apellidoUsu = apellidoUsu;
+		this.correoUsu = correoUsu;
+		this.contraseniaUsu = contraseniaUsu;
+		this.paisUsu = paisUsu;
+		this.ciudadUsu = ciudadUsu;
+		this.generoUsu = generoUsu;
+	}
+
+
 	public UsuarioDTO() {
 	}
 

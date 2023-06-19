@@ -11,5 +11,6 @@ public interface UsuarioDAO {
 
 	public int ModificarContrasenia(UsuarioDTO m);  //Humberto
 	
+	public UsuarioDTO buscarUsuario(int codigo);
 	
 }

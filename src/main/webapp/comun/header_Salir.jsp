@@ -64,12 +64,12 @@
 <div class="header">
     <h1>
       
-      <a href="${pageContext.request.contextPath}/usuario?opcion=salir">
-      	<img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="logo">EventosYa
+      <a href="usuario?opcion=salir">
+      	<img src="imgs/logo.jpg" alt="logo">EventosYa
       	</a>
     </h1>
      <div class="pag-boton">
-          <form action="${pageContext.request.contextPath}/usuario" method="post">
+          <form action="usuario" method="post">
                 <button type="submit" name="opcion" value="salir" class="btn">Salir</button>
             </form>
         </div>

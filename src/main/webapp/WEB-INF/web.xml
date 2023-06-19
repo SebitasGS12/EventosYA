@@ -24,4 +24,14 @@
     <servlet-name>EventoServlet</servlet-name>
     <url-pattern>/EventoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AsistenteServlet</display-name>
+    <servlet-name>AsistenteServlet</servlet-name>
+    <servlet-class>servlets.AsistenteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AsistenteServlet</servlet-name>
+    <url-pattern>/AsistenteServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

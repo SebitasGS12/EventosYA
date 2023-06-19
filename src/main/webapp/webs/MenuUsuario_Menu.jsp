@@ -1,14 +1,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
-<%@page import="Models.EventoDTO"%>
 
 <%@page import="Models.UsuarioDTO"%>
 <%@page import="Models.OrganizadorDTO"%>
+<%@page import="Models.AsistenteDTO"%>
 <%@page import="java.io.InputStream" %>
 <%@ page import="java.io.ByteArrayOutputStream" %>
 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="Models.EventoDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,6 +76,7 @@
             font-size: 1.5em;
             border-radius: 50%;
             border: none;
+            flex-wrap:wrap;
             background-color: #00B4CC;
             color: white;
             cursor: pointer;
@@ -86,7 +88,6 @@
             font-size: 1.2em;
 			display:flex;
 			flex-wrap:wrap;
-			
             width: 80%;
             margin-top: 20px;
         }
@@ -95,11 +96,22 @@
         	flex-direction:row;
         	gap:5px;
         	justify-content:flex-start;
+        	align-items:center;
         	width: 95%;
+        	height: 200px;
+        	background-color: #D9D9D9;
+        	border-radius: 10px;
+        	margin:10px 5px;
+        	
         }
         
         .item-evento img{
+       		height:100%;
         	width: 70%;
+           	border-bottom-left-radius: 10px;
+           	border-top-left-radius: 10px;
+           	
+    
         }
 
 
@@ -108,6 +120,7 @@
     #itemMenu{
     	background-color: rgb(158, 158, 158);
         color: #262525;
+    
     }
 </style>
 
@@ -143,12 +156,12 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	            <button class="pag-search-button">&#128269;</button>
 	        </div>
 	        <div class="pag-event-container" id="contenedor-eventos">
-	            <p> Aquí se mostrarán los eventos</p>
+	            <p align="center"> Aquí se mostrarán tus eventos pendientes</p>
 	            
 	            <% 
-	            ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizadorPorUsuario(user.getIdUsuario());
-	           	if(listaOrganizador != null){
-	           		for(OrganizadorDTO p : listaOrganizador){
+	            ArrayList<EventoDTO> listaAsistente = fabric.getEventoDAO().listarEvento();
+	           	if(listaAsistente != null){
+	           		for(EventoDTO p : listaAsistente){
 	           			
 	           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
 	           			
@@ -160,14 +173,14 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	                   
 	           	%>
 	           	
-	           		<div class="item-evento">
+	           		<a href="${pageContext.request.contextPath}/evento?opcion=bus&user=<%=eve.getIdEvento() %>&url=ver" class="item-evento">
 	           		
 	    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
-						<p><%=eve.getNombreEvento() %></p>
+						<H3><%=eve.getNombreEvento() %></H3>
 		           		
 	           		
 	           	
-	           		</div>
+	           		</a>
 
 	           	<%
 	           			

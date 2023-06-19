@@ -20,6 +20,7 @@ import DAO.DAOFactory;
 import DAO.EventoDAO;
 import DAO.OrganizadorDAO;
 import DAO.UsuarioDAO;
+import Models.AsistenteDTO;
 import Models.EventoDTO;
 import Models.OrganizadorDTO;
 import Models.UsuarioDTO;
@@ -221,17 +222,45 @@ public class EventoServlet extends HttpServlet {
 
 	private void buscarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int idEvento = Integer.parseInt(request.getParameter("cod"));
-
-				
+		String ruta = "";
+		String url = (String) request.getParameter("url");
 		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
-		
-		EventoDTO evento = fabrica.getEventoDAO().buscarEvento(idEvento);
-		
-		request.setAttribute("evento", evento);
-		
-		request.getRequestDispatcher("webs/Menu_Usuario_AdminEventos_Editar.jsp").forward(request, response);	
 
+		switch (url) {
+		case "edit": {
+			
+			int idEvento = Integer.parseInt(request.getParameter("cod"));
+
+					
+			EventoDTO evento = fabrica.getEventoDAO().buscarEvento(idEvento);
+			
+			request.setAttribute("evento", evento);
+			
+			 ruta = "webs/Menu_Usuario_AdminEventos_Editar.jsp";
+			
+			break;
+		}
+		case "ver": { //Ver evento cargado por su Asistencia
+			/*
+			int idAsistente = Integer.parseInt(request.getParameter("cod"));
+
+			
+			AsistenteDTO asis = fabrica.getAsistenteDAO().buscarAsistente(idAsistente);
+			
+			request.setAttribute("asistente", asis);*/
+
+			 ruta = "webs/MenuUsuario_VistaEventosPublico.jsp";
+			
+			
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + url);
+		}
+		
+		request.getRequestDispatcher(ruta).forward(request, response);	
+
+		
 	}
 
 	private void listarEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

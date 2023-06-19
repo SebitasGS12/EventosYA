@@ -126,6 +126,52 @@ public class MySQLOrganizadorDAO implements OrganizadorDAO {
 		return rs;
 	}
 
+	@Override
+	public OrganizadorDTO buscarOrganizador(int codigo) {
+		// TODO Auto-generated method stub
+		OrganizadorDTO p = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idOrganizador, idUsuario, idEvento from organizador where idOrganizador =  ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, codigo);
+
+			
+			rs=pst.executeQuery();	
+			
+			while (rs.next()) {
+				 
+				  p= new OrganizadorDTO(
+					rs.getInt(1),
+					rs.getInt(2),
+					rs.getInt(3));
+			}
+			
+
+
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Organizador > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		
+		return p;
+	}
+
 	
 	
 }
