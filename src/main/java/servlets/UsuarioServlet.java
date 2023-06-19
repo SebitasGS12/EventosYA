@@ -64,7 +64,14 @@ public class UsuarioServlet extends HttpServlet {
 		case"log":
 					validarUsuario(request,response); 
 					break;
+		case"actUsu":
+			       actualizarUsuario(request,response); 
+			       break;
 					
+		case"modContra":
+		       modificarContrasenia(request,response); 
+		       break;
+				
 		case"salir":
 				salir(request,response); 
 				break;
@@ -81,6 +88,86 @@ public class UsuarioServlet extends HttpServlet {
 	}
 
 
+//Humberto
+	private void modificarContrasenia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
+		//variables
+		String mensaje="";
+		String url;
+		
+		//Entradas
+		int codigo=  Integer.parseInt(request.getParameter("txtcodigo"));
+		String contra= request.getParameter("txtcontra");
+		String nuevacontra= request.getParameter("txtnuecontra");
+		
+		
+		System.out.println("codigo "+codigo);
+		System.out.println("contra"+contra);
+		System.out.println("nuevacontra "+nuevacontra);
+		System.out.println("confirmarcontra "+nuevacontra);
+
+		//Obtenemos la fabrica DAO 
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		UsuarioDAO dao = fabrica.getUsuarioDAO();
+
+		//Contructor con  parámetros
+		UsuarioDTO m = new UsuarioDTO(codigo,nuevacontra); 
+	  
+		//Procesos
+		int ok=dao.ModificarContrasenia(m);
+		
+		if(ok==0) {
+			mensaje+=" <script> alert('"+" Error al actualizar" +"') </script>";
+			url="webs/MenuUsuario_Config_Contra.jsp";
+		}else {
+			mensaje+=" <script> alert('"+"Actualización correcta  "+codigo+" OKEY" +"') </script>";
+			url = "webs/Menu_IniciarSesion.jsp";	
+		}
+		
+		request.setAttribute("mensaje", mensaje);
+		request.getRequestDispatcher(url).forward(request, response);	
+		
+	}
+
+	private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
+	//Humberto 
+		//variables
+		String mensaje="";
+		String url;
+		
+		//Entradas
+		int codigo=  Integer.parseInt(request.getParameter("txtid"));
+		String nombre= request.getParameter("txtnom");
+		String nombreUsu= request.getParameter("txtnusu");
+		String correoUsu= request.getParameter("txtcorr");
+		
+		
+		System.out.println("codigo "+codigo);
+		System.out.println("nombre "+nombre);
+		System.out.println("nombreUsu "+nombreUsu);
+		System.out.println("correoUsu "+correoUsu);
+
+		//Obtenemos la fabrica DAO 
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		UsuarioDAO dao = fabrica.getUsuarioDAO();
+
+		//Contructor con  parámetros
+		UsuarioDTO a = new UsuarioDTO(codigo,nombreUsu,correoUsu); 
+	  
+		//Procesos
+		int ok=dao.actualizarUsuario(a);
+		
+		if(ok==0) {
+			mensaje+=" <script> alert('"+" Error al actualizar" +"') </script>";
+		    url="webs/MenuUsuario_Config_Contra.jsp";
+		}else {
+			mensaje+=" <script> alert('"+"Actualización correcta  "+nombreUsu+" OKEY" +"') </script>";
+			url = "webs/Menu_IniciarSesion.jsp";	
+		    
+		}
+		
+		request.setAttribute("mensaje", mensaje);
+		request.getRequestDispatcher(url).forward(request, response);	
+	}
 
 	private void salir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -138,11 +225,6 @@ public class UsuarioServlet extends HttpServlet {
 		
 		//Salida a la pagina principal
 		request.getRequestDispatcher(url).forward(request, response);
-		
-		
-		
-		
-		
 	}
 
 	private void registrarUsurio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

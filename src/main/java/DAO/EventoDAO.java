@@ -19,4 +19,6 @@ public interface EventoDAO {
 	
 	
 	public String ConvertirIMG(InputStream imagenInputStream);
+
+
 }

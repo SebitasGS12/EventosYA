@@ -11,7 +11,11 @@ public class MysqlConector{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/eventosya"; 
 			String usr = "root";
+<<<<<<< HEAD
 			String psw = "admi01";
+=======
+			String psw = "mysql";
+>>>>>>> branch 'main' of https://github.com/SebitasGS12/EventosYa
 			con = DriverManager.getConnection(url, usr, psw);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Error >> Driver no Instalado!! " + ex.getMessage());

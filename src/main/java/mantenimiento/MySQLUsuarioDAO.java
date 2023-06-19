@@ -103,4 +103,75 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		return u;
 	}
 
+	
+	
+	//Actualizar  Nombre
+	//Para actualizar el nombre usuario
+	@Override
+	public int actualizarUsuario(UsuarioDTO a) {
+		int rso=0;
+		Connection cone= null;
+		PreparedStatement prst=null;
+		
+		try {
+			cone=MysqlConector.getConexion();
+			String sql="update  Usuarios  set nombreUsu=?, correoUsu=? where idUsuario=?";
+			prst=cone.prepareStatement(sql);
+			
+			//Parametrizar en el orden de los signos de ?  inicia en 1
+			
+			prst.setString(1, a.getNombreUsu());
+			prst.setString(2, a.getCorreoUsu());
+			prst.setInt(3, a.getIdUsuario());
+			 
+			//Para Ejecutarlo
+			rso=prst.executeUpdate();	
+			
+		} catch (Exception e) {
+		  System.out.println("Error en la sentencia "+e.getMessage());
+		}finally{
+			try {
+				if(prst!=null)prst.close();
+				if(cone!=null)cone.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}	
+		}
+		
+		return rso;
+	}
+	
+	@Override
+	public int ModificarContrasenia(UsuarioDTO m) {
+		int rso=0;
+		Connection cone= null;
+		PreparedStatement prst=null;
+		
+		try {
+			cone=MysqlConector.getConexion();
+			String sql="update  Usuarios  set contraseñaUsu=? where idUsuario=?";
+			prst=cone.prepareStatement(sql);
+			
+			//Parametrizar en el orden de los signos de ?  inicia en 1
+			
+			prst.setString(1, m.getContraseniaUsu());
+			prst.setInt(2, m.getIdUsuario());
+			 
+			//Para Ejecutarlo
+			rso=prst.executeUpdate();	
+			
+		} catch (Exception e) {
+		  System.out.println("Error en la sentencia "+e.getMessage());
+		}finally{
+			try {
+				if(prst!=null)prst.close();
+				if(cone!=null)cone.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}	
+		}
+		
+		return rso;
+	}
+	
 }
