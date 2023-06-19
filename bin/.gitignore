@@ -1,2 +1,8 @@
 /build/
-/bin/
+/.classpath
+/.gitignore
+/.project
+/.settings/
+/BaseDeDatos/
+/README.md
+/src/
