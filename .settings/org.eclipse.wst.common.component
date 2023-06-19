@@ -3,6 +3,7 @@
     <wb-module deploy-name="EventosYa">
                 
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
                 
         <property name="context-root" value="EventosYa"/>
                 
