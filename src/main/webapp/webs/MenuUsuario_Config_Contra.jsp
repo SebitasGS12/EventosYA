@@ -177,6 +177,43 @@ pageEncoding="ISO-8859-1"%>
         color: #262525;
     }
 
+  .Id{
+            flex-direction: column;
+            height: auto;
+            width: 80%;
+
+            flex-direction: row;
+            justify-content: space-evenly;
+            display: flex;
+            margin-left: 60px;
+            margin-top: -10px;
+            margin-bottom : 20px;
+        }
+
+        .Id label{
+          width: 50%;
+         
+          height: 40px;
+          margin-left: -100px;
+          margin-top: 26px;
+          text-align: left;
+          color: white;
+          font-size: 20px;
+          padding-top: 4px;
+          padding-left:100px;
+          
+         
+
+        }
+        .Id input{
+          width: 46%;
+          
+          height: 40px;
+          margin-left: -320px;
+        
+          margin-top: 15px;
+          
+        }
 
     
 
@@ -200,21 +237,24 @@ pageEncoding="ISO-8859-1"%>
 <div class="article_pa">
     <div class="formu">
         <h2 class="modcont">Modificar Contraseña</h2>
-        <form method="post">
+        <form method="post" action="${pageContext.request.contextPath}/usuario">
+        <div class="Id">
+		         <label>Id</label>
+		         <input type="text" name="txtcodigo" placeholder="Inserte Id" required="required">
+		    </div>
             <div class="contra">
                 <label>Contraseña</label>
-                <input type="text" name="con" placeholder="Escriba la contraseña">
+                <input type="text" name="txtcontra" placeholder="Escriba la contraseña" required="required">
             </div>
             <div class="nuecontra">
              <label>Nueva Contraseña</label>
-             <input  type="text" name="nuecon" placeholder="Digite nueva contraseña">
-
+             <input  type="text" name="txtnuecontra" placeholder="Digite nueva contraseña" required="required">
             </div>
             <div class="confcontra">
              <label>Confirmar Contraseña</label>
-             <input   type="text" name="ubicacion" placeholder="Confirme nueva Contraseña">
+             <input   type="text" name="txtnuecontra" placeholder="Confirme nueva Contraseña" required="required">
             </div>
-        <input class="confcamb" type="submit"value="Confirmar cambio">
+        <input class="confcamb" type="submit"value="modContra" name='opcion'>
         </form>
         
       </div>

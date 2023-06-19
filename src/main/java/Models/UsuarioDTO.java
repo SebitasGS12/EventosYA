@@ -23,6 +23,18 @@ public class UsuarioDTO {
 	public UsuarioDTO() {
 	}
 
+//Humberto
+	public UsuarioDTO(int codigo, String nombreUsu, String correoUsu) {
+		this.idUsuario = codigo;
+		this.nombreUsu = nombreUsu;
+		this.correoUsu = correoUsu;
+	}
+	public UsuarioDTO(int codigo, String contraseñaUsu) {
+		this.idUsuario = codigo;
+		this.contraseniaUsu = contraseñaUsu;
+	}
+
+
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -73,6 +85,9 @@ public class UsuarioDTO {
 	public void setGeneroUsu(String generoUsu) {
 		this.generoUsu = generoUsu;
 	}
+
+
+
 	
 	
 }
