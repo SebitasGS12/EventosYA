@@ -34,4 +34,14 @@
     <servlet-name>AsistenteServlet</servlet-name>
     <url-pattern>/AsistenteServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ComentarioServlet</display-name>
+    <servlet-name>ComentarioServlet</servlet-name>
+    <servlet-class>servlets.ComentarioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ComentarioServlet</servlet-name>
+    <url-pattern>/ComentarioServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

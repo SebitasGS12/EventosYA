@@ -47,22 +47,22 @@ public class AsistenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				String opcion =request.getParameter("opcion");
-				System.out.println(" opcion -->" +opcion);
-				 
-				switch (opcion) {
+		String opcion =request.getParameter("opcion");
+		System.out.println(" opcion -->" +opcion);
+		 
+		switch (opcion) {
 
-				
-				case "reg":  
-							registrarAsistencia(request,response); 
-							break;
-				case "del":  
-					eliminarAsistencia(request,response); 
-					break;
-				default:
-					throw new IllegalArgumentException("Unexpected value: " + opcion);
-				}
 		
+		case "reg":  
+					registrarAsistencia(request,response); 
+					break;
+		case "del":  
+			eliminarAsistencia(request,response); 
+			break;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + opcion);
+		}
+
 		
 		
 	}
