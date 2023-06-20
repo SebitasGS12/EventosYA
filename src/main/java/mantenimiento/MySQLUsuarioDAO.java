@@ -1,5 +1,8 @@
 package mantenimiento;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +24,7 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		try {
 			con = MysqlConector.getConexion();
-			String sql = " insert into Usuarios values (null,?,?,?,?,?,?,?) ";
+			String sql = " insert into Usuarios values (null,?,?,?,?,?,?,?,?) ";
 			pst = con.prepareStatement(sql);
 			
 			pst.setString(1, u.getNombreUsu());
@@ -31,6 +34,7 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 			pst.setString(5, u.getPaisUsu());
 			pst.setString(6, u.getCiudadUsu());
 			pst.setString(7, u.getGeneroUsu());
+			pst.setBlob(8, u.getImagenUsuario());
 			
 			rs =pst.executeUpdate();
 			
@@ -185,7 +189,7 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		try {
 			con = MysqlConector.getConexion();
-			String sql = " select idUsuario, nombreUsu, apellidoUsu, correoUsu, contraseñaUsu, paisUsu, ciudadUsu, generoUsu from usuarios where idUsuario =  ? ";
+			String sql = " select idUsuario, nombreUsu, apellidoUsu, correoUsu, contraseñaUsu, paisUsu, ciudadUsu, generoUsu ,imagenUsu from usuarios where idUsuario =  ? ";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, codigo);
 
@@ -202,7 +206,8 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 					rs.getString(5),
 					rs.getString(6),
 					rs.getString(7),
-					rs.getString(8));
+					rs.getString(8),
+					rs.getBinaryStream(9));
 
 			}
 			
@@ -225,6 +230,50 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		
 		return p;
+	}
+
+	@Override
+	public String ConvertirIMG(InputStream imagenInputStream) {
+		
+		String imagenBase64= "";
+		
+		 if(imagenInputStream != null){
+			 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			 byte[] buffer = new byte[4096];
+			 int bytesRead;
+			 try {
+				while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
+				     byteArrayOutputStream.write(buffer, 0, bytesRead);
+				 }
+				 byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+				 
+				 // Convertir los bytes de la imagen a una cadena Base64
+				 imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
+				 
+				 // Cerrar el InputStream y el ByteArrayOutputStream
+				 imagenInputStream.close();
+				 byteArrayOutputStream.close();
+				 
+				 if (imagenBase64.equals("data:image/jpeg;base64,")) {
+					 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+				 }
+				 
+				 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+		 }else {
+			 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+			 
+			 
+		 }
+		 
+		 
+		 
+		 return imagenBase64;
 	}
 	
 }

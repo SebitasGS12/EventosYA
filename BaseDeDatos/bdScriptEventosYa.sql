@@ -39,6 +39,10 @@ create table Evento(
     Constraint fkIdCategoria foreign key (idCategoria) references Categoria(idCategoria)
 )auto_increment = 1000;
 
+ALTER TABLE `eventosya`.`evento` 
+CHANGE COLUMN `ubicacionEvento` `ubicacionEvento` VARCHAR(500) NULL DEFAULT NULL ;
+
+
 create table Asistente(
 	idAsistente int primary key auto_increment,
 	idUsuario int,

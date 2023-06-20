@@ -116,6 +116,8 @@
   </script>
 </head>
 <body>
+<%String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg=""; %>
 <%@include file="../comun/header_normal.jsp" %>	
   <main>
       <div class="container">

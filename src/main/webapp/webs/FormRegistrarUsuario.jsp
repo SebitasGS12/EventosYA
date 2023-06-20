@@ -38,6 +38,9 @@
     }
 
     .container {
+    	display:flex;
+    	flex-direction:row-reverse;
+    	justify-content:space-around;
       padding: 20px;
     }
 
@@ -98,6 +101,10 @@
       /* Espacio entre los rect√°ngulos */
     }
 
+    .input-container input{
+    
+    	width: 100%;
+    }
     .checkbox-container {
       display: flex;
       align-items: center;
@@ -140,12 +147,22 @@
       outline: none;
       background-color: #000b33;
     }
-
+	form{
+		flex-direction:column;
+		height: 60%;
+	}
+    
+    
     .form-container {
-      float: left;
-      width: 50%;
-      padding-right: 20px;
+	    display: flex;
+	    padding: 0 20px;
+	    margin: 10px;
+	    align-items: flex-start;
+	    justify-content: center;
+      
+     
     }
+    
 
     .image-container {
       float: right;
@@ -161,6 +178,22 @@
       text-align: center;
     }
     
+
+        
+        
+        .flayer{
+			display: none;
+        }
+        #preview{
+        	margin: auto 5px;
+        }
+        
+        #preview:hover{
+        	cursor: pointer;
+        
+        }
+
+    
     
 
   </style>
@@ -169,28 +202,33 @@
 	<script src="../comun/ciudades.js" >
 		 cargarCiudades();
 	</script>
-  <section>
-    <div class="header">
+	
+	
+	<div class="header">
       <img src="../imgs/logoRegistro.jpg" alt="logo">
       <h1 style="color: black;">REGISTRAR USUARIO</h1>
     </div>
-
-    <div class="container">
-      <div class="button-container centered-button">
+    <div class="container"> 
+    
+    <div class="button-container centered-button">
         <a href="Menu_inicio.jsp" class="button">REGRESAR INICIO</a>
-      </div>
-
-      <div class="button-container">
-        <p class="welcome-text" style="margin-left: 20px;">BIENVENIDO A: <span>ENTRADAS YA</span></p>
-      </div>
-      
-      
-      
-      
-      <form action="${pageContext.request.contextPath}/usuario" method="post">
-	     <div class="form-container">
+     </div>
+     <div class="button-container">
+	        <p class="welcome-text" style="margin-left: 20px;">BIENVENIDO A: <span>ENTRADAS YA</span></p>
+	</div>
+	  
+    </div>
+	  <form action="${pageContext.request.contextPath}/usuario" method="post">
+	  
+	  <div class="form-container">
+ 	 <section>
+	      
+	      
+	     
 	       <div class="input-container">
 	         <input type="text" name="txtNombre" placeholder="NOMBRES" required="required">
+	       </div>
+	       	<div class="input-container">
 	         <input type="text" name="txtApellidos" placeholder="APELLIDOS" required="required">
 	       </div>
 	
@@ -226,11 +264,19 @@
 	           	}%>	
 
 	         </select>
-	         <select name="ciudad" id="selectCiudades" >
-	         </select>
+
 
 	         
 	       </div>
+	        <div class="input-container">
+	        
+	        <select name="ciudad" id="selectCiudades" >
+
+	         </select>
+	        	
+	        
+	         </div>
+	       
 	
 	       <div class="input-container">
 	         <select name="genero">
@@ -246,17 +292,33 @@
 	         <label for="terms-checkbox">HE LEIçDO LOS TEâRMINOS Y CONDICIONES</label>
 	       </div>
 
-	       <div class="create-account-button">
-				<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
-	       </div>
-	     </div>
-      </form>
-      </div>
+
+	    
+      
   </section>
+ 
 
 	<section>
-	  <img src="../imgs/RegistrarUsuarioImg.jpg" alt="Imagen">
+		
+		<br />
+			<h2>Imagen de Evento</h2>
+			<br />
+			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
+			<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/RegistrarUsuarioImg.jpg"></label>
+			<h3>Medidas 400x300</h3>
+		<br />
+	
 	</section>
+	
+	 </div>
+	   <div class="create-account-button">
+			<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
+       </div>
+       
+   
+   </form>
+   
+   
 <%@include file="../comun/footer.jsp" %>
 
 </body>
