@@ -28,13 +28,14 @@ import DAO.UsuarioDAO;
 @WebServlet(name="usuario", urlPatterns = {"/usuario"})
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static UsuarioDTO user = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
+
     }
 
 	/**
@@ -67,6 +68,9 @@ public class UsuarioServlet extends HttpServlet {
 		case"actUsu":
 			       actualizarUsuario(request,response); 
 			       break;
+		case"link":
+		       irAPagina(request,response); 
+		       break;	      
 					
 		case"modContra":
 		       modificarContrasenia(request,response); 
@@ -88,7 +92,37 @@ public class UsuarioServlet extends HttpServlet {
 	}
 
 
-//Humberto
+private void irAPagina(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+
+		String ruta = request.getParameter("val");
+		String url = "";
+		UsuarioDTO usuario = user;
+		
+		switch (ruta) {
+		case "irMenu": {
+			url = "webs/MenuUsuario_Menu.jsp";
+			break;
+		}
+		case "irEdit": {
+			url = "webs/MenuUsuario_AdminEventos.jsp";
+			break;
+		}
+		case "irConfig": {
+			url="webs/MenuUsuario_Config_Contra.jsp";
+			break;
+		}
+		
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + ruta);
+		}
+		request.getSession().setAttribute("datousu", usuario);	
+
+		request.getRequestDispatcher(url).forward(request, response);	
+
+	}
+
+	//Humberto
 	private void modificarContrasenia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
 		//variables
 		String mensaje="";
@@ -194,7 +228,7 @@ public class UsuarioServlet extends HttpServlet {
 		//Proceso
 		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		UsuarioDTO u = fabrica.getUsuarioDAO().validar(usuario, clave);
-		
+		user = u;
 		
 		
 		if (u!=null) {
@@ -207,7 +241,7 @@ public class UsuarioServlet extends HttpServlet {
 			System.out.println("Duracion ---" + miSession.getMaxInactiveInterval() );
 			
 			ServletContext serverContext = getServletContext();
-			serverContext.setAttribute("datousuario", u);
+			serverContext.setAttribute("datousu", u);
 			
 			request.getSession().setAttribute("mensaje", mensaje);
 			request.getSession().setAttribute("datousu", u);	
@@ -244,7 +278,7 @@ public class UsuarioServlet extends HttpServlet {
 
 		
 		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero);
-		
+		user = u;
 		
 		//Obtenemos la fabrica DAO 
 	    DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);

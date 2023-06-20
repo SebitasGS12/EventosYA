@@ -5,6 +5,8 @@
 <%@page import="Models.AsistenteDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
+<%@page import="DAO.AsistenteDAO"%>
+<%@page import="jakarta.servlet.ServletContext"%>
 <%@page import="Models.OrganizadorDTO"%>
 <%@page import="java.io.InputStream" %>
 
@@ -80,10 +82,33 @@
         padding: 6px 12px;
         border-radius: 3px;
         cursor: pointer;
+        position: relative;
+  		display: inline-block;
         font-size: 0.8em;
         align-self: center;
         margin-top: 10px;
     }
+    
+    .event-button .ayuda {
+	  visibility: hidden;
+	  width: 120px;
+	  background-color: #333;
+	  color: #fff;
+	  text-align: center;
+	  border-radius: 6px;
+	  padding: 5px;
+	  position: absolute;
+	  z-index: 1;
+	  bottom: 125%;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  /* Otros estilos para el tooltip */
+	}
+	
+	.event-button:hover .ayuda {
+  		visibility: visible;
+	}
+	
 
     .event-details {
         text-align: center;
@@ -139,23 +164,34 @@
     .comments-container button {
         margin-left: 10px;
     }
+    
+    .red{
+    	background-color: red;
+    }
+    .green{
+    	
+    	background-color: green;
+    }
 </style>
 </head>
 <body>
 <%
 
-/*Por mientras deberia llamar desde Asistente dto*/
 
-AsistenteDTO asis = (AsistenteDTO) request.getAttribute("asistente");
 
-int idorg =asis.getIdAsistente();
+OrganizadorDTO datosEvento = (OrganizadorDTO) request.getAttribute("organizador");
+int idUsuarioPersona = (int) request.getAttribute("usuario");
+int idOrganizador =datosEvento.getIdOrganizador();
 
 //Creacion de datos del evento y usuario
 
 DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
-EventoDTO evento = fabrica.getEventoDAO().buscarEvento(asis.getIdEvento());
+EventoDTO eventoOrganizador = fabrica.getEventoDAO().buscarEvento(datosEvento.getIdEvento());
 
-UsuarioDTO user = fabrica.getUsuarioDAO().buscarUsuario(asis.getIdUsuario());
+UsuarioDTO userOrganizador = fabrica.getUsuarioDAO().buscarUsuario(datosEvento.getIdUsuario());
+
+
+
 
 
 String msg = (String) request.getAttribute("mensaje");
@@ -174,7 +210,7 @@ if (msg==null) msg="";
 			DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 
 			
-            InputStream imagenInputStream = evento.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+            InputStream imagenInputStream = eventoOrganizador.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
             
             String imagenBase64 = fabric.getEventoDAO().ConvertirIMG(imagenInputStream);
 
@@ -187,33 +223,44 @@ if (msg==null) msg="";
     <div class="event-details" style="text-align: center;width:30% ;align-self: center;font-size: 1.2em; ">
     
     	<div class="event-flex-detalles" style="">
-		    <p class="event-name"><%=evento.getNombreEvento() %></p>
-		    <p class="event-info">Fecha de Inicio: <span> <%=evento.getFechaIncio() %></span></p>
-		    <p class="event-info">Fecha Fin: <span> <%=evento.getFechaFin() %></span></p>
+		    <p class="event-name"><%=eventoOrganizador.getNombreEvento() %></p>
+		    <p class="event-info">Fecha de Inicio: <span> <%=eventoOrganizador.getFechaIncio() %></span></p>
+		    <p class="event-info">Fecha Fin: <span> <%=eventoOrganizador.getFechaFin() %></span></p>
 		    
 		    <% 
-		    CategoriaDTO categoria = fabric.getCategoriaDAO().buscarCategoria(evento.getIdCategoria());
+		    CategoriaDTO categoria = fabric.getCategoriaDAO().buscarCategoria(eventoOrganizador.getIdCategoria());
 		    
 		    %>
 		    <p class="event-info">Categoría: <span> <%=categoria.getNombreCategoria() %></span></p>
     	</div>
     	<br />	
     	<form action="asistente" method="post" >
-    	
-    		<div >
     		
-	    		<input type="text" name="idUser" value="<%=user.getIdUsuario()%>">
-	    		<input type="text" name="cod" value="<%=idorg%>">
-	    		<input type="text" name="idEvento" value="<%=evento.getIdEvento()%>">
+    		<div style="display: none" >
+    		
+	    		<input type="text" name="org" value="<%=idOrganizador%>">
+	    		<input type="text" name="idPersona" value="<%=idUsuarioPersona%>">
+	    		<input type="text" name="idEvento" value="<%=eventoOrganizador.getIdEvento()%>">
 
     		</div>
-    		
-    		<% %>
-			<button type="submit" class="event-button event-button-centered" name="opcion" value="reg" >Asistiré!</button>
+    		<div class="form-buttons" >
+    		<%
+    			AsistenteDAO AsisDAO = fabric.getAsistenteDAO();
+    			if( AsisDAO.validarAsistencia(idUsuarioPersona, eventoOrganizador.getIdEvento()) == null){%>
+    				
+    				<!-- Asistencia no existe   -->		
+					<button type="submit" class="event-button event-button-centered green" name="opcion" value="reg" >Asistiré! <span class="ayuda">No estas Asistiendo</span> </button>
+    			<%}else{%>
+    				
+    				<!-- Asistencia existe   -->		
+					<button type="submit" class="event-button event-button-centered red" name="opcion" value="del" >Cancelar Asistencia <span class="ayuda">Ya estas Asistiendo</span></button>
+    			<%}
+    		%>
+    		</div>
     	</form>
-    	
+    	<br />
        	
-       	<a style="text-decoration: none;" class="event-button event-button-centered" href="webs/MenuUsuario_Menu.jsp" >Regresar A Menu Principal</a>
+       	<a style="text-decoration: none; margin-top: 10px;" class="event-button event-button-centered" href="usuario?opcion=link&val=irMenu" >Regresar A Menu Principal</a>
 	    
     
 	</div>
@@ -230,10 +277,10 @@ if (msg==null) msg="";
         </div>
         <div class="event-container" style="width: 75%; max-width: none;">
             <p class="event-name">Descripción del Evento</p>
-			<p><%=evento.getDescripcionEvento() %></p>
+			<p><%=eventoOrganizador.getDescripcionEvento() %></p>
             <p>Creador del Evento</p>
-            <p style="color: black;font-size: 1.2rem"><%=user.getNombreUsu()+""+ user.getApellidoUsu() %></p>
-            <p style="color: gray;font-size: 0.8rem"><%=user.getCorreoUsu() %></p>
+            <p style="color: black;font-size: 1.2rem"><%=userOrganizador.getNombreUsu()+""+ userOrganizador.getApellidoUsu() %></p>
+            <p style="color: gray;font-size: 0.8rem"><%=userOrganizador.getCorreoUsu() %></p>
             <img src="imgs/user_MenuUsuario.png" alt="usMen" style="width: 50px; height: 50px;">
         </div>
     </div>
@@ -242,17 +289,30 @@ if (msg==null) msg="";
 
     <div class="event-container" style="width: 60%; max-width: none; height: 400px; margin-top: 20px; width: 80%;">
         <div>
+        
             <p style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px; text-align: left;">1 comentario</p>
-            <div style="display: flex; align-items: center; justify-content: flex-end;">
+            
+            
+            <div style="display: flex; align-items: center; justify-content:center ;">
                 <img src="imgs/user_MenuUsuario.png" alt="usMen" style="width: 40px; height: 40px;">
-                <input type="text" placeholder="Escribe un comentario largo" style="margin-left: 10px; width: 400px; border: 1px solid gray; padding: 5px;">
-                <button style="background-color: gray; color: white; padding: 5px 10px; font-size: 1em; border: none;">Enviar</button>
+                
+                <form action="">                
+                
+	                <input type="text" placeholder="Escribe un comentario largo" style="margin-left: 10px; width: 400px; border: 1px solid gray; padding: 5px;">
+	                <button style="background-color: gray; color: white; padding: 5px 10px; font-size: 1em; border: none;">Enviar</button>
+                </form>
             </div>
+            
+            
+            
             <div style="background-color: darkgray; padding: 10px; margin-top: 10px;">
                 <img src="imgs/womanComentary_MenuUsuario.png" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
                 <span style="font-size: 1em;">@User12355</span>
                 <p style="font-size: 0.9em; margin-top: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
             </div>
+            
+            
+            
         </div>
     </div>
 </body>

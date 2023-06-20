@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
 
@@ -8,7 +9,6 @@
 <%@ page import="java.io.ByteArrayOutputStream" %>
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="Models.EventoDTO"%>
 <!DOCTYPE html>
 <html>
@@ -91,6 +91,12 @@
             width: 80%;
             margin-top: 20px;
         }
+        
+        .pec-1{
+        
+        	flex-wrap: nowrap;
+        	flex-direction: column;
+        }
         .item-evento{
         	display:flex;
         	flex-direction:row;
@@ -131,6 +137,8 @@ if (msg==null) msg="";
 
 UsuarioDTO user = (UsuarioDTO) request.getSession().getAttribute("datousu");
 
+
+int codigo = user.getIdUsuario();
 System.out.print(user.getIdUsuario());
 //aca es en general , pero solo debe de contar los eventos creados llamados desde la tabla Organizador
 DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
@@ -155,38 +163,73 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	            <input type="text" class="pag-search-input" placeholder="Buscar evento">
 	            <button class="pag-search-button">&#128269;</button>
 	        </div>
-	        <div class="pag-event-container" id="contenedor-eventos">
-	            <p align="center"> Aquí se mostrarán tus eventos pendientes</p>
+	        <div class="pag-event-container pec-1" id="contenedor-eventos1">
+	           
 	            
 	            <% 
-	            ArrayList<EventoDTO> listaAsistente = fabric.getEventoDAO().listarEvento();
-	           	if(listaAsistente != null){
-	           		for(EventoDTO p : listaAsistente){
-	           			
-	           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
-	           			
-	                    InputStream imagenInputStream = eve.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
-	                    
-	                    String imagenBase64 = fabric.getEventoDAO().ConvertirIMG(imagenInputStream);
-
-	                    
-	                   
-	           	%>
-	           	
-	           		<a href="${pageContext.request.contextPath}/evento?opcion=bus&user=<%=eve.getIdEvento() %>&url=ver" class="item-evento">
+	            ArrayList<AsistenteDTO> listaAsistente = fabric.getAsistenteDAO().listarAsistenciasDeUsuario(codigo);
+	           	if(listaAsistente != null){%>
 	           		
-	    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
-						<H3><%=eve.getNombreEvento() %></H3>
+	           		<%="<p align='center' style='font-weight: bold;' > Aquí se mostrarán tus eventos pendientes</p>"%>
+	           		<%
+	           		if(listaAsistente.size() == 0){%>
+	           			<%="<br /><p align='center'> No tienes Eventos Pendientes</p>"%>
+	           		<%
+	           		}else{
+	           			
+		           		for(AsistenteDTO p : listaAsistente){
+		           			
+		           			OrganizadorDTO org = fabric.getOrganizadorDAO().buscarOrganizadorPorEvento(p.getIdEvento());
+		           					
+		           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
+		                    InputStream imagenInputStream = eve.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+		                    String imagenBase64 = fabric.getEventoDAO().ConvertirIMG(imagenInputStream);
+		                    int usuario = codigo;
+		           	%>
+		           	
+		           		<a href="/EventosYa/evento?opcion=bus&org=<%=org.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>" class="item-evento">
 		           		
-	           		
-	           	
-	           		</a>
+		    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
+							<H3><%=eve.getNombreEvento() %></H3>
+		           	
+		           		</a>
 
-	           	<%
+		           	<%
+		           	}
 	           			
 	           		}
-	           		
-	           	}%>	
+	           	}
+	           	%>	
+	        </div>
+	        <div class="pag-event-container pec-2" id="contenedor-eventos ">
+	          <p align="center" style="font-weight: bold;"> Aquí se mostrarán los eventos agregados recientemente</p>
+	           
+	          	<%//Llamamos a los organizador ya que ellos tienen los idEvento y IdUsuario %>
+	        	<%ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOrganizador();
+		           	if(listaOrganizador != null){
+		           		
+		           		for(OrganizadorDTO p : listaOrganizador){
+		           			
+		           			EventoDTO eve = fabric.getEventoDAO().buscarEvento(p.getIdEvento());
+		           			
+		                    InputStream imagenInputStream = eve.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
+		                    
+		                    String imagenBase64 = fabric.getEventoDAO().ConvertirIMG(imagenInputStream);   
+		           	%>
+		           	
+		           		<a href="${pageContext.request.contextPath}/evento?opcion=bus&org=<%=p.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>" class="item-evento">
+		           		
+		    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
+							<H3><%=eve.getNombreEvento() %></H3>
+		           	
+		           		</a>
+	
+		           	<%
+		           			
+		           		}
+		           		
+		           	}%>	
+	        
 	        </div>
 	    </div>
 	    

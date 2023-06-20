@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import DAO.AsistenteDAO;
 import DAO.DAOFactory;
+import DAO.EventoDAO;
+import DAO.OrganizadorDAO;
 import Models.AsistenteDTO;
+import Models.UsuarioDTO;
 
 /**
  * Servlet implementation class AsistenteServlet
@@ -52,10 +56,62 @@ public class AsistenteServlet extends HttpServlet {
 				case "reg":  
 							registrarAsistencia(request,response); 
 							break;
+				case "del":  
+					eliminarAsistencia(request,response); 
+					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + opcion);
 				}
 		
+		
+		
+	}
+
+	private void eliminarAsistencia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String mensaje="";
+		String url;
+		int ok = 0;
+
+		
+		//Entradas
+		UsuarioDTO u  = (UsuarioDTO) request.getSession().getAttribute("datousu");
+		
+		
+		int idUsuario= u.getIdUsuario();
+		int idEvento = Integer.parseInt(request.getParameter("idEvento"));
+		int codOrg = Integer.parseInt(request.getParameter("org"));
+		
+		System.out.println(codOrg +" "+ idEvento +" "+idUsuario);
+		
+		String fechaActual =  LocalDateTime.now().toString();
+	  
+		
+		//Obtenemos la fabrica DAO 
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		AsistenteDAO daoAsis = fabrica.getAsistenteDAO();
+		
+		AsistenteDTO asistente = daoAsis.validarAsistencia(idUsuario, idEvento);
+		
+		//Procesos 
+		
+
+		ok =daoAsis.eliminarAsistencia(asistente.getIdAsistente());
+		
+		if(ok==0) {
+			mensaje+=" <script> alert('"+" Error al eliminar los datos" +"') </script>";
+			 
+		}else {
+			mensaje+=" <script> alert('"+"Eliminación de la Asistencia  "+ asistente.getIdAsistente() +" OK" +"') </script>";
+		 
+		}
+		
+		
+		
+		url = "evento?opcion=bus&org="+ codOrg +"&url=ver&usuario="+idUsuario+"";
+		
+		request.setAttribute("mensaje", mensaje);
+		request.getRequestDispatcher(url).forward(request, response);		 
+
 		
 		
 	}
@@ -66,11 +122,15 @@ public class AsistenteServlet extends HttpServlet {
 		String url = "";
 		int ok = 0;
 
+		UsuarioDTO u  = (UsuarioDTO) request.getSession().getAttribute("datousu");
 		
-		int idUsuario= Integer.parseInt(request.getParameter("idUser"));
+		
+		int idUsuario= u.getIdUsuario();
 		int idEvento = Integer.parseInt(request.getParameter("idEvento"));
-		int codOrg = Integer.parseInt(request.getParameter("cod"));
+		int codOrg = Integer.parseInt(request.getParameter("org"));
+		
 		System.out.println(codOrg +" "+ idEvento +" "+idUsuario);
+		
 		String fechaActual =  LocalDateTime.now().toString();
 		
 		AsistenteDTO asistente = new AsistenteDTO(idUsuario,idEvento,fechaActual);
@@ -93,8 +153,9 @@ public class AsistenteServlet extends HttpServlet {
 		
 		request.setAttribute("mensaje", mensaje);
 		
-		request.getRequestDispatcher("evento?opcion=bus&cod="+ codOrg +"&url=ver").forward(request, response);;
-		
+		url = "evento?opcion=bus&org="+ codOrg +"&url=ver&usuario="+idUsuario+"";
+		request.getRequestDispatcher(url).forward(request, response);;
+			
 	}
 
 }

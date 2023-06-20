@@ -48,20 +48,20 @@ public class MySQLAsistenteDAO implements AsistenteDAO {
 	}
 
 	@Override
-	public int eliminarAsistencia(AsistenteDTO a, EventoDTO e) {
+	public int eliminarAsistencia(int codigo) {
 
-		int rs=0;	/*
+		int rs=0;	
 		Connection con= null;
 		PreparedStatement pst=null;
 		try {
 		 
 			
 			con=MysqlConector.getConexion();
-			String sql=" delete from  evento   where idEvento=?  ";
+			String sql=" delete from  asistente   where idAsistente = ?  ";
 			pst=con.prepareStatement(sql);
 			//Parametrizar en el orden de los signos de ?  inicia en 1
 			pst.setInt(1,codigo);
-			//Ejecuci�n
+			//Ejecucion
 			rs=pst.executeUpdate();	
 		} catch (Exception e) {
 		  System.out.println("Error en la sentencia "+e.getMessage());
@@ -73,7 +73,7 @@ public class MySQLAsistenteDAO implements AsistenteDAO {
 				System.out.println("Error al cerrar "+e2.getMessage());
 			}	
 		}
-		*/
+		
 		return rs;
 	}
 
@@ -136,6 +136,57 @@ public class MySQLAsistenteDAO implements AsistenteDAO {
 			String sql = " select idAsistente, idUsuario, idEvento, fechaAsistencia from asistente where idAsistente = ? ";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, codigo);
+	
+			
+			rs=pst.executeQuery();	
+			
+			while (rs.next()) {
+				
+			
+				p = new AsistenteDTO();		
+				
+				p.setIdAsistente(rs.getInt(1)); 
+				p.setIdUsuario(rs.getInt(2)); 
+				p.setIdEvento(rs.getInt(3)); 
+				p.setFechaAsistencia(rs.getString(4)); 
+			
+				
+			}
+	
+	
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Asistente > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		
+		return p;
+	}
+
+	@Override
+	public AsistenteDTO validarAsistencia(int idUsuario, int idEvento) {
+		// TODO Auto-generated method stub
+		AsistenteDTO p = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idAsistente, idUsuario, idEvento, fechaAsistencia from asistente where idUsuario = ? and idEvento = ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, idUsuario);
+			pst.setInt(2, idEvento);
 	
 			
 			rs=pst.executeQuery();	

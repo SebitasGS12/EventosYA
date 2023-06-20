@@ -240,14 +240,16 @@ public class EventoServlet extends HttpServlet {
 			
 			break;
 		}
-		case "ver": { //Ver evento cargado por su Asistencia
-			/*
-			int idAsistente = Integer.parseInt(request.getParameter("cod"));
+		case "ver": { //Ver y Cargar evento 
+			
+			int idOrganizador = Integer.parseInt(request.getParameter("org"));
+			int idUsuarioPersona = Integer.parseInt(request.getParameter("usuario"));
 
 			
-			AsistenteDTO asis = fabrica.getAsistenteDAO().buscarAsistente(idAsistente);
+			OrganizadorDTO org = fabrica.getOrganizadorDAO().buscarOrganizador(idOrganizador);
 			
-			request.setAttribute("asistente", asis);*/
+			request.setAttribute("organizador",org);
+			request.setAttribute("usuario",idUsuarioPersona);
 
 			 ruta = "webs/MenuUsuario_VistaEventosPublico.jsp";
 			

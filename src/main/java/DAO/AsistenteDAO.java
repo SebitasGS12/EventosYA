@@ -10,9 +10,10 @@ public interface AsistenteDAO {
 	
 	public int registrarAsistencia(AsistenteDTO a);
 	
-	public int eliminarAsistencia(AsistenteDTO a,EventoDTO e);
-	
 	public ArrayList<AsistenteDTO>  listarAsistenciasDeUsuario(int codigo);
 	public AsistenteDTO  buscarAsistente(int codigo);
 	
+	public AsistenteDTO validarAsistencia(int idUsuario,int idEvento);
+
+	public int eliminarAsistencia(int codigo);
 }

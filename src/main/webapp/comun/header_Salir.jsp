@@ -64,7 +64,7 @@
 <div class="header">
     <h1>
       
-      <a href="usuario?opcion=salir">
+      <a href="../usuario?opcion=salir">
       	<img src="imgs/logo.jpg" alt="logo">EventosYa
       	</a>
     </h1>
