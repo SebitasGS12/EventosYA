@@ -14,6 +14,12 @@ create table Usuarios(
     generoUsu varchar(10)
 )auto_increment = 0;
 
+ALTER TABLE `eventosya`.`usuarios` 
+ADD COLUMN `imagenUsu` LONGBLOB NULL AFTER `generoUsu`,
+CHANGE COLUMN `correoUsu` `correoUsu` VARCHAR(100) NOT NULL ,
+CHANGE COLUMN `contraseñaUsu` `contraseñaUsu` VARCHAR(100) NOT NULL ;
+
+
 create table Categoria(
 	idCategoria int auto_increment primary key,
     nombreCategoria varchar(20),
@@ -63,8 +69,14 @@ CREATE TABLE Comentario (
 
 ALTER TABLE evento MODIFY COLUMN imagenEvento LONGBLOB;
 
+
+
 insert into categoria values (null,"Popular","Evento Popular ");
 insert into categoria values (null,"Cultural","Evento Cultural ");
 insert into categoria values (null,"Urbano","Evento Urbano ");
 insert into categoria values (null,"Privado","Evento Privado ");
+
+
+
+
  select idEvento, nombreEvento,descripcionEvento,ubicacionEvento,imagenEvento,fechaInicio,fechaFin,idCategoria from evento  
