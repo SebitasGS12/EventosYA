@@ -1,7 +1,6 @@
 create database EventosYa;
 use EventosYa;
 
-
 #Entidades y tablas
 create table Usuarios(
 	idUsuario int primary key auto_increment ,
