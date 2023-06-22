@@ -117,6 +117,10 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		case "irConfig": {
 			url="webs/MenuUsuario_Config_Contra.jsp";
 			break;
+			
+		}case "irConfirm" :{
+			url="webs/ConfirmarRegistro.jsp";
+			break;
 		}
 		
 		default:
@@ -269,7 +273,7 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
-	private void registrarUsurio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void registrarUsurio(HttpServletRequest request, HttpServletResponse response)  throws IOException, ServletException {
 		
 		//variables
 		String mensaje="";
@@ -285,7 +289,6 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		String genero= request.getParameter("genero");
 		Part archivoImagen = request.getPart("txtImagen");
 		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
-		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 
 		
 		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero,imagen);
@@ -310,12 +313,12 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 			url="webs/Menu_inicio.jsp";
 		}else {
 			mensaje+=" <script> alert('"+"Registro del usuario <strong>"+nombre+"</strong> OK, ingrese al sistema" +"') </script>";
-			url="webs/ConfirmarRegistro.jsp";
+			url="usuario?opcion=link&val=irConfirm";
 		}
 		
 		request.setAttribute("mensaje", mensaje);
 		
-		request.setAttribute("usuario", u);
+		request.getSession().setAttribute("datousu", u);	
 		request.getRequestDispatcher(url).forward(request, response);
 
 		

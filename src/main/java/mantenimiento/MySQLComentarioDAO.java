@@ -10,7 +10,7 @@ import Coneccion.MysqlConector;
 import DAO.ComentarioDAO;
 import Models.ComentarioDTO;
 
-public class MySqlComentarioDAO implements ComentarioDAO{
+public class MySQLComentarioDAO implements ComentarioDAO{
 	
 	public int registrar(ComentarioDTO com) {
 		int rs = 0;
@@ -18,17 +18,17 @@ public class MySqlComentarioDAO implements ComentarioDAO{
 		Connection con = null;
 		try {
 			con = MysqlConector.getConexion();
-			String sql = "insert into comentario values (null,default,default,?,?)";
+			String sql = "insert into comentario values (null,?,?,?,?)";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, com.getIdEvento());
-			pst.setInt(2, com.getIdAsistente());
+			pst.setInt(2, com.getIdUsuario());
 			pst.setString(3, com.getContenido());
 			pst.setString(4, com.getFechaHora());
 			
 			rs =pst.executeUpdate();
 		} catch (Exception e) {
 			
-			  System.out.println("Error al agregar Evento -> en la sentencia "+e.getMessage());
+			  System.out.println("Error al agregar Comentario -> en la sentencia "+e.getMessage());
 		}finally {
 			try {
 				if(pst!=null)pst.close();
@@ -57,7 +57,7 @@ public class MySqlComentarioDAO implements ComentarioDAO{
 			rs =pst.executeUpdate();
 		} catch (Exception e) {
 			
-			  System.out.println("Error al actualizar Evento -> en la sentencia "+e.getMessage());
+			  System.out.println("Error al actualizar Comentario -> en la sentencia "+e.getMessage());
 		}finally {
 			try {
 				if(pst!=null)pst.close();
@@ -103,17 +103,17 @@ public class MySqlComentarioDAO implements ComentarioDAO{
 
 	    try {
 	        con = MysqlConector.getConexion();
-	        String sql = "SELECT idComentario, idEvento, idAsistente, Contenido, fechaHora FROM comentario";
+	        String sql = "SELECT idComentario, idEvento, idUsuario, Contenido, fechaHora FROM comentario";
 	        pst = con.prepareStatement(sql);
 	        rs = pst.executeQuery();
 
 	        while (rs.next()) {
 	            ComentarioDTO com = new ComentarioDTO();
-	            com.setIdComentario(rs.getInt("idComentario"));
-	            com.setIdEvento(rs.getInt("idEvento"));
-	            com.setIdAsistente(rs.getInt("idAsistente"));
-	            com.setContenido(rs.getString("Contenido"));
-	            com.setFechaHora(rs.getDate("fechaHora").toString());
+	            com.setIdComentario(rs.getInt(1));
+	            com.setIdEvento(rs.getInt(2));
+	            com.setIdUsuario(rs.getInt(3));
+	            com.setContenido(rs.getString(4));
+	            com.setFechaHora(rs.getDate(5).toString());
 
 	            lista.add(com);
 	        }

@@ -165,7 +165,7 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	        </div>
 	        <div class="pag-event-container pec-1" id="contenedor-eventos1">
 	           
-	            
+
 	            <% 
 	            ArrayList<AsistenteDTO> listaAsistente = fabric.getAsistenteDAO().listarAsistenciasDeUsuario(codigo);
 	           	if(listaAsistente != null){%>
@@ -220,7 +220,7 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		           		<a href="${pageContext.request.contextPath}/evento?opcion=bus&org=<%=p.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>" class="item-evento">
 		           		
 		    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
-							<H3><%=eve.getNombreEvento() %></H3>
+							<h3><%=eve.getNombreEvento() %></h3>
 		           	
 		           		</a>
 	

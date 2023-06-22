@@ -88,9 +88,8 @@
 <body>
 <% String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";%>
-<% UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");%>
+<% UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");%>
 
-<%System.out.println(usuario.getImagenUsuario()); %>
 <%=msg %>
 <div class="container">
     <header class="cabecera">  
@@ -103,19 +102,7 @@ if (msg==null) msg="";%>
       <div class="cuadro">
         <h2 class="bienve"> Bienvenido a Eventos Ya</h2>
         
-        
-		<%		
-			DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL );
-		
-           InputStream imagenInputStream = usuario.getImagenUsuario(); // Obtener el InputStream de la imagen del objeto EventoDTO
-           
-           String imagenBase64 = fabric.getUsuarioDAO().ConvertirIMG(imagenInputStream);
-
-			
-		
-		%>        
-           <img src="<%= imagenBase64.toString()%>" alt="ima" width="100%"  height="100%" >
-        
+       
         <img src="../imgs/cheque.png" alt="" class="check">
         <p class="textbie">Hola <strong><%=usuario.getNombreUsu() + " " + usuario.getApellidoUsu() %></strong> ,<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
         <a class="inic" href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp">Iniciar Sesion</a>
