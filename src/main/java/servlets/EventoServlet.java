@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.ServletContext;
-
 import jakarta.servlet.http.Part;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -251,7 +249,7 @@ public class EventoServlet extends HttpServlet {
 			request.setAttribute("organizador",org);
 			request.setAttribute("usuario",idUsuarioPersona);
 
-			 ruta = "webs/MenuUsuario_VistaEventosPublico.jsp";
+			ruta = "webs/MenuUsuario_VistaEventosPublico.jsp";
 			
 			
 			break;

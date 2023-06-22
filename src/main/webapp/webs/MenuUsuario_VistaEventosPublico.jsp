@@ -181,11 +181,12 @@
 
 OrganizadorDTO datosEvento = (OrganizadorDTO) request.getAttribute("organizador");
 int idUsuarioPersona = (int) request.getAttribute("usuario");
-int idOrganizador =datosEvento.getIdOrganizador();
+int idOrganizador = datosEvento.getIdOrganizador();
 
 //Creacion de datos del evento y usuario
 
 DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+
 EventoDTO eventoOrganizador = fabrica.getEventoDAO().buscarEvento(datosEvento.getIdEvento());
 
 UsuarioDTO userOrganizador = fabrica.getUsuarioDAO().buscarUsuario(datosEvento.getIdUsuario());

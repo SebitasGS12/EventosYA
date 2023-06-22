@@ -6,13 +6,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.annotation.MultipartConfig;
+
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import mantenimiento.MySQLUsuarioDAO;
 import Models.CiudadDTO;
 import Models.UsuarioDTO;
 
@@ -21,11 +25,16 @@ import java.io.IOException;
 import DAO.DAOFactory;
 import DAO.UsuarioDAO;
 
+
+
+
 /**
  * Servlet implementation class UsuarioServlet
  */
 
 @WebServlet(name="usuario", urlPatterns = {"/usuario"})
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10) // Tamaño máximo de la imagen (10 MB ) 
+
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDTO user = null;
@@ -266,7 +275,7 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		//variables
 		String mensaje="";
 		String url;
-		
+		int ok =0 ;
 		//Entradas
 		String nombre= request.getParameter("txtNombre");
 		String apellido= request.getParameter("txtApellidos");
@@ -275,9 +284,12 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		String pais= request.getParameter("pais");
 		String ciudad= request.getParameter("ciudad");
 		String genero= request.getParameter("genero");
+		Part archivoImagen = request.getPart("txtImagen");
+		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
+		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 
 		
-		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero);
+		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero,imagen);
 		user = u;
 		
 		//Obtenemos la fabrica DAO 
@@ -285,7 +297,14 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
 				
 		//Procesos 
-		int ok=dao.registrar(u);
+		
+		try {
+			 ok=dao.registrar(u);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		
 		if(ok==0) {
 			mensaje+="Error al registrar los datos, revisar";
@@ -297,7 +316,7 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("mensaje", mensaje);
 		
-		request.setAttribute("nombreCompleto", nombre+" "+apellido);
+		request.setAttribute("usuario", u);
 		request.getRequestDispatcher(url).forward(request, response);
 
 		

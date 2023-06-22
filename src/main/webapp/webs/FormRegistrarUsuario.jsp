@@ -19,6 +19,10 @@
         font-family: 'Lexend', sans-serif;
 
 	}
+	
+	body{
+	
+	}
     .header {
       background-color: #ddd;
       padding: 20px;
@@ -123,14 +127,18 @@
 
     .create-account-button {
       text-align: left;
-      margin-top: 20px;
+    	display:flex;
+    justify-content:center;
+    align-items:center;
       /* Espacio entre el botón y la pregunta */
     }
 
     .create-account-button button {
-      display: inline-block;
+
       background-color: blue;
       color: white;
+            margin:20px 100px  20px 0px;
+      
       padding: 10px 20px;
       text-decoration: none;
       border-radius: 5px;
@@ -141,6 +149,7 @@
 
     .create-account-button button:hover {
       background-color: #001f66;
+      cursor: pointer;
     }
 
     .create-account-button button:focus {
@@ -163,6 +172,12 @@
      
     }
     
+      .form-container section{
+      	width: 50%;
+      	height: 100%;
+      	
+      	}
+    
 
     .image-container {
       float: right;
@@ -172,6 +187,7 @@
 
     .image-container img {
       max-width: 200px;
+
     }
 
     .centered-button {
@@ -192,6 +208,12 @@
         	cursor: pointer;
         
         }
+		#preview img{
+     	      width: 400px;
+      		height: 300px;
+        	margin: auto 5px;
+        }
+        
 
     
     
@@ -218,7 +240,7 @@
 	</div>
 	  
     </div>
-	  <form action="${pageContext.request.contextPath}/usuario" method="post">
+	  <form action="${pageContext.request.contextPath}/usuario" method="post"  enctype="multipart/form-data">
 	  
 	  <div class="form-container">
  	 <section>
@@ -298,22 +320,22 @@
   </section>
  
 
-	<section>
+	<section style="text-align: center;">
 		
 		<br />
-			<h2>Imagen de Evento</h2>
-			<br />
-			<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
-			<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/RegistrarUsuarioImg.jpg"></label>
-			<h3>Medidas 400x300</h3>
+		<h3>Imagen de Usuario</h3>
+		<br />
+		<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
+		<label for="file" id="preview"><img  alt="" src="${pageContext.request.contextPath}/imgs/RegistrarUsuarioImg.jpg"></label>
+		<h3>Medidas 400x300</h3>
 		<br />
 	
 	</section>
 	
 	 </div>
-	   <div class="create-account-button">
-			<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
-       </div>
+	 <div class="create-account-button">
+		<button type="submit" name="opcion" value="reg" class="btn" >Crear Cuenta</button>
+     </div>
        
    
    </form>
@@ -322,4 +344,5 @@
 <%@include file="../comun/footer.jsp" %>
 
 </body>
+<script src="${pageContext.request.contextPath}/comun/previsualizarImagen.js"></script>
 </html>
