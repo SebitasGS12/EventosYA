@@ -221,7 +221,6 @@ pageEncoding="ISO-8859-1"%>
 
 </head>
 <body>
-
 	<%@include file="../comun/header_Salir.jsp" %>
 	
  <section class="section">
@@ -240,19 +239,19 @@ pageEncoding="ISO-8859-1"%>
         <form method="post" action="${pageContext.request.contextPath}/usuario">
         <div class="Id">
 		         <label>Id</label>
-		         <input type="text" name="txtcodigo" placeholder="Inserte Id" required="required">
+		         <input type="text" name="txtcodigo" placeholder="Inserte Id"  >
 		    </div>
             <div class="contra">
                 <label>Contraseña</label>
-                <input type="text" name="txtcontra" placeholder="Escriba la contraseña" required="required">
+                <input type="text" name="txtcontra" placeholder="Escriba la contraseña">
             </div>
             <div class="nuecontra">
              <label>Nueva Contraseña</label>
-             <input  type="text" name="txtnuecontra" placeholder="Digite nueva contraseña" required="required">
+             <input  type="text" name="txtnuecontra" placeholder="Digite nueva contraseña" >
             </div>
             <div class="confcontra">
              <label>Confirmar Contraseña</label>
-             <input   type="text" name="txtnuecontra" placeholder="Confirme nueva Contraseña" required="required">
+             <input   type="text" name="txtnuecontra" placeholder="Confirme nueva Contraseña">
             </div>
         <input class="confcamb" type="submit"value="modContra" name='opcion'>
         </form>

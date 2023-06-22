@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import DAO.UsuarioDAO;
+import Models.EventoDTO;
 import Models.UsuarioDTO;
+import jakarta.servlet.http.HttpServletRequest;  //esto
+import jakarta.servlet.http.HttpSession; //esto pruebas
 import Coneccion.MysqlConector;
 
 public class MySQLUsuarioDAO implements UsuarioDAO {
@@ -96,15 +99,8 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 				System.out.println("Error al cerrar "+e2.getMessage());
 			}	
 		}
-		
-		
-		
-		
 		return u;
 	}
-
-	
-	
 	//Actualizar  Nombre
 	//Para actualizar el nombre usuario
 	@Override
@@ -174,4 +170,48 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		return rso;
 	}
 	
+	
+	public UsuarioDTO buscarUsuario(int id) {
+		
+		UsuarioDTO o = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = "select idUsuario, nombreUsu,correoUsu from usuarios where idUsuario = ?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+
+			rs=pst.executeQuery();	
+			
+			while (rs.next()) {
+				 
+				  o = new UsuarioDTO(rs.getInt(1),
+					rs.getString(2),
+					rs.getString(3));		 
+			}
+			
+
+
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Usuario > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		
+		return o;
+		
+	}
 }

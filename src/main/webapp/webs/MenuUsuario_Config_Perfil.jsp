@@ -1,4 +1,8 @@
 <%@page import="Models.UsuarioDTO"%>
+<%@page import="DAO.DAOFactory" %>
+<%@page import="java.util.ArrayList"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -261,6 +265,12 @@ pageEncoding="ISO-8859-1"%>
 
 </head>
 <body>
+<% String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg="";
+	
+UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
+%>
+<%=msg %>
 
 	<%@include file="../comun/header_Salir.jsp" %>
 	
@@ -278,20 +288,20 @@ pageEncoding="ISO-8859-1"%>
 		        <form method="post" action="${pageContext.request.contextPath}/usuario">
 		        <div class="Id">
 		                <label>Id</label>
-		                <input type="text" name="txtid" placeholder="Inserte Id"  required="required">
+		                <input type="text" name="txtid" placeholder="Inserte Id"  value="${usuario.idUsuario}" >
 		            </div>
 		            <div class="nombre">
 		                <label>Nombre</label>
-		                <input type="text" name="txtnom" placeholder="Inserte Nombre" required="required">
+		                <input type="text" name="txtnom" placeholder="Inserte Nombre"  value="${usuario.nombreUsu}">
 		            </div>
 		            <div class="nombreusu">
 		             <label>Nombre  de Usuario</label>
-		             <input  type="text" name="txtnusu" placeholder="Ingrese nombre de cuenta" required="required">
+		             <input  type="text" name="txtnusu" placeholder="Ingrese nombre de cuenta" value="${usuario.nombreUsu}" >
 		
 		            </div>
 		            <div class="corre">
 		             <label>Correo</label>
-		             <input   type="text" name="txtcorr" placeholder="Correo Registrado" required="required">
+		             <input   type="text" name="txtcorr" placeholder="Correo Registrado" value="${usuario.correoUsu}">
 		            </div>
 		            <br>
 		            <br>
@@ -300,6 +310,7 @@ pageEncoding="ISO-8859-1"%>
 		                <img src="../imgs/perfil.png" alt="">
 		            </div>
 		        <input class="confcamb" type="submit"value="actUsu" name="opcion" >
+		        <input class="confcamb" type="submit"value="busUsu" name="opcion" >
 		        </form>
 		      </div>
 		</div>

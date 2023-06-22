@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import mantenimiento.MySQLUsuarioDAO;
 import Models.CiudadDTO;
+import Models.EventoDTO;
 import Models.UsuarioDTO;
 
 import java.io.IOException;
@@ -64,6 +65,8 @@ public class UsuarioServlet extends HttpServlet {
 		case"log":
 					validarUsuario(request,response); 
 					break;
+		case "busUsu":
+			buscarUsuario(request,response); 
 		case"actUsu":
 			       actualizarUsuario(request,response); 
 			       break;
@@ -76,16 +79,13 @@ public class UsuarioServlet extends HttpServlet {
 				salir(request,response); 
 				break;
 	 
-
-	 
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + opcion);
 		}
-		
-		
-
 		 
 	}
+
+
 
 
 //Humberto
@@ -159,6 +159,8 @@ public class UsuarioServlet extends HttpServlet {
 		if(ok==0) {
 			mensaje+=" <script> alert('"+" Error al actualizar" +"') </script>";
 		    url="webs/MenuUsuario_Config_Contra.jsp";
+		    
+		    buscarUsuario(request, response);  //Esto agregue
 		}else {
 			mensaje+=" <script> alert('"+"Actualización correcta  "+nombreUsu+" OKEY" +"') </script>";
 			url = "webs/Menu_IniciarSesion.jsp";	
@@ -266,6 +268,20 @@ public class UsuarioServlet extends HttpServlet {
 		request.setAttribute("nombreCompleto", nombre+" "+apellido);
 		request.getRequestDispatcher(url).forward(request, response);
 
+		
+	}
+	//Buscar -Humberto
+	private void buscarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int idUsuario = Integer.parseInt(request.getParameter("txtid"));
+
+		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		
+		UsuarioDTO usuario = fabrica.getUsuarioDAO().buscarUsuario(idUsuario);
+		
+		request.setAttribute("usuario",usuario);
+		
+		request.getRequestDispatcher("webs/MenuUsuario_Config_Perfil.jsp").forward(request, response);	
 		
 	}
 
