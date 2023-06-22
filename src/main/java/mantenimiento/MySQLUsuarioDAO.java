@@ -1,11 +1,18 @@
 package mantenimiento;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import DAO.UsuarioDAO;
+
 import Models.EventoDTO;
+
+import Models.OrganizadorDTO;
+
 import Models.UsuarioDTO;
 import jakarta.servlet.http.HttpServletRequest;  //esto
 import jakarta.servlet.http.HttpSession; //esto pruebas
@@ -23,7 +30,7 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		try {
 			con = MysqlConector.getConexion();
-			String sql = " insert into Usuarios values (null,?,?,?,?,?,?,?) ";
+			String sql = " insert into Usuarios values (null,?,?,?,?,?,?,?,?) ";
 			pst = con.prepareStatement(sql);
 			
 			pst.setString(1, u.getNombreUsu());
@@ -32,8 +39,11 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 			pst.setString(4, u.getContraseniaUsu());
 			pst.setString(5, u.getPaisUsu());
 			pst.setString(6, u.getCiudadUsu());
-			pst.setString(7, u.getGeneroUsu());
+			pst.setString(7, u.getGeneroUsu()); 
+			pst.setBlob(8, u.getImagenUsuario());
 			
+			
+			System.out.println(u.getImagenUsuario());
 			rs =pst.executeUpdate();
 			
 		} catch (Exception e) {
@@ -169,28 +179,37 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		return rso;
 	}
-	
-	
-	public UsuarioDTO buscarUsuario(int id) {
-		
-		UsuarioDTO o = null;
+
+	@Override
+	public UsuarioDTO buscarUsuario(int codigo) {
+		// TODO Auto-generated method stub
+		UsuarioDTO p = null;
 		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement pst = null;
 		
 		try {
 			con = MysqlConector.getConexion();
-			String sql = "select idUsuario, nombreUsu,correoUsu from usuarios where idUsuario = ?";
+			String sql = " select idUsuario, nombreUsu, apellidoUsu, correoUsu, contraseñaUsu, paisUsu, ciudadUsu, generoUsu ,imagenUsu from usuarios where idUsuario =  ? ";
 			pst = con.prepareStatement(sql);
-			pst.setInt(1, id);
+			pst.setInt(1, codigo);
 
+			
 			rs=pst.executeQuery();	
 			
 			while (rs.next()) {
 				 
-				  o = new UsuarioDTO(rs.getInt(1),
+				  p= new UsuarioDTO(
+					rs.getInt(1),
 					rs.getString(2),
-					rs.getString(3));		 
+					rs.getString(3),
+					rs.getString(4),
+					rs.getString(5),
+					rs.getString(6),
+					rs.getString(7),
+					rs.getString(8),
+					rs.getBinaryStream(9));
+
 			}
 			
 
@@ -211,7 +230,61 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 	
 		
 		
-		return o;
-		
+		return p;
 	}
+
+	@Override
+	public String ConvertirIMG(InputStream imagenInputStream) {
+		
+		String imagenBase64= "";
+		
+		
+		System.out.println(imagenInputStream);
+		 if(imagenInputStream != null){
+			 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			 byte[] buffer = new byte[4096];
+			 int bytesRead;
+			 try {
+				while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
+				     byteArrayOutputStream.write(buffer, 0, bytesRead);
+				 }
+				 byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+				 System.out.println(imagenBase64);
+
+				 
+				 try {
+					
+					 imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				 // Convertir los bytes de la imagen a una cadena Base64
+				 System.out.println(imagenBase64);
+
+				 // Cerrar el InputStream y el ByteArrayOutputStream
+				 imagenInputStream.close();
+				 byteArrayOutputStream.close();
+				 
+				 if (imagenBase64.equals("data:image/jpeg;base64,")) {
+					 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+				 }
+				 
+				 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+		 }else {
+			 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+			 
+			 
+		 }
+		 
+		 System.out.println(imagenBase64);
+		 
+		 return imagenBase64;
+	}
+
 }

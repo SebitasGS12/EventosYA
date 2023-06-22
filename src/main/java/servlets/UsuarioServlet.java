@@ -6,13 +6,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.annotation.MultipartConfig;
+
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import mantenimiento.MySQLUsuarioDAO;
 import Models.CiudadDTO;
 import Models.EventoDTO;
 import Models.UsuarioDTO;
@@ -22,20 +26,26 @@ import java.io.IOException;
 import DAO.DAOFactory;
 import DAO.UsuarioDAO;
 
+
+
+
 /**
  * Servlet implementation class UsuarioServlet
  */
 
 @WebServlet(name="usuario", urlPatterns = {"/usuario"})
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10) // Tamaño máximo de la imagen (10 MB ) 
+
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static UsuarioDTO user = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UsuarioServlet() {
         super();
         // TODO Auto-generated constructor stub
+
     }
 
 	/**
@@ -70,6 +80,9 @@ public class UsuarioServlet extends HttpServlet {
 		case"actUsu":
 			       actualizarUsuario(request,response); 
 			       break;
+		case"link":
+		       irAPagina(request,response); 
+		       break;	      
 					
 		case"modContra":
 		       modificarContrasenia(request,response); 
@@ -85,10 +98,37 @@ public class UsuarioServlet extends HttpServlet {
 		 
 	}
 
+private void irAPagina(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 
+		String ruta = request.getParameter("val");
+		String url = "";
+		UsuarioDTO usuario = user;
+		
+		switch (ruta) {
+		case "irMenu": {
+			url = "webs/MenuUsuario_Menu.jsp";
+			break;
+		}
+		case "irEdit": {
+			url = "webs/MenuUsuario_AdminEventos.jsp";
+			break;
+		}
+		case "irConfig": {
+			url="webs/MenuUsuario_Config_Contra.jsp";
+			break;
+		}
+		
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + ruta);
+		}
+		request.getSession().setAttribute("datousu", usuario);	
 
+		request.getRequestDispatcher(url).forward(request, response);	
 
-//Humberto
+	}
+
+	//Humberto
 	private void modificarContrasenia(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
 		//variables
 		String mensaje="";
@@ -196,7 +236,7 @@ public class UsuarioServlet extends HttpServlet {
 		//Proceso
 		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		UsuarioDTO u = fabrica.getUsuarioDAO().validar(usuario, clave);
-		
+		user = u;
 		
 		
 		if (u!=null) {
@@ -209,7 +249,7 @@ public class UsuarioServlet extends HttpServlet {
 			System.out.println("Duracion ---" + miSession.getMaxInactiveInterval() );
 			
 			ServletContext serverContext = getServletContext();
-			serverContext.setAttribute("datousuario", u);
+			serverContext.setAttribute("datousu", u);
 			
 			request.getSession().setAttribute("mensaje", mensaje);
 			request.getSession().setAttribute("datousu", u);	
@@ -234,7 +274,7 @@ public class UsuarioServlet extends HttpServlet {
 		//variables
 		String mensaje="";
 		String url;
-		
+		int ok =0 ;
 		//Entradas
 		String nombre= request.getParameter("txtNombre");
 		String apellido= request.getParameter("txtApellidos");
@@ -243,17 +283,27 @@ public class UsuarioServlet extends HttpServlet {
 		String pais= request.getParameter("pais");
 		String ciudad= request.getParameter("ciudad");
 		String genero= request.getParameter("genero");
+		Part archivoImagen = request.getPart("txtImagen");
+		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
+		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 
 		
-		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero);
-		
+		UsuarioDTO u = new UsuarioDTO(nombre,apellido,correo,contraseña,pais,ciudad,genero,imagen);
+		user = u;
 		
 		//Obtenemos la fabrica DAO 
 	    DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
 				
 		//Procesos 
-		int ok=dao.registrar(u);
+		
+		try {
+			 ok=dao.registrar(u);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		
 		if(ok==0) {
 			mensaje+="Error al registrar los datos, revisar";
@@ -265,7 +315,7 @@ public class UsuarioServlet extends HttpServlet {
 		
 		request.setAttribute("mensaje", mensaje);
 		
-		request.setAttribute("nombreCompleto", nombre+" "+apellido);
+		request.setAttribute("usuario", u);
 		request.getRequestDispatcher(url).forward(request, response);
 
 		

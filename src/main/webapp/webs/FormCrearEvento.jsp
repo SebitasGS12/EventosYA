@@ -331,7 +331,7 @@
               	</div>
                 <div class="botones-div">
 		            <button class="tbut" type="submit" class="creaeven"  name="opcion" value="reg">Crear</button>
-	    	        <button class="tbut" type="submit" class="creaeven"  name="opcion" value="sal">Salir</button>
+	    	        <button class="tbut" type="button" class="creaeven"  name="opcion" value="sal">Salir</button>
                  </div>
             </form>
             

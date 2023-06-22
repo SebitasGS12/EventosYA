@@ -1,25 +1,46 @@
 package Models;
 
+import java.io.InputStream;
+
 public class UsuarioDTO {
 
 	private int idUsuario;
 	private String nombreUsu,apellidoUsu,correoUsu;
 	private String contraseniaUsu,paisUsu,ciudadUsu,generoUsu;
+	private InputStream imagenUsuario;
+
 	
 	//Getters y Setters
-	
-	public UsuarioDTO(String nombreUsu, String apellidoUsu, String correoUsu, String contraseñaUsu, String paisUsu,
-			String ciudadUsu, String generoUsu) {
+	public UsuarioDTO( String nombreUsu, String apellidoUsu, String correoUsu, String contraseniaUsu,
+			String paisUsu, String ciudadUsu, String generoUsu, InputStream imagenUsuario) {
+		
 		this.nombreUsu = nombreUsu;
 		this.apellidoUsu = apellidoUsu;
 		this.correoUsu = correoUsu;
-		this.contraseniaUsu = contraseñaUsu;
+		this.contraseniaUsu = contraseniaUsu;
 		this.paisUsu = paisUsu;
 		this.ciudadUsu = ciudadUsu;
 		this.generoUsu = generoUsu;
+		this.imagenUsuario = imagenUsuario;
 	}
+
 	
-	
+	public UsuarioDTO(int idUsuario, String nombreUsu, String apellidoUsu, String correoUsu, String contraseniaUsu,
+			String paisUsu, String ciudadUsu, String generoUsu, InputStream imagenUsuario) {
+		
+		this.idUsuario = idUsuario;
+		this.nombreUsu = nombreUsu;
+		this.apellidoUsu = apellidoUsu;
+		this.correoUsu = correoUsu;
+		this.contraseniaUsu = contraseniaUsu;
+		this.paisUsu = paisUsu;
+		this.ciudadUsu = ciudadUsu;
+		this.generoUsu = generoUsu;
+		this.imagenUsuario = imagenUsuario;
+	}
+
+
+
 	public UsuarioDTO() {
 	}
 
@@ -97,7 +118,12 @@ public class UsuarioDTO {
 	public void setGeneroUsu(String generoUsu) {
 		this.generoUsu = generoUsu;
 	}
-
+	public InputStream getImagenUsuario() {
+		return imagenUsuario;
+	}
+	public void setImagenUsuario(InputStream imagenUsuario) {
+		this.imagenUsuario = imagenUsuario;
+	}
 
 
 	

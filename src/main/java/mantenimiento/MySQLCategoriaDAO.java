@@ -54,4 +54,54 @@ public class MySQLCategoriaDAO implements CategoriaDAO {
 		
 	}
 
+	@Override
+	public CategoriaDTO buscarCategoria(int id) {
+		
+		
+		// TODO Auto-generated method stub
+		CategoriaDTO p = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " select idCategoria, nombreCategoria, descripcionCategoria  from categoria where idCategoria =  ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+
+			
+			rs=pst.executeQuery();	
+			
+			while (rs.next()) {
+				 
+				  p= new CategoriaDTO(
+						  rs.getInt(1),
+					rs.getString(2),
+					rs.getString(3));
+	 
+			}
+			
+
+
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al buscar Categoria > en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+	
+		
+		
+		return p;
+		
+	}
+
 }
