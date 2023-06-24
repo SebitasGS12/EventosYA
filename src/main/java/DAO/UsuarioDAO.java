@@ -1,9 +1,7 @@
 package DAO;
-import Models.EventoDTO;
 import java.io.InputStream;
 
 import Models.UsuarioDTO;
-import jakarta.servlet.http.HttpServletRequest;
 
 public interface UsuarioDAO {
 

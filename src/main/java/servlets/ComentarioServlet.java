@@ -6,10 +6,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
+import DAO.DAOFactory;
+import Models.ComentarioDTO;
 /**
  * Servlet implementation class ComentarioServlet
  */
+@WebServlet(name="CRUD COMENTARIO", urlPatterns = {"/comentario"})
+
 public class ComentarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,8 +71,39 @@ public class ComentarioServlet extends HttpServlet {
 		
 	}
 
-	private void registrarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void registrarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int ok ;
+		String url = "";
+		String mensaje = "";
+		
+		
+		int idEvento = Integer.parseInt( request.getParameter("idEvento"));
+		int idOrg = Integer.parseInt( request.getParameter("org"));
+		int idUsuario= Integer.parseInt(request.getParameter("idPersona"));
+		String contenido = request.getParameter("txtComentario");
+		String fechaActual =  LocalDateTime.now().toString();
+
+		
+		ComentarioDTO comentario = new ComentarioDTO(idEvento,idUsuario,contenido,fechaActual);
+		
+		
+		DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		
+		ok = fabric.getComentarioDAO().registrar(comentario);
+		
+		if(ok==0) {
+			mensaje+= "<script> alert('"+"Error al registrar el comentario, revisar"+"')</script>";
+		}else {
+			mensaje+=" <script> alert('"+"Comentario agregado " +"') </script>";
+		}
+		
+		
+		
+		request.setAttribute("mensaje", mensaje);
+		
+		url = "evento?opcion=bus&org="+ idOrg +"&url=ver&usuario="+idUsuario+"";
+		request.getRequestDispatcher(url).forward(request, response);;
 		
 	}
 

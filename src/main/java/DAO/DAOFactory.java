@@ -15,6 +15,7 @@ public abstract class DAOFactory {
 	public abstract EventoDAO getEventoDAO();
 	public abstract CategoriaDAO getCategoriaDAO();
 	public abstract AsistenteDAO getAsistenteDAO();
+	public abstract ComentarioDAO getComentarioDAO();
 	public static  DAOFactory getDaoFactory(int qBD) {
 		
 		switch (qBD) {

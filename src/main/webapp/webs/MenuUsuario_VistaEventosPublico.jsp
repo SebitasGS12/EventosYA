@@ -165,6 +165,10 @@
         margin-left: 10px;
     }
     
+    .imagenPerfil,.imagenComentario{
+    	border:1px solid black;
+    }
+    
     .red{
     	background-color: red;
     }
@@ -282,7 +286,20 @@ if (msg==null) msg="";
             <p>Creador del Evento</p>
             <p style="color: black;font-size: 1.2rem"><%=userOrganizador.getNombreUsu()+""+ userOrganizador.getApellidoUsu() %></p>
             <p style="color: gray;font-size: 0.8rem"><%=userOrganizador.getCorreoUsu() %></p>
-            <img src="imgs/user_MenuUsuario.png" alt="usMen" style="width: 50px; height: 50px;">
+            
+            <%
+            
+
+			UsuarioDTO usuarioPersona = fabric.getUsuarioDAO().buscarUsuario(idUsuarioPersona);
+            
+            InputStream imagenUsuario = usuarioPersona.getImagenUsuario(); // Obtener el InputStream de la imagen del objeto EventoDTO
+            
+            String imagenPerfil = fabric.getUsuarioDAO().ConvertirIMG(imagenUsuario);
+
+				
+			
+			%>        
+            <img src="<%=imagenPerfil %>" alt="usMen" class="imagenPerfil" style="width: 50px; height: 50px;">
         </div>
     </div>
 </div>
@@ -295,17 +312,33 @@ if (msg==null) msg="";
             
             
             <div style="display: flex; align-items: center; justify-content:center ;">
-                <img src="imgs/user_MenuUsuario.png" alt="usMen" style="width: 40px; height: 40px;">
+            
+                <img src="<%=imagenPerfil %>" alt="usMen" class="imagenPerfil" style="width: 40px; height: 40px;">
                 
-                <form action="">                
+                <form action="comentario" method="post">                
+                	
+                	<div class="" style="display: none;">
+                		    		<input type="text" name="org" value="<%=idOrganizador%>">
+                	
+              	    		<input type="text" name="idPersona" value="<%=idUsuarioPersona%>">
+	    					<input type="text" name="idEvento" value="<%=eventoOrganizador.getIdEvento()%>">	
+                	</div>
                 
-	                <input type="text" placeholder="Escribe un comentario largo" style="margin-left: 10px; width: 400px; border: 1px solid gray; padding: 5px;">
-	                <button style="background-color: gray; color: white; padding: 5px 10px; font-size: 1em; border: none;">Enviar</button>
+                
+	                <input type="text" name="txtComentario" value=" " placeholder="Escribe un comentario largo" style="margin-left: 10px; width: 400px; border: 1px solid gray; padding: 5px;">
+	                <button type="submit" name="opcion" value="reg"  style="background-color: gray; color: white; padding: 5px 10px; font-size: 1em; border: none;">Enviar</button>
                 </form>
             </div>
             
             
+            <%
             
+            
+            
+            
+            
+            
+            %>
             <div style="background-color: darkgray; padding: 10px; margin-top: 10px;">
                 <img src="imgs/womanComentary_MenuUsuario.png" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
                 <span style="font-size: 1em;">@User12355</span>

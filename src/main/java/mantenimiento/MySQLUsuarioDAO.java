@@ -239,7 +239,6 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		String imagenBase64= "";
 		
 		
-		System.out.println(imagenInputStream);
 		 if(imagenInputStream != null){
 			 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			 byte[] buffer = new byte[4096];
@@ -249,17 +248,15 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 				     byteArrayOutputStream.write(buffer, 0, bytesRead);
 				 }
 				 byte[] imagenBytes = byteArrayOutputStream.toByteArray();
-				 System.out.println(imagenBase64);
 
 				 
 				 try {
 					
-					 imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
+					 imagenBase64 = "data:image/jpeg;base64," + java.util.Base64.getEncoder().encodeToString(imagenBytes);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				 // Convertir los bytes de la imagen a una cadena Base64
-				 System.out.println(imagenBase64);
 
 				 // Cerrar el InputStream y el ByteArrayOutputStream
 				 imagenInputStream.close();
@@ -282,7 +279,6 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 			 
 		 }
 		 
-		 System.out.println(imagenBase64);
 		 
 		 return imagenBase64;
 	}

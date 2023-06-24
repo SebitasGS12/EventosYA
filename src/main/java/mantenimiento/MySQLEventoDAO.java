@@ -235,7 +235,6 @@ public class MySQLEventoDAO implements EventoDAO {
 		String imagenBase64= "";
 		
 		
-		System.out.println(imagenInputStream);
 		 if(imagenInputStream != null){
 			 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			 byte[] buffer = new byte[4096];
@@ -245,7 +244,7 @@ public class MySQLEventoDAO implements EventoDAO {
 				     byteArrayOutputStream.write(buffer, 0, bytesRead);
 				 }
 				 byte[] imagenBytes = byteArrayOutputStream.toByteArray();
-				 System.out.println(imagenBase64);
+
 
 				 
 				 try {
@@ -255,7 +254,6 @@ public class MySQLEventoDAO implements EventoDAO {
 					e.printStackTrace();
 				}
 				 // Convertir los bytes de la imagen a una cadena Base64
-				 System.out.println(imagenBase64);
 
 				 // Cerrar el InputStream y el ByteArrayOutputStream
 				 imagenInputStream.close();
@@ -278,7 +276,6 @@ public class MySQLEventoDAO implements EventoDAO {
 			 
 		 }
 		 
-		 System.out.println(imagenBase64);
 		 
 		 return imagenBase64;
 		
