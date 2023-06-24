@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
+<%@page import="Models.UsuarioDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,6 +222,13 @@ pageEncoding="ISO-8859-1"%>
 
 </head>
 <body>
+<% String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg="";
+	
+UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
+%>
+<%=msg %>
+
 	<%@include file="../comun/header_Salir.jsp" %>
 	
  <section class="section">
@@ -239,11 +247,11 @@ pageEncoding="ISO-8859-1"%>
         <form method="post" action="${pageContext.request.contextPath}/usuario">
         <div class="Id">
 		         <label>Id</label>
-		         <input type="text" name="txtcodigo" placeholder="Inserte Id"  >
+		         <input type="text" name="txtcodigo" placeholder="Inserte Id" value="<%=usuario.getIdUsuario() %>"  readonly="readonly" >
 		    </div>
             <div class="contra">
                 <label>Contraseña</label>
-                <input type="text" name="txtcontra" placeholder="Escriba la contraseña">
+                <input type="text" name="txtcontra" placeholder="Escriba la contraseña" value="<%=usuario.getContraseniaUsu()%>">
             </div>
             <div class="nuecontra">
              <label>Nueva Contraseña</label>

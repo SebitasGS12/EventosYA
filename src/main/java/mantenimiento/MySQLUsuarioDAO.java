@@ -112,7 +112,6 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		return u;
 	}
 	//Actualizar  Nombre
-	//Para actualizar el nombre usuario
 	@Override
 	public int actualizarUsuario(UsuarioDTO a) {
 		int rso=0;
@@ -121,14 +120,15 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 		
 		try {
 			cone=MysqlConector.getConexion();
-			String sql="update  Usuarios  set nombreUsu=?, correoUsu=? where idUsuario=?";
+			String sql="update  Usuarios  set nombreUsu=?,apellidoUsu=?,correoUsu=? where idUsuario=?";
 			prst=cone.prepareStatement(sql);
 			
 			//Parametrizar en el orden de los signos de ?  inicia en 1
 			
 			prst.setString(1, a.getNombreUsu());
-			prst.setString(2, a.getCorreoUsu());
-			prst.setInt(3, a.getIdUsuario());
+			prst.setString(2, a.getApellidoUsu());
+			prst.setString(3, a.getCorreoUsu());
+			prst.setInt(4, a.getIdUsuario());
 			 
 			//Para Ejecutarlo
 			rso=prst.executeUpdate();	

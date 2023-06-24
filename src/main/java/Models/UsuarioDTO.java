@@ -50,6 +50,14 @@ public class UsuarioDTO {
 		this.nombreUsu = nombreUsu;
 		this.correoUsu = correoUsu;
 	}
+	
+	public UsuarioDTO(int codigo, String nombreUsu, String apellidoUsu, String correoUsu) {
+		this.nombreUsu = nombreUsu;
+		this.apellidoUsu = apellidoUsu;
+		this.correoUsu = correoUsu;
+	}
+	
+	///Funciona Bien contrasenia
 	public UsuarioDTO(int codigo, String contraseñaUsu) {
 		this.idUsuario = codigo;
 		this.contraseniaUsu = contraseñaUsu;
@@ -58,7 +66,6 @@ public class UsuarioDTO {
  //Humberto
 	public UsuarioDTO(int idUsuario, String nombreUsu, String apellidoUsu, String correoUsu, String contraseniaUsu,
 			String paisUsu, String ciudadUsu, String generoUsu) {
-		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsu = nombreUsu;
 		this.apellidoUsu = apellidoUsu;
@@ -68,6 +75,9 @@ public class UsuarioDTO {
 		this.ciudadUsu = ciudadUsu;
 		this.generoUsu = generoUsu;
 	}
+
+	
+
 
 	public int getIdUsuario() {
 		return idUsuario;

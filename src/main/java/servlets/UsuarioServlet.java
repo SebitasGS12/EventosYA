@@ -176,14 +176,14 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		
 		//Entradas
 		int codigo=  Integer.parseInt(request.getParameter("txtid"));
-		String nombre= request.getParameter("txtnom");
-		String nombreUsu= request.getParameter("txtnusu");
-		String correoUsu= request.getParameter("txtcorr");
+		String nombre= request.getParameter("txtnombre");
+		String apellidoUsu= request.getParameter("txtapellido");
+		String correoUsu= request.getParameter("txtcorreo");
 		
 		
 		System.out.println("codigo "+codigo);
 		System.out.println("nombre "+nombre);
-		System.out.println("nombreUsu "+nombreUsu);
+		System.out.println("apellido "+apellidoUsu);
 		System.out.println("correoUsu "+correoUsu);
 
 		//Obtenemos la fabrica DAO 
@@ -191,18 +191,17 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
 
 		//Contructor con  parámetros
-		UsuarioDTO a = new UsuarioDTO(codigo,nombreUsu,correoUsu); 
+		UsuarioDTO a = new UsuarioDTO(codigo,nombre,apellidoUsu,correoUsu); 
 	  
 		//Procesos
 		int ok=dao.actualizarUsuario(a);
 		
 		if(ok==0) {
 			mensaje+=" <script> alert('"+" Error al actualizar" +"') </script>";
-		    url="webs/MenuUsuario_Config_Contra.jsp";
+		    url="usuario?opcion=link&val=irConfig";
 		    
-		    buscarUsuario(request, response);  //Esto agregue
 		}else {
-			mensaje+=" <script> alert('"+"Actualización correcta  "+nombreUsu+" OKEY" +"') </script>";
+			mensaje+=" <script> alert('"+"Actualización correcta  "+nombre+" OKEY" +"') </script>";
 			url = "webs/Menu_IniciarSesion.jsp";	
 		    
 		}

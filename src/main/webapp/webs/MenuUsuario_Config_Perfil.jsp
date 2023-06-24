@@ -268,7 +268,7 @@ pageEncoding="ISO-8859-1"%>
 <% String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";
 	
-UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
+UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
 %>
 <%=msg %>
 
@@ -288,20 +288,20 @@ UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
 		        <form method="post" action="${pageContext.request.contextPath}/usuario">
 		        <div class="Id">
 		                <label>Id</label>
-		                <input type="text" name="txtid" placeholder="Inserte Id"  value="${usuario.idUsuario}" >
+		                <input type="text" name="txtid" placeholder="Inserte Id"  value="<%=usuario.getIdUsuario() %>"  readonly="readonly">
 		            </div>
 		            <div class="nombre">
 		                <label>Nombre</label>
-		                <input type="text" name="txtnom" placeholder="Inserte Nombre"  value="${usuario.nombreUsu}">
+		                <input type="text" name="txtnombre" placeholder="Inserte Nombre"  value="<%=usuario.getNombreUsu() %>">
 		            </div>
 		            <div class="nombreusu">
-		             <label>Nombre  de Usuario</label>
-		             <input  type="text" name="txtnusu" placeholder="Ingrese nombre de cuenta" value="${usuario.nombreUsu}" >
+		             <label>Apellido</label>
+		             <input  type="text" name="txtapellido" placeholder="Ingrese Apellido" value="<%=usuario.getApellidoUsu() %> " >
 		
 		            </div>
 		            <div class="corre">
 		             <label>Correo</label>
-		             <input   type="text" name="txtcorr" placeholder="Correo Registrado" value="${usuario.correoUsu}">
+		             <input   type="text" name="txtcorreo" placeholder="Correo Registrado" value="<%=usuario.getCorreoUsu()%>">
 		            </div>
 		            <br>
 		            <br>
@@ -310,7 +310,7 @@ UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
 		                <img src="../imgs/perfil.png" alt="">
 		            </div>
 		        <input class="confcamb" type="submit"value="actUsu" name="opcion" >
-		        <input class="confcamb" type="submit"value="busUsu" name="opcion" >
+
 		        </form>
 		      </div>
 		</div>
