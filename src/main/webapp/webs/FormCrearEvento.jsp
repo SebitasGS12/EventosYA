@@ -287,11 +287,11 @@
 	            	<div class="inputs-contenedor">
 		            	<div class="name ">
 		                    <label>Nombre</label>
-		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre">
+		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre" required>
 		                </div>
 		                <div class="categ">
 		                   <label>Categoria</label>
-		                   <select name="txtCategoria" id="">
+		                   <select name="txtCategoria" id="" required>
 		                           <option value="300">Popular </option>
 		                           <option value="301">Cultural </option>
 		                           <option value="302">Urbano </option>
@@ -300,20 +300,20 @@
 		                </div>
 		                <div class="descrip">
 		                	<label>Descripción</label>
-		                	<input  type="text" name="txtDescripcion" placeholder="Ingrese la Descripción">
+		                	<input  type="text" name="txtDescripcion" placeholder="Ingrese la Descripción" required>
 		                </div>
 		                <div class="ubica">
 		                	<label>Ubicación</label>
-		                	<input   type="text" name="txtUbicaion" placeholder="Ingrese la Ubicación">
+		                	<input   type="text" name="txtUbicaion" placeholder="Ingrese la Ubicación" required>
 		                </div>
 		                
 		                <div class="fechini">
 		                	<label>Fecha Inicio</label>
-		                	<input name="txtFechaIni" type="date" min="<%= df.format(new java.util.Date())%>" >
+		                	<input name="txtFechaIni" type="date" min="<%= df.format(new java.util.Date())%>" required>
 		                </div>
 		                <div class="fechfin">
 		                	<label>Fecha Fin</label>
-		                	<input name="txtFechaFin" type="date" min="<%= df.format(new java.util.Date())%>">
+		                	<input name="txtFechaFin" type="date" min="<%= df.format(new java.util.Date())%>" required>
 		                </div>
 	            	</div>
 	            	
@@ -331,7 +331,7 @@
               	</div>
                 <div class="botones-div">
 		            <button class="tbut" type="submit" class="creaeven"  name="opcion" value="reg">Crear</button>
-	    	        <button class="tbut" type="submit" class="creaeven"  name="opcion" value="sal">Salir</button>
+	    	        <button class="tbut" type="button" class="creaeven"  name="opcion" value="sal">Salir</button>
                  </div>
             </form>
             

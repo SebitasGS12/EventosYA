@@ -1,5 +1,6 @@
 package mantenimiento;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,10 @@ import Coneccion.MysqlConector;
 import DAO.EventoDAO;
 import Models.CiudadDTO;
 import Models.EventoDTO;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 
 
 public class MySQLEventoDAO implements EventoDAO {
@@ -79,8 +84,8 @@ public class MySQLEventoDAO implements EventoDAO {
 				p.setDescripcionEvento(rs.getString(3));
 				p.setUbicacionEvento(rs.getString(4));
 				p.setImagenEvento(rs.getBinaryStream(5));
-				p.setFechaIncio(rs.getString(6));
-				p.setFechaFin(rs.getString(7));
+				p.setFechaIncio(rs.getDate(6).toString());
+				p.setFechaFin(rs.getDate(7).toString());
 				p.setIdCategoria(rs.getInt(8));				
 				
 				lista.add(p);
@@ -148,8 +153,8 @@ public class MySQLEventoDAO implements EventoDAO {
 				p.setDescripcionEvento(rs.getString(3));
 				p.setUbicacionEvento(rs.getString(4));
 				p.setImagenEvento(rs.getBinaryStream(5));
-				p.setFechaIncio(rs.getString(6));
-				p.setFechaFin(rs.getString(7));
+				p.setFechaIncio(rs.getDate(6).toString());
+				p.setFechaFin(rs.getDate(7).toString());
 				p.setIdCategoria(rs.getInt(8));				
 				
 				lista.add(p);
@@ -197,8 +202,8 @@ public class MySQLEventoDAO implements EventoDAO {
 						rs.getString(3),
 						rs.getString(4),
 						rs.getBinaryStream(5),
-						rs.getString(6),
-						rs.getString(7),
+						rs.getDate(6).toString(),
+						rs.getDate(7).toString(),
 						rs.getInt(8));		 
 				}
 				
@@ -223,6 +228,129 @@ public class MySQLEventoDAO implements EventoDAO {
 			return p;
 			
 		}
+
+	@Override
+	public String ConvertirIMG(InputStream imagenInputStream) {
+		
+		String imagenBase64= "";
+		
+		
+		 if(imagenInputStream != null){
+			 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			 byte[] buffer = new byte[4096];
+			 int bytesRead;
+			 try {
+				while ((bytesRead = imagenInputStream.read(buffer)) != -1) {
+				     byteArrayOutputStream.write(buffer, 0, bytesRead);
+				 }
+				 byte[] imagenBytes = byteArrayOutputStream.toByteArray();
+
+
+				 
+				 try {
+					
+					 imagenBase64 = "data:image/jpeg;base64,"+java.util.Base64.getEncoder().encodeToString(imagenBytes);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				 // Convertir los bytes de la imagen a una cadena Base64
+
+				 // Cerrar el InputStream y el ByteArrayOutputStream
+				 imagenInputStream.close();
+				 byteArrayOutputStream.close();
+				 
+				 if (imagenBase64.equals("data:image/jpeg;base64,")) {
+					 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+				 }
+				 
+				 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+		 }else {
+			 imagenBase64 = "/EventosYa/imgs/imagenEditarEvento.png";
+			 
+			 
+		 }
+		 
+		 
+		 return imagenBase64;
+		
+	}
+
+	@Override
+	public int actualizar(EventoDTO u) {
+
+		int rs = 0;
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = MysqlConector.getConexion();
+			String sql = " UPDATE evento SET nombreEvento= ?, descripcionEvento= ?, ubicacionEvento= ?, imagenEvento = ? , fechaInicio = ? ,fechaFin = ? , idCategoria = ? WHERE idEvento = ? ";
+			pst = con.prepareStatement(sql);
+			
+			pst.setString(1, u.getNombreEvento());
+			pst.setString(2, u.getDescripcionEvento());
+			pst.setString(3, u.getUbicacionEvento());
+			pst.setBlob(4, u.getImagenEvento());
+			pst.setString(5, u.getFechaIncio());
+			pst.setString(6, u.getFechaFin());
+			pst.setInt(7, u.getIdCategoria());
+			pst.setInt(8, u.getIdEvento());
+			
+			
+			
+			rs =pst.executeUpdate();
+			
+			
+			
+			
+		} catch (Exception e) {
+			
+			  System.out.println("Error al actualizar Evento -> en la sentencia "+e.getMessage());
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+		
+		return rs;
+	}
+
+	@Override
+	public int eliminar(int codigo) {
+		int rs=0;
+		Connection con= null;
+		PreparedStatement pst=null;
+		try {
+		 
+			
+			con=MysqlConector.getConexion();
+			String sql=" delete from  evento   where idEvento=?  ";
+			pst=con.prepareStatement(sql);
+			//Parametrizar en el orden de los signos de ?  inicia en 1
+			pst.setInt(1,codigo);
+			//Ejecuci�n
+			rs=pst.executeUpdate();	
+		} catch (Exception e) {
+		  System.out.println("Error en la sentencia "+e.getMessage());
+		}finally{
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}	
+		}
+		
+		return rs;
+	}
 
 		
 	

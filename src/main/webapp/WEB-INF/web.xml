@@ -24,4 +24,24 @@
     <servlet-name>EventoServlet</servlet-name>
     <url-pattern>/EventoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AsistenteServlet</display-name>
+    <servlet-name>AsistenteServlet</servlet-name>
+    <servlet-class>servlets.AsistenteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AsistenteServlet</servlet-name>
+    <url-pattern>/AsistenteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ComentarioServlet</display-name>
+    <servlet-name>ComentarioServlet</servlet-name>
+    <servlet-class>servlets.ComentarioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ComentarioServlet</servlet-name>
+    <url-pattern>/ComentarioServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

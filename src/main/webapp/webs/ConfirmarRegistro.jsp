@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="DAO.DAOFactory"%>
+    <%@page import="java.io.InputStream" %>
+    <%@page import="Models.UsuarioDTO"%>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,9 +86,11 @@
     </style>
 </head>
 <body>
-<% String NombreCompleto =(String) request.getAttribute("nombreCompleto");%>
+<% String msg = (String) request.getAttribute("mensaje");
+if (msg==null) msg="";%>
+<% UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");%>
 
-
+<%=msg %>
 <div class="container">
     <header class="cabecera">  
     </header>
@@ -94,10 +101,13 @@
     <section class="espacio_izqui">
       <div class="cuadro">
         <h2 class="bienve"> Bienvenido a Eventos Ya</h2>
+        
+       
         <img src="../imgs/cheque.png" alt="" class="check">
-        <p class="textbie">Hola <strong><%=NombreCompleto %></strong> ,<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
-        <button class="inic"><a href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp">Iniciar Sesion</a></button>
-      </div>
+        <p class="textbie">Hola <strong><%=usuario.getNombreUsu() + " " + usuario.getApellidoUsu() %></strong> ,<br>gracias por registrarte a <br>EventosYa.<br>Nos alegra que estes aqui.</p>
+        <a class="inic" href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp">Iniciar Sesion</a>
+        
+       </div>
     </section>
     <aside class="espacio_derec">
 

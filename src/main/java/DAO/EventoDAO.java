@@ -1,12 +1,14 @@
 package DAO;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import Models.EventoDTO;
 
 public interface EventoDAO {
 	public int registrar(EventoDTO u);
-	
+	public int actualizar(EventoDTO u);
+	public int eliminar(int codigo);
 	public ArrayList<EventoDTO> listarEvento();
 
 	
@@ -14,4 +16,9 @@ public interface EventoDAO {
 	
 	public ArrayList<EventoDTO> listarEventoPorId(int id);
 	public EventoDTO buscarEvento(int id) ;
+	
+	
+	public String ConvertirIMG(InputStream imagenInputStream);
+
+
 }

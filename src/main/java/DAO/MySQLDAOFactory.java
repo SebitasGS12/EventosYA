@@ -1,6 +1,9 @@
 package DAO;
 
+import mantenimiento.MySQLAsistenteDAO;
+import mantenimiento.MySQLCategoriaDAO;
 import mantenimiento.MySQLCiudadDAO;
+import mantenimiento.MySQLComentarioDAO;
 import mantenimiento.MySQLEventoDAO;
 import mantenimiento.MySQLOrganizadorDAO;
 import mantenimiento.MySQLPaisDAO;
@@ -36,5 +39,23 @@ public class MySQLDAOFactory extends DAOFactory {
 	public EventoDAO getEventoDAO() {
 		// TODO Auto-generated method stub
 		return new MySQLEventoDAO();
+	}
+
+	@Override
+	public CategoriaDAO getCategoriaDAO() {
+		// TODO Auto-generated method stub
+		return new MySQLCategoriaDAO();
+	}
+
+	@Override
+	public AsistenteDAO getAsistenteDAO() {
+		// TODO Auto-generated method stub
+		return new MySQLAsistenteDAO();
+	}
+
+	@Override
+	public ComentarioDAO getComentarioDAO() {
+		// TODO Auto-generated method stub
+		return new MySQLComentarioDAO();
 	}
 }

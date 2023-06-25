@@ -112,9 +112,9 @@ li:last-child {
       <a href="Menu_inicio.jsp">EventosYa</a>
     </h1>
     <ul>
-      <li><a href="#" style="color: white float:right">Comunidad</a></li>
-      <li><a href="#" style="color: white float:right">Acerca de</a></li>
-      <li><a href="#" style="color: white float:right">Contacto</a></li>
+      <li><a href="${pageContext.request.contextPath}/comun/extras/comunidad.html" style="color: white;">Comunidad</a></li>
+      <li><a href="${pageContext.request.contextPath}/comun/extras/acercade.html" style="color: white;">Acerca de</a></li>
+      <li><a href="${pageContext.request.contextPath}/comun/extras/contacto.html" style="color: white;">Contacto</a></li>
       <li><a href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp" class="inicio-sesion">Iniciar Sesión</a></li>
     </ul>
   </div>
