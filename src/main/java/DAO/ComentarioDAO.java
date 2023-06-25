@@ -10,5 +10,6 @@ public interface ComentarioDAO {
  public int eliminar (int idComentario);
  
  public ArrayList<ComentarioDTO>listarComentario();
- 
+ public ArrayList<ComentarioDTO>listarComentarioPorEvento(int codigoEvento);
+
 }

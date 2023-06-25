@@ -1,8 +1,10 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="Models.UsuarioDTO"%>
 <%@page import="Models.EventoDTO"%>
 <%@page import="Models.CategoriaDTO"%>
 <%@page import="Models.AsistenteDTO"%>
+<%@page import="Models.ComentarioDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.DAOFactory"%>
 <%@page import="DAO.AsistenteDAO"%>
@@ -35,11 +37,10 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        margin-bottom: 20px;
         padding: 10px;
         border: 1px solid #ccc;
         width: 80%;
-        margin: 0 auto; /* Alineación al centro */
+        margin: 20px auto; /* Alineación al centro */
     }
     
     .container-1{
@@ -176,6 +177,28 @@
     	
     	background-color: green;
     }
+    
+	.btn-comentario{
+		font-size: .7em;
+		color: gray;
+				transition : .5s all; 
+		
+	}
+	
+	.btn-comentario:hover{
+		cursor: pointer;
+		color: blue;	
+		font-size: .9em;
+		transition : .5s all; 
+	
+	}
+	
+	.container-btn-comentario{
+		display: flex;
+		margin-top: 10px;
+		gap:5px;
+	}    
+    
 </style>
 </head>
 <body>
@@ -305,11 +328,12 @@ if (msg==null) msg="";
 </div>
 
 
-    <div class="event-container" style="width: 60%; max-width: none; height: 400px; margin-top: 20px; width: 80%;">
-        <div>
+    <div class="event-container event-container-2">
+        <div style="margin: 0 auto; width: 80%;">
+        	<%    ArrayList<ComentarioDTO> listaComentarios =  fabric.getComentarioDAO().listarComentarioPorEvento(datosEvento.getIdEvento());%>
         
-            <p style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px; text-align: left;">1 comentario</p>
-            
+            <p style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px; text-align: left;"><%=listaComentarios.size() %> comentario(s)</p>
+           
             
             <div style="display: flex; align-items: center; justify-content:center ;">
             
@@ -334,20 +358,49 @@ if (msg==null) msg="";
             <%
             
             
-            
-            
-            
+            if(listaComentarios.size() == 0){%>
+            	<br /><p align='center'> Este evento no tiene Comentarios</p>
+            <%
+            }else{
+            	for(ComentarioDTO comentario : listaComentarios){
+            		
+            		
+            		
+					UsuarioDTO userComent = fabric.getUsuarioDAO().buscarUsuario(comentario.getIdUsuario());
+					
+                    InputStream imagenComentarioUsu = userComent.getImagenUsuario(); 	
+                    String imagenComentario = fabric.getUsuarioDAO().ConvertirIMG(imagenComentarioUsu);
+
+           		%>
+	            <div style="background-color:#cdcdcd; padding: 10px; margin-top: 10px; width: 90%;">
+	            	<div class="" style="display: flex">
+    		            <img src="<%=imagenComentario %>" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
+		                <span style="font-size: 1.2em;"><%=userComent.getNombreUsu() + " "+ userComent.getApellidoUsu() %></span>
+	            	</div>
+                	<p id="pContenido" style="font-size: 1em; margin-top: 10px;"><%=comentario.getContenido() %></p>
+                	<textarea id="pTextEditable"rows="" cols="" style="width: 90%;height: 70px;display: inline-block;" id="pEdit"><%=comentario.getContenido() %></textarea>
+	            	<div class="container-btn-comentario" >
+	                	<p style="font-size: .6em;"><%=comentario.getFechaHora() %></p>
+                		
+                		<a class="btn-comentario" id="editMostrar" >Editar</a>
+                		<a class="btn-comentario" style="display: none;" id="editEnviar" >Editar Comentario</a>
+                		<a class="btn-comentario"   >Eliminar</a>	
+                	</div>
+            	</div>
+           		
+           		
+           		<%
+            		
+            	}
+            }
             
             %>
-            <div style="background-color: darkgray; padding: 10px; margin-top: 10px;">
-                <img src="imgs/womanComentary_MenuUsuario.png" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
-                <span style="font-size: 1em;">@User12355</span>
-                <p style="font-size: 0.9em; margin-top: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
+
             
             
             
         </div>
     </div>
 </body>
+<script src="${pageContext.request.contextPath}/comun/procesosComentarioEstilo.js"></script>
 </html>

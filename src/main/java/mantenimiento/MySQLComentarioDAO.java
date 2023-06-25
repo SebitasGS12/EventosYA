@@ -75,10 +75,13 @@ public class MySQLComentarioDAO implements ComentarioDAO{
 		Connection con= null;
 		PreparedStatement pst=null;
 		try {
+			con = MysqlConector.getConexion();
 			String sql="DELETE FROM comentario WHERE idComentario = ?";
 			pst=con.prepareStatement(sql);
 			pst.setInt(1,idComentario);
 			rs=pst.executeUpdate();	
+			
+			
 		} catch (Exception e) {
 		  System.out.println("Error en la sentencia "+e.getMessage());
 		}finally{
@@ -89,7 +92,6 @@ public class MySQLComentarioDAO implements ComentarioDAO{
 				System.out.println("Error al cerrar "+e2.getMessage());
 			}	
 		}
-			con=MysqlConector.getConexion();
 		return rs;
 	}
 	
@@ -130,6 +132,46 @@ public class MySQLComentarioDAO implements ComentarioDAO{
 	    }
 
 	    return lista;
+	}
+
+	@Override
+	public ArrayList<ComentarioDTO> listarComentarioPorEvento( int codigoEvento) {
+		 ArrayList<ComentarioDTO> lista = new ArrayList<ComentarioDTO>( );
+		    ResultSet rs = null;
+		    Connection con = null;
+		    PreparedStatement pst = null;
+
+		    try {
+		        con = MysqlConector.getConexion();
+		        String sql = "SELECT idComentario, idEvento, idUsuario, Contenido, fechaHora FROM comentario where idEvento = ?  ";
+		        pst = con.prepareStatement(sql);
+		        pst.setInt(1,codigoEvento);
+		        
+		        rs = pst.executeQuery();
+
+		        while (rs.next()) {
+		            ComentarioDTO com = new ComentarioDTO();
+		            com.setIdComentario(rs.getInt(1));
+		            com.setIdEvento(rs.getInt(2));
+		            com.setIdUsuario(rs.getInt(3));
+		            com.setContenido(rs.getString(4));
+		            com.setFechaHora(rs.getDate(5).toString());
+
+		            lista.add(com);
+		        }
+		    } catch (Exception e) {
+		        System.out.println("Error al buscar comentarios: " + e.getMessage());
+		    } finally {
+		        try {
+		            if (pst != null) pst.close();
+		            if (rs != null) rs.close();
+		            if (con != null) con.close();
+		        } catch (SQLException e2) {
+		            System.out.println("Error al cerrar la conexión: " + e2.getMessage());
+		        }
+		    }
+
+		    return lista;
 	}
 
 }
