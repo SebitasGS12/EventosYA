@@ -71,6 +71,40 @@
     .header	.inicio-sesion:hover {
       opacity: 0.7;
     }
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+li {
+    border-right: 1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
 </style>
 <div class="header">
     <h1>
@@ -78,9 +112,9 @@
       <a href="Menu_inicio.jsp">EventosYa</a>
     </h1>
     <ul>
-      <li><a href="#" style="color: white;">Comunidad</a></li>
-      <li><a href="#" style="color: white;">Acerca de</a></li>
-      <li><a href="#" style="color: white;">Contacto</a></li>
+      <li><a href="#" style="color: white float:right">Comunidad</a></li>
+      <li><a href="#" style="color: white float:right">Acerca de</a></li>
+      <li><a href="#" style="color: white float:right">Contacto</a></li>
       <li><a href="${pageContext.request.contextPath}/webs/Menu_IniciarSesion.jsp" class="inicio-sesion">Iniciar Sesión</a></li>
     </ul>
   </div>
