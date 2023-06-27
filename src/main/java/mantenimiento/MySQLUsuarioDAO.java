@@ -92,6 +92,7 @@ public class MySQLUsuarioDAO implements UsuarioDAO {
 				u.setPaisUsu(rs.getString(6));
 				u.setCiudadUsu(rs.getString(7));
 				u.setGeneroUsu(rs.getString(8));
+				u.setImagenUsuario(rs.getBinaryStream(9));
 				
 				
 			}

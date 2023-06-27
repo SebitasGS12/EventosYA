@@ -11,7 +11,7 @@
 
     
     .header {
-      background-color: #343838;
+      background-color: #333;
       padding: 20px;
       width: 100%;
       display: flex;

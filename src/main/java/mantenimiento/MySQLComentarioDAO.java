@@ -48,11 +48,11 @@ public class MySQLComentarioDAO implements ComentarioDAO{
 		Connection con = null;
 		try {
 			con = MysqlConector.getConexion();
-			String sql = "UPDATE comentario SET contenido = ?, fechaHora = ? WHERE idComentario ";
+			String sql = "UPDATE comentario SET contenido = ? WHERE idComentario = ?";
 			pst = con.prepareStatement(sql);
 			
 			pst.setString(1, com.getContenido());
-			pst.setString(2, com.getFechaHora());
+			pst.setInt(2, com.getIdComentario());
 			
 			rs =pst.executeUpdate();
 		} catch (Exception e) {

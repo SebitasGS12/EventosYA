@@ -2,7 +2,7 @@
 <%@page import="DAO.DAOFactory" %>
 <%@page import="java.util.ArrayList"%>
 
-
+<%@page import="java.io.InputStream" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -268,7 +268,10 @@ pageEncoding="ISO-8859-1"%>
 <% String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg="";
 	
-UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
+UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("datosUsuario");
+
+
+
 %>
 <%=msg %>
 
@@ -280,7 +283,7 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
 
     <main class="cont_main">
     
-    	<%@include file="../comun/aside_configuracion.html" %>
+    <%@include file="../comun/aside_configuracion.html" %>
 
 		<div class="article_pa">
 		    <div class="formu">
@@ -304,12 +307,9 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
 		             <input   type="text" name="txtcorreo" placeholder="Correo Registrado" value="<%=usuario.getCorreoUsu()%>">
 		            </div>
 		            <br>
-		            <br>
-		            <div class="fotope">
-		                <label>Foto de Perfil</label>
-		                <img src="../imgs/perfil.png" alt="">
-		            </div>
-		        <input class="confcamb" type="submit"value="actUsu" name="opcion" >
+					<br />
+					
+		        <button class="confcamb" type="submit"value="actUsu" name="opcion" >Actualizar Perfil</button>
 
 		        </form>
 		      </div>

@@ -181,8 +181,10 @@
 	.btn-comentario{
 		font-size: .7em;
 		color: gray;
-				transition : .5s all; 
-		
+		transition : .5s all; 
+		outline: none;
+		background-color:	 rgba(0, 0, 0, 0);
+		border:none;
 	}
 	
 	.btn-comentario:hover{
@@ -190,6 +192,7 @@
 		color: blue;	
 		font-size: .9em;
 		transition : .5s all; 
+		
 	
 	}
 	
@@ -197,7 +200,22 @@
 		display: flex;
 		margin-top: 10px;
 		gap:5px;
-	}    
+	}  
+	
+	.txtArea-Comentario{
+		display: none;
+		margin: 5px;
+		transition: .5s all;
+		width: 90%;height: 70px;
+	
+	} 
+	
+	.pContent{
+		transition: .5s all;
+		display:inline-block;		
+		font-size: 1em; margin-top: 10px;
+		
+	}
     
 </style>
 </head>
@@ -292,7 +310,7 @@ if (msg==null) msg="";
 	    
     
 	</div>
-    </div>
+</div>
 <div style="display: flex; justify-content: center; width: 100%;">
     <div class="flex-container">
         <div class="event-container" style="width: 25%; max-width: 400px;  margin-right: 20px;">
@@ -342,8 +360,7 @@ if (msg==null) msg="";
                 <form action="comentario" method="post">                
                 	
                 	<div class="" style="display: none;">
-                		    		<input type="text" name="org" value="<%=idOrganizador%>">
-                	
+                		    <input type="text" name="org" value="<%=idOrganizador%>">
               	    		<input type="text" name="idPersona" value="<%=idUsuarioPersona%>">
 	    					<input type="text" name="idEvento" value="<%=eventoOrganizador.getIdEvento()%>">	
                 	</div>
@@ -372,21 +389,27 @@ if (msg==null) msg="";
                     String imagenComentario = fabric.getUsuarioDAO().ConvertirIMG(imagenComentarioUsu);
 
            		%>
-	            <div style="background-color:#cdcdcd; padding: 10px; margin-top: 10px; width: 90%;">
+	            <form style="background-color:#cdcdcd; padding: 10px; margin-top: 10px; width: 90%;" method="post" action="comentario">
+	            	<input type="text" name="idComentario" style="display: none" value="<%=comentario.getIdComentario()%>">
+                	<input type="text" name="idOrg" style="display: none" value="<%=idOrganizador%>">
+                	<input type="text" name="idUsuario" style="display: none" value="<%=idUsuarioPersona%>">
 	            	<div class="" style="display: flex">
     		            <img src="<%=imagenComentario %>" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
 		                <span style="font-size: 1.2em;"><%=userComent.getNombreUsu() + " "+ userComent.getApellidoUsu() %></span>
 	            	</div>
-                	<p id="pContenido" style="font-size: 1em; margin-top: 10px;"><%=comentario.getContenido() %></p>
-                	<textarea id="pTextEditable"rows="" cols="" style="width: 90%;height: 70px;display: inline-block;" id="pEdit"><%=comentario.getContenido() %></textarea>
+                	<p id="pContenido" class="pContent" ><%=comentario.getContenido() %></p>
+    
+                	<textarea  id="pTextEditable" name="contenido" class="txtArea-Comentario"rows="" cols=""  id="pEdit"><%=comentario.getContenido() %></textarea>
+	            	
 	            	<div class="container-btn-comentario" >
 	                	<p style="font-size: .6em;"><%=comentario.getFechaHora() %></p>
+                		<a class="btn-comentario" onclick="mostrarEdit(this)"  id="edit" >Editar</a>
                 		
-                		<a class="btn-comentario" id="editMostrar" >Editar</a>
-                		<a class="btn-comentario" style="display: none;" id="editEnviar" >Editar Comentario</a>
-                		<a class="btn-comentario"   >Eliminar</a>	
+						<button class="btn-comentario" style="display: none;" id="editComentario" name="opcion" value="act" >Editar Comentario</button>                		
+                		<a class="btn-comentario" onclick="cancelarEdit(this)" style="display: none;" id="editCancelar">Cancelar</a>
+						<button class="btn-comentario" name="opcion" value="del" >Eliminar</button>                		
                 	</div>
-            	</div>
+            	</form>
            		
            		
            		<%

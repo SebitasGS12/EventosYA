@@ -47,11 +47,13 @@ public class UsuarioDTO {
 //Humberto
 	public UsuarioDTO(int codigo, String nombreUsu, String correoUsu) {
 		this.idUsuario = codigo;
+		this.idUsuario = codigo;
 		this.nombreUsu = nombreUsu;
 		this.correoUsu = correoUsu;
 	}
 	
 	public UsuarioDTO(int codigo, String nombreUsu, String apellidoUsu, String correoUsu) {
+		this.idUsuario = codigo;
 		this.nombreUsu = nombreUsu;
 		this.apellidoUsu = apellidoUsu;
 		this.correoUsu = correoUsu;

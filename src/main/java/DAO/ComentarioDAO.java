@@ -12,4 +12,5 @@ public interface ComentarioDAO {
  public ArrayList<ComentarioDTO>listarComentario();
  public ArrayList<ComentarioDTO>listarComentarioPorEvento(int codigoEvento);
 
+
 }

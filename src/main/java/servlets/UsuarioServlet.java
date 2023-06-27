@@ -115,18 +115,25 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 			break;
 		}
 		case "irConfig": {
-			url="webs/MenuUsuario_Config_Contra.jsp";
+			url="webs/MenuUsuario_Config_Perfil.jsp";
 			break;
 			
 		}case "irConfirm" :{
 			url="webs/ConfirmarRegistro.jsp";
 			break;
+		}case "irConfigContra": {
+			url="webs/MenuUsuario_Config_Contra.jsp";
+			break;
+			
 		}
 		
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + ruta);
 		}
-		request.getSession().setAttribute("datousu", usuario);	
+		
+		
+		
+		request.setAttribute("datosUsuario", usuario);	
 
 		request.getRequestDispatcher(url).forward(request, response);	
 
@@ -241,7 +248,7 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 		UsuarioDTO u = fabrica.getUsuarioDAO().validar(usuario, clave);
 		user = u;
 		
-		
+		System.out.println(user.getIdUsuario());
 		if (u!=null) {
 			mensaje += "<script>alert('"+"Bienvenido"+u.getNombreUsu()+"');</script>";
 			url = "webs/MenuUsuario_Menu.jsp";
@@ -266,7 +273,6 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 			request.getSession().setAttribute("mensaje",mensaje);
 
 		}
-	
 		
 		//Salida a la pagina principal
 		request.getRequestDispatcher(url).forward(request, response);

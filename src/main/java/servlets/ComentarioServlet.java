@@ -49,6 +49,7 @@ public class ComentarioServlet extends HttpServlet {
 		case "reg":  
 					registrarComentario(request,response); 
 					break;
+	
 		case "del":  
 			eliminarComentario(request,response); 
 			break;
@@ -61,13 +62,73 @@ public class ComentarioServlet extends HttpServlet {
 
 	}
 
-	private void editarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void editarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int ok ;
+		String url = "";
+		String mensaje = "";
+		
+		
+		int idComentario = Integer.parseInt(request.getParameter("idComentario"));
+		String contenido = request.getParameter("contenido");
+
+		int idOrg = Integer.parseInt( request.getParameter("idOrg"));
+		int idUsuario= Integer.parseInt(request.getParameter("idUsuario"));
+	
+		ComentarioDTO comentario = new ComentarioDTO(idComentario,contenido);
+		
+		
+		DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		
+		ok = fabric.getComentarioDAO().editar(comentario);
+		
+		if(ok==0) {
+			mensaje+= "<script> alert('"+"Error al editar el comentario, revisar"+"')</script>";
+		}else {
+			mensaje+=" <script> alert('"+"Comentario editado" +"') </script>";
+		}
+		
+		
+		
+		request.setAttribute("mensaje", mensaje);
+		
+		url = "evento?opcion=bus&org="+ idOrg +"&url=ver&usuario="+idUsuario+"";
+		request.getRequestDispatcher(url).forward(request, response);
+		
+		
 		
 	}
 
-	private void eliminarComentario(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void eliminarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int ok = 1;
+		String url = "";
+		String mensaje = "";
+		
+		int idComentario = Integer.parseInt(request.getParameter("idComentario"));
+	
+
+		int idOrg = Integer.parseInt( request.getParameter("idOrg"));
+		int idUsuario= Integer.parseInt(request.getParameter("idUsuario"));
+			
+		
+		DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+		
+		ok = fabric.getComentarioDAO().eliminar(idComentario);
+		
+		if(ok==0) {
+			mensaje+= "<script> alert('"+"Error al eliminar el comentario, revisar"+"')</script>";
+		}else {
+			mensaje+=" <script> alert('"+"Comentario eliminado" +"') </script>";
+		}
+		
+		
+		
+		request.setAttribute("mensaje", mensaje);
+		
+		url = "evento?opcion=bus&org="+ idOrg +"&url=ver&usuario="+idUsuario+"";
+		request.getRequestDispatcher(url).forward(request, response);;
+		
 		
 	}
 
@@ -103,7 +164,7 @@ public class ComentarioServlet extends HttpServlet {
 		request.setAttribute("mensaje", mensaje);
 		
 		url = "evento?opcion=bus&org="+ idOrg +"&url=ver&usuario="+idUsuario+"";
-		request.getRequestDispatcher(url).forward(request, response);;
+		request.getRequestDispatcher(url).forward(request, response);
 		
 	}
 

@@ -31,6 +31,14 @@ public class ComentarioDTO {
 	}
 
 
+	public ComentarioDTO(int idComentario, String contenido) {
+		// TODO Auto-generated constructor stub
+		this.idComentario = idComentario;
+		this.contenido = contenido;
+	}
+
+
+
 	public int getIdComentario() {
 		return idComentario;
 	}

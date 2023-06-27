@@ -118,6 +118,7 @@
 <body>
 <%String msg = (String) request.getAttribute("mensaje");
 if (msg==null) msg=""; %>
+<%=msg %>
 <%@include file="../comun/header_normal.jsp" %>	
   <main>
       <div class="container">
@@ -127,7 +128,7 @@ if (msg==null) msg=""; %>
             
        		 <hr style="width: 100% ; margin:10px 0;" />
         </div>
-        <form action="${pageContext.request.contextPath}/usuario">
+        <form action="${pageContext.request.contextPath}/usuario" method="Post">
         <div class="container_escritura">
           <div class="escritura_div">          
             <label for="inputUsuario" ><img src="${pageContext.request.contextPath}/imgs/icoUsuario.png" alt="" /> Correo</label>
@@ -147,9 +148,9 @@ if (msg==null) msg=""; %>
           
           
           </div>
-          </form>
           
         </div>
+          </form>
   
   
         

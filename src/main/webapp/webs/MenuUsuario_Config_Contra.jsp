@@ -261,7 +261,7 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("datousu");
              <label>Confirmar Contraseña</label>
              <input   type="text" name="txtnuecontra" placeholder="Confirme nueva Contraseña">
             </div>
-        <input class="confcamb" type="submit"value="modContra" name='opcion'>
+        	<button class="confcamb" type="submit"value="modContra" name='opcion'>Cambiar Contraseña</button>
         </form>
         
       </div>
