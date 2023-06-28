@@ -1,3 +1,4 @@
+drop database if exists EventosYa;
 create database EventosYa;
 use EventosYa;
 
@@ -69,6 +70,7 @@ CREATE TABLE Comentario (
   constraint fkIdEvento_Comentario FOREIGN KEY (idEvento) REFERENCES Evento(idEvento),
   constraint fkIdAsistente_Comentario FOREIGN KEY (idAsistente) REFERENCES Asistente(idAsistente)
 )auto_increment=10000;
+
 ALTER TABLE `eventosya`.`comentario` 
 DROP FOREIGN KEY `fkIdAsistente_Comentario`;
 ALTER TABLE `eventosya`.`comentario` 
@@ -76,6 +78,7 @@ CHANGE COLUMN `idAsistente` `idUsuario` INT NULL DEFAULT NULL ,
 DROP INDEX `fkIdAsistente_Comentario` ,
 ADD INDEX `fkIdUsuarioComentario_idx` (`idUsuario` ASC) VISIBLE;
 ;
+
 ALTER TABLE `eventosya`.`comentario` 
 ADD CONSTRAINT `fkIdUsuarioComentario`
   FOREIGN KEY (`idUsuario`)
