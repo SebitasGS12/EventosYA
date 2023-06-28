@@ -19,6 +19,9 @@ public interface OrganizadorDAO {
 
 	public ArrayList<OrganizadorDTO> listarOrganizadorPorUsuario(int id);
 	
+
+	public ArrayList<OrganizadorDTO> buscarPorFiltro(String filtro);
+
 	
 	public OrganizadorDTO buscarOrganizador(int codigo);
 	

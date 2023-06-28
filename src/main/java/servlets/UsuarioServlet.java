@@ -258,8 +258,6 @@ private void irAPagina(HttpServletRequest request, HttpServletResponse response)
 			System.out.println("Fecha --- " +  new SimpleDateFormat().format(miSession.getCreationTime()));
 			System.out.println("Duracion ---" + miSession.getMaxInactiveInterval() );
 			
-			ServletContext serverContext = getServletContext();
-			serverContext.setAttribute("datousu", u);
 			
 			request.getSession().setAttribute("mensaje", mensaje);
 			request.getSession().setAttribute("datousu", u);	

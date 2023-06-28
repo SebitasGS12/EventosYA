@@ -316,5 +316,53 @@ public class MySQLOrganizadorDAO implements OrganizadorDAO {
 	}
 
 	
+	public ArrayList<OrganizadorDTO> buscarPorFiltro(String filtro) {
+		
+		ArrayList<OrganizadorDTO> lista = null;
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			lista = new ArrayList<OrganizadorDTO>();
+			con = MysqlConector.getConexion();
+			String sql = "{call usp_buscarEvento(?)}";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, filtro);
+			
+			
+			rs = pst.executeQuery()	;
+			
+			while(rs.next()) {
+				
+				OrganizadorDTO o = new OrganizadorDTO(rs.getInt(1),rs.getInt(2),rs.getInt(3));
+				lista.add(o);
+				
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			  System.out.println("Error al buscar filtro Evento > en la sentencia "+e.getMessage());
+
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(rs!=null)rs.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}
+		}
+		
+		
+		
+		
+		
+		
+		return lista;
+	}
+
+	
 	
 }

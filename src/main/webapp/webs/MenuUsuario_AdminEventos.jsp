@@ -5,11 +5,14 @@
 <%@page import="Models.UsuarioDTO"%>
 <%@page import="Models.OrganizadorDTO"%>
 <%@page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Menu Usuario </title>
+
+	
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
     *{
@@ -158,6 +161,11 @@
       font-size: 1.1em;
     }
     
+    #table{
+    	color:black;
+    
+    }
+    
 
 
   </style>
@@ -174,7 +182,7 @@ ArrayList<OrganizadorDTO> listaOrganizador = fabric.getOrganizadorDAO().listarOr
 request.getSession().setAttribute("listaOrganizador", listaOrganizador);
 
 int can = listaOrganizador.size();
-if(listaOrganizador == null) can =  0;
+
 
 if (msg==null) msg="";
 %>
@@ -216,17 +224,34 @@ if (msg==null) msg="";
 	      		<h3>Lista de Eventos</h3>
     			<a href="${pageContext.request.contextPath}/evento?opcion=lis&url=ver">Ver Evento</a>
     		</div>
-	      <table class="event-list">
-		      <tbody>
-				<tr >
-					<th>ID</th>
-					<th>Nombre</th>
-				</tr>
-				<!-- 	Aca se haria un foreach -->	
+			<table id="table" class="event-list" style="border: 1px solid black;">
+				<thead style="background-color: #333; color: white;">
+					<tr>
+						<th style="padding: 10px; border: 1px solid black;">Id</th>
+						<th style="padding: 10px; border: 1px solid black;">Nombre</th>
+						<th style="padding: 10px; border: 1px solid black;">Exportar PDF</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					if (listaOrganizador != null) {
+						for (OrganizadorDTO o : listaOrganizador) {
+							EventoDTO eve = fabric.getEventoDAO().buscarEvento(o.getIdEvento());
+					%>
+			
+					<tr>
+						<td style="padding: 10px; border: 1px solid black;"><%= eve.getIdEvento() %></td>
+						<td style="padding: 10px; border: 1px solid black;"><%= eve.getNombreEvento() %></td>
+						<td style="padding: 10px; border: 1px solid black;"><a href="evento?opcion=exportar&id=<%=o.getIdOrganizador()%>" target="_blank">Exportar PDF</a></td>
+					</tr>
+			
+					<%
+						}
+					}
+					%>
+				</tbody>
+			</table>
 
-	
-		      </tbody>
-	      </table>
 	    </div>
 	  </main>
 

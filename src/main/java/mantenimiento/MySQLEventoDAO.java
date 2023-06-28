@@ -1,11 +1,22 @@
 package mantenimiento;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
+
+
+import com.mysql.cj.protocol.Resultset;
 
 import Coneccion.MysqlConector;
 import DAO.EventoDAO;
@@ -352,6 +363,53 @@ public class MySQLEventoDAO implements EventoDAO {
 		return rs;
 	}
 
+	@Override
+	public int crearPDF(OutputStream out,int codigo) {
+		// TODO Auto-generated method stub
+		int resultado = 1;
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = MysqlConector.getConexion();
+			String sql = "select * from evento  where idEvento =  ? ";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, codigo);
+			
+			rs = pst.executeQuery();
+			Document doc = new Document();
+			PdfWriter.getInstance(doc, out);
+			doc.open();
+			doc.add(new Paragraph("Lista de Usuarios"));
+			doc.add(new Paragraph(" "));
+			doc.add(new Paragraph("ID	Nombre"));
+			while(rs.next()) {
+				
+				doc.add(new Paragraph(rs.getInt(1) +  "	"+rs.getString(2) ));
+
+				
+			}
+			doc.close();
+			
+			resultado = 0;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado = 1;
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}	
+		}
 		
+		
+		return resultado;
+	}
+
+
+
 	
 }	

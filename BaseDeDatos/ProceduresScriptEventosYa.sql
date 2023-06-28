@@ -9,21 +9,20 @@ END$$
 
 DELIMITER ;
 
-
 USE `eventosya`;
-DROP procedure IF EXISTS `usp_buscarEvento`;
+DROP PROCEDURE IF EXISTS `usp_buscarEvento`;
 
 DELIMITER $$
 USE `eventosya`$$
-CREATE PROCEDURE `usp_buscarEvento` (in texto varchar(100) )
+CREATE PROCEDURE `usp_buscarEvento` (IN texto VARCHAR(100))
 BEGIN
-	select * from evento
-    where nombreEvento like CONCAT("%",texto,"%") or
-    idEvento like CONCAT("%",texto,"%") or
-	descripcionEvento like CONCAT("%",texto,"%") or
-    ubicacionEvento like CONCAT("%",texto,"%") ;
-
-
+    SELECT o.idOrganizador,o.idUsuario,o.idEvento FROM evento e
+    JOIN organizador o ON o.idEvento = e.idEvento
+    WHERE e.nombreEvento LIKE CONCAT("%", texto, "%")
+        OR e.idEvento LIKE CONCAT("%", texto, "%")
+        OR e.descripcionEvento LIKE CONCAT("%", texto, "%")
+        OR e.ubicacionEvento LIKE CONCAT("%", texto, "%");
 END$$
 
 DELIMITER ;
+

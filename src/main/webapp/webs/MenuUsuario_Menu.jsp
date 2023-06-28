@@ -9,6 +9,7 @@
 <%@ page import="java.io.ByteArrayOutputStream" %>
 
 
+
 <%@page import="Models.EventoDTO"%>
 <!DOCTYPE html>
 <html>
@@ -160,8 +161,14 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 	            <h2 class="pag-subtitle">Buscar Evento</h2>
 	        </div>
 	        <div class="pag-search-container">
-	            <input type="text" class="pag-search-input" placeholder="Buscar evento">
-	            <button class="pag-search-button">&#128269;</button>
+	        
+	        	<form action="evento" method="post">
+	        	
+		            <input type="text" class="pag-search-input"  name="usuario" style="display: none;" value=<%=codigo %>>
+		            <input type="text" class="pag-search-input"  name="texto" placeholder="Buscar evento">
+		            <button class="pag-search-button" name="opcion" value="buscador">&#128269;</button>
+		        	
+	        	</form>
 	        </div>
 	        <div class="pag-event-container pec-1" id="contenedor-eventos1">
 	           
@@ -190,7 +197,7 @@ DAOFactory fabric = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		           		<a href="/EventosYa/evento?opcion=bus&org=<%=org.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>" class="item-evento">
 		           		
 		    				<img src="<%= imagenBase64.toString() %>" alt="Imagen del evento">
-							<H3><%=eve.getNombreEvento() %></H3>
+							<h3><%=eve.getNombreEvento() %></h3>
 		           	
 		           		</a>
 

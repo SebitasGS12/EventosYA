@@ -7,18 +7,20 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.ServletContext;
+
 import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+
 
 import DAO.DAOFactory;
 import DAO.EventoDAO;
 import DAO.OrganizadorDAO;
-import DAO.UsuarioDAO;
-import Models.AsistenteDTO;
+
 import Models.EventoDTO;
 import Models.OrganizadorDTO;
 import Models.UsuarioDTO;
@@ -31,6 +33,7 @@ import Models.UsuarioDTO;
 
 public class EventoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static int user ;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,7 +48,7 @@ public class EventoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		doPost(request, response);
 	}
 
@@ -60,6 +63,9 @@ public class EventoServlet extends HttpServlet {
 		switch (opcion) {
 		case "irReg":
 			cargarRegistroEvento(request,response);
+			break;
+		case "exportar":
+			exportar(request,response);
 			break;
 		
 		case "reg":  
@@ -80,6 +86,9 @@ public class EventoServlet extends HttpServlet {
 		case "eli":  
 			Eliminar(request,response); 
 			break;
+		case "buscador":
+			buscarFiltro(request,response); 
+			break;
 		case "sal":
 				salir(request,response); 
 				break;
@@ -92,6 +101,93 @@ public class EventoServlet extends HttpServlet {
 		
 	
 	}
+	private void exportar(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
+		// TODO Auto-generated method stub
+		int idOrg = Integer.parseInt(request.getParameter("id"));
+		String url = "";
+		int resultado = 1;
+		
+		response.setContentType("application/pdf");
+
+		OutputStream out = response.getOutputStream();
+		try {
+			
+			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+			OrganizadorDTO org = fabrica.getOrganizadorDAO().buscarOrganizador(idOrg);
+			
+			EventoDAO dao = fabrica.getEventoDAO();
+
+			
+			resultado = dao.crearPDF(out,org.getIdEvento());
+		} catch (Exception e) {
+			e.printStackTrace();
+	        throw new ServletException("Error al crear el PDF", e);
+	    } finally {
+	        if (out != null) {
+	        	 try {
+	                 out.flush(); // Asegurarse de que todos los datos se hayan enviado al navegador
+	             } catch (IOException e) {
+	                 e.printStackTrace();
+	             }
+	             out.close(); // Cerrar el OutputStream
+	         }
+	    }
+
+	    System.out.println(resultado);
+		
+		
+	}
+
+	private void buscarFiltro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String mensaje = "";
+		String url = "";
+		ArrayList<OrganizadorDTO> listaFiltro = null;
+		String  texto = request.getParameter("texto");
+		int  usuario  = Integer.parseInt( request.getParameter("usuario"));
+		
+		try {	
+			
+			DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
+			OrganizadorDAO dao = fabrica.getOrganizadorDAO();
+			listaFiltro = dao.buscarPorFiltro(texto);
+			
+			if (listaFiltro.size() == 0) {
+				mensaje  ="<script> alert('Evento No Existe') </script>";
+				url="webs/MenuUsuario_Menu.jsp";
+
+			
+			}else {
+				url = "webs/Menu_Usuario_Menu_BusquedaExistente.jsp";
+				
+				
+			}
+			
+			
+
+		} catch (Exception e) {
+			
+			 System.out.println("Error al listar Evento > en la sentencia "+e.getMessage());
+		}
+		
+		
+		
+		
+		request.setAttribute("listaFiltro", listaFiltro);
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("mensaje", mensaje);
+
+		request.getRequestDispatcher(url).forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
 	private void Eliminar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//variables
 		String mensaje="";
