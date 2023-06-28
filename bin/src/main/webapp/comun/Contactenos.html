@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+ <style type="text/css">
+body {
+    background-color: #444442;
+    padding-top: 85px;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif, 'arial';
+    font-weight: 600;
+    font-size: 72px;
+    color: white;
+    text-align: center;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif, 'arial';
+    font-weight: 400;
+    font-size: 20px;
+    color: #9b9b9b;
+    line-height: 1.5;
+}
+
+/* ///// inputs /////*/
+
+input:focus ~ label, textarea:focus ~ label, input:valid ~ label, textarea:valid ~ label {
+    font-size: 0.75em;
+    color: #999;
+    top: -5px;
+    -webkit-transition: all 0.225s ease;
+    transition: all 0.225s ease;
+}
+
+.styled-input {
+    float: left;
+    width: 293px;
+    margin: 1rem 0;
+    position: relative;
+    border-radius: 4px;
+}
+
+@media only screen and (max-width: 768px){
+    .styled-input {
+        width:100%;
+    }
+}
+
+.styled-input label {
+    color: #999;
+    padding: 1.3rem 30px 1rem 30px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    pointer-events: none;
+}
+
+.styled-input.wide { 
+    width: 650px;
+    max-width: 100%;
+}
+
+input,
+textarea {
+    padding: 30px;
+    border: 0;
+    width: 100%;
+    font-size: 1rem;
+    background-color: #2d2d2d;
+    color: white;
+    border-radius: 4px;
+}
+
+input:focus,
+textarea:focus { outline: 0; }
+
+input:focus ~ span,
+textarea:focus ~ span {
+    width: 100%;
+    -webkit-transition: all 0.075s ease;
+    transition: all 0.075s ease;
+}
+
+textarea {
+    width: 100%;
+    min-height: 15em;
+}
+
+.input-container {
+    width: 650px;
+    max-width: 100%;
+    margin: 20px auto 25px auto;
+}
+
+.submit-btn {
+    float: right;
+    padding: 7px 35px;
+    border-radius: 60px;
+    display: inline-block;
+    background-color: #4b8cfb;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.06),
+              0 2px 10px 0 rgba(0,0,0,0.07);
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(1px);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10),
+              0 1px 1px 0 rgba(0,0,0,0.09);
+}
+
+@media (max-width: 768px) {
+    .submit-btn {
+        width:100%;
+        float: none;
+        text-align:center;
+    }
+}
+
+input[type=checkbox] + label {
+  color: #ccc;
+  font-style: italic;
+} 
+
+input[type=checkbox]:checked + label {
+  color: #f00;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+:root{
+
+    /* --------------------------------------- COLORES 	*/
+    --color-principal: #fddb51;
+    --color-secundario: #161616;
+    --color-fondo-principal: #f1f1f1;
+    --color-titulo: white;
+    --color-header: var(--color-secundario);
+
+
+    --ancho-maximo: 1200px;
+    --ancho-minimo: 200px;
+
+
+    /* --------------------------------------- ALTURAS 	*/
+    --ancho-movil-1: 670px;
+    --altura-logo-h: 35px;
+    --altura-logo-f: 40px;
+    --tamanio-redes: 20px;
+    --tamanio-redes-movil: 30px;
+    --altura-logo-movil-f: 60px;
+
+
+    --altura-superior-h: 60px;
+    --header-altura-franja: 10px;
+    --altura-menu-movil: 200px;
+    --altura-header: calc(var(--altura-superior-h) + var(--header-altura-franja));
+    --padding-movil: 25px;
+
+    --altura-footer: 120px;
+    --altura-footer-movil: 310px;
+
+    --altura-menu-movil: 105px;
+    --margin-footer: 40px;
+    /* --------------------------------------- CAJAS */
+    --padding-contenido: 20px;
+}
+
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+}
+
+a {
+    text-decoration: none;
+    text-overflow: inherit;
+    color: black;
+    display: grid;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+
+
+.contenedor-body{
+    min-height: 100%;
+    width: 100%;
+}
+.main{
+    overflow: auto;
+    padding-bottom: var(--footer-escritorio);
+}
+
+
+
+@media screen and (max-width: 530px) {
+    body{
+        margin-bottom: calc(var(--altura-footer-movil) + var(--margin-footer));
+    }
+}
+
+
+header{
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+	min-width: var(--ancho-minimo);
+	background-color: var(--color-header);
+	height: var(--altura-header);
+    box-shadow: 0 0px 12px 6px rgba(0, 0, 0, 0.6);
+}
+
+header > .padre-sup{
+	height: var(--altura-superior-h);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 var(--padding-movil);
+}
+
+header > .padre-sup > .hijo-sup{
+	height: var(--altura-superior-h);
+	display: flex;
+	max-width: var(--ancho-maximo);
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+    margin: 0 10px;
+}
+
+.logo-titulo{
+	display: flex;
+	align-items: center;
+}
+
+#logo-h{
+	width: var(--altura-logo-h);
+}
+
+#titulo-h{
+	font: normal bold 20px 'Lato',sans-serif;
+	white-space: nowrap;
+	color: white;
+	letter-spacing: 2px;
+    margin: 0;
+	margin-left: 10px;
+    padding-top: 2px;
+}
+
+#franja-amarilla-h{
+	height: var(--header-altura-franja);
+	background-color: var(--color-principal);
+}
+
+#menu-header {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	align-content: center;
+	height: inherit;
+}
+#menu-header > #lista{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0;
+	padding-top: 2px;
+	margin: 0;
+}
+
+li{
+	display: inline-block;
+}
+
+.item{
+	white-space: nowrap;
+    font: normal 500 15px 'Lato',sans-serif;
+    color: white;
+    letter-spacing: 2px;
+    margin-left: 20px;
+    padding: 5px 10px 5px 5px;
+}
+
+.hipervinculo-h{
+	display: inline-block;
+	padding: 0;
+	text-decoration: none;
+	color: white;
+}
+
+.hipervinculo-h:hover{
+    text-decoration: none;
+	color: var(--color-principal);
+}
+
+.logo-menu{
+	display: none;
+}
+
+@media (max-width: 670px){
+
+    header > .padre-sup{
+        padding: 0 5px;
+    }
+
+	#menu-header{
+	    position: fixed;
+	    display: flex;
+	    justify-content: left;
+	    z-index: 1;
+	    left: 0;
+		top: var(--altura-header);
+		background-color: var(--color-principal);
+		width: 100%;
+		height: var(--altura-menu-movil);
+	}
+
+	.logo-menu{
+		cursor: pointer;
+		display: block;
+		width: 30px;
+	}
+
+	.barra-menu{
+		display: inline-block;
+		height: 4px;
+		background-color: var(--color-principal);
+		width: 100%;
+		border-radius: 5px;
+		transition: all 0.5s;
+	}
+
+	.dos{
+		margin: 5px 0;
+	}
+
+	.rotar .dos{
+		opacity: 0;
+	}
+
+	.rotar .uno{
+		transform: rotate(45deg) translate(6px, 7px);
+	}
+
+	.rotar .tres{
+		transform: rotate(-45deg) translate(6px, -7px);
+	}
+
+	#menu-header > #lista{
+		width: 100%;
+		display: block;
+	}
+
+	.item{
+		margin-bottom: 10px;
+		font: normal 800 20px 'Lato',sans-serif;
+		color: var(--color-secundario);
+	}
+
+	.item:hover{
+		color: white;
+	}
+
+	li{
+		display: block;
+	}
+}
+
+
+
+@media (max-width: 360px){
+
+}
+  </style>
+</head>
+<body>
+		<div class="padre-sup">
+						<div class="hijo-sup">
+							<div class="logo-titulo">
+								<img src="${pageContext.request.contextPath}/imgs/logo.jpg" alt="logo">
+								<h1 id="titulo-h"><a class="hipervinculo-h" href="https://www.campanaactiva.com">EventosYa</a></h1>
+							</div>
+							<div id="logo-menu" class="logo-menu" onclick="clickMenu()">
+								<div class="barra-menu uno"></div>
+								<div class="barra-menu dos"></div>
+								<div class="barra-menu tres"></div>
+							</div>
+
+							<nav id="menu-header">
+								<ul id="lista">
+									<li><a class="item hipervinculo-h" href="https://www.campanaactiva.com"> INICIO</li></a>
+									<li><a class="item hipervinculo-h" href="https://www.campanaactiva.com"> ANUNCIATE</li></a>
+									<li><a class="item hipervinculo-h" href="https://www.campanaactiva.com"> QUIENES SOMOS</li></a>
+								</ul>
+							</nav>
+
+							<script>ocultarMenu();</script>
+						</div>
+					</div>
+
+					<div id="franja-amarilla-h"></div>
+<div class="container">
+	<div class="row">
+			<h1>Contactenos</h1>
+	</div>
+	<div class="row">
+			<h4 style="text-align:center">We'd love to hear from you!</h4>
+	</div>
+	<div class="row input-container">
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="text" required />
+					<label>Nombre</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input">
+					<input type="text" required />
+					<label>Correo</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input" style="float:right;">
+					<input type="text" required />
+					<label>Numero de Telefono</label> 
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<textarea required></textarea>
+					<label>Mensaje</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="btn-lrg submit-btn">Enviar Mensaje</div>
+			</div>
+	</div>
+</div>
+
+</body>
+</html>
