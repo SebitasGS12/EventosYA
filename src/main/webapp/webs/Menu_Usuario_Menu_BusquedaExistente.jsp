@@ -250,7 +250,7 @@ int codigo = (int) request.getAttribute("usuario");
 								<p><%=eve.getFechaIncio() %></p>
 							</div>
 							<div class="precio-col-comprar">
-								<a>Participar</a>
+								<a href="/EventosYa/evento?opcion=bus&org=<%=org.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>">Participar</a>
 							</div>
 						</div>
 		
@@ -259,7 +259,6 @@ int codigo = (int) request.getAttribute("usuario");
 							
 						<%}
 					}else if(listaOrg.size() == 0){%>
-						
 						<p> <strong>Busqueda de Evento no existe</strong> </p>
 					<%				
 					}								
