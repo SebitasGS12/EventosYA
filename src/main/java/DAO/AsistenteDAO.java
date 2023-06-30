@@ -9,7 +9,7 @@ public interface AsistenteDAO {
 	
 	
 	public int registrarAsistencia(AsistenteDTO a);
-	
+	public int eliminarFromEvento(int idEvento);
 	public ArrayList<AsistenteDTO>  listarAsistenciasDeUsuario(int codigo);
 	public AsistenteDTO  buscarAsistente(int codigo);
 	

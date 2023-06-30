@@ -15,8 +15,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-
-
+import DAO.AsistenteDAO;
+import DAO.ComentarioDAO;
 import DAO.DAOFactory;
 import DAO.EventoDAO;
 import DAO.OrganizadorDAO;
@@ -194,35 +194,31 @@ public class EventoServlet extends HttpServlet {
 		String url;
 		
 		//Entradas
-		int codigo=   Integer.parseInt(request.getParameter("cod"));
+		int codigoEvento=   Integer.parseInt(request.getParameter("cod"));
 	  
 		
 		//Obtenemos la fabrica DAO 
 		DAOFactory fabrica = DAOFactory.getDaoFactory(DAOFactory.MySQL);
 		EventoDAO daoEve = fabrica.getEventoDAO();
 		OrganizadorDAO daoOrg = fabrica.getOrganizadorDAO();
+		AsistenteDAO daoAsis = fabrica.getAsistenteDAO();
+		ComentarioDAO daoCom = fabrica.getComentarioDAO();
 		//Procesos 
 		
 		//Primero eliminamos al organizador
-		int ok2 = daoOrg.eliminar(codigo);
+		int okOrg = daoOrg.eliminar(codigoEvento);
+		int okCom = daoCom.eliminarFromEvento(codigoEvento);
+		int okAsistentes = daoAsis.eliminarFromEvento(codigoEvento);
+		int okEve =daoEve.eliminar(codigoEvento);
 		
-		int ok=daoEve.eliminar(codigo);
-		
-		if(ok==0) {
-			mensaje+=" <script> alert('"+" Error al eliminar los datos" +"') </script>";
+		if(okOrg==0 || okCom== 0 || okAsistentes== 0 || okEve==0) {
+			mensaje+=" <script> alert('"+" Error al eliminar Evento" +"') </script>";
 			 
 		}else {
-			mensaje+=" <script> alert('"+"Eliminación del Vendedor  "+codigo+" OK" +"') </script>";
+			mensaje+=" <script> alert('"+"Eliminación del Evento  "+codigoEvento+" OK" +"') </script>";
 		 
 		}
-		
-		if(ok2==0) {
-			mensaje+=" <script> alert('"+" Error al eliminar los datos" +"') </script>";
-			 
-		}else {
-			mensaje+=" <script> alert('"+"Eliminación del Organizador  "+codigo+" OK" +"') </script>";
-		 
-		}
+
 		
 		
 		url="evento?opcion=lis&url=verGeneral";
@@ -247,9 +243,7 @@ public class EventoServlet extends HttpServlet {
 		String descripcion= request.getParameter("txtDescripcion");
 		String ubicacion= request.getParameter("txtUbicacion");
 		
-		//Codigo especial para la imagen :D
-		Part archivoImagen = request.getPart("txtImagen");
-		InputStream imagen = archivoImagen.getInputStream(); //ruta de la imagen que se cargara a la BD
+		
 
 		
 		String fechaIni= request.getParameter("txtFechaIni");
@@ -260,8 +254,6 @@ public class EventoServlet extends HttpServlet {
 		System.out.println("Nombre: " + nombre);
 		System.out.println("Descripción: " + descripcion);
 		System.out.println("Ubicación: " + ubicacion);
-		System.out.println("Imagen 1: " + archivoImagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
-		System.out.println("Imagen: " + imagen); // Este es solo un ejemplo de impresión, la salida real puede variar según tus necesidades
 		System.out.println("Fecha de Inicio: " + fechaIni);
 		System.out.println("Fecha de Fin: " + fechaFin);
 		System.out.println("ID de Categoría: " + categoria);
@@ -274,7 +266,7 @@ public class EventoServlet extends HttpServlet {
 			
 			
 			
-		EventoDTO e = new EventoDTO(idEvento,nombre,descripcion,ubicacion,imagen,fechaIni,fechaFin,categoria);
+		EventoDTO e = new EventoDTO(idEvento,nombre,descripcion,ubicacion,fechaIni,fechaFin,categoria);
 		ok=dao.actualizar(e);
 						 
 			 System.out.println(ok);

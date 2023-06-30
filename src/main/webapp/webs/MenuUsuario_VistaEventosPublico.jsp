@@ -331,16 +331,16 @@ if (msg==null) msg="";
             <%
             
 
-			UsuarioDTO usuarioPersona = fabric.getUsuarioDAO().buscarUsuario(idUsuarioPersona);
+			
             
-            InputStream imagenUsuario = usuarioPersona.getImagenUsuario(); // Obtener el InputStream de la imagen del objeto EventoDTO
+            InputStream imagenOrg = userOrganizador.getImagenUsuario(); // Obtener el InputStream de la imagen del objeto EventoDTO
             
-            String imagenPerfil = fabric.getUsuarioDAO().ConvertirIMG(imagenUsuario);
+            String imagenPerfilOrg = fabric.getUsuarioDAO().ConvertirIMG(imagenOrg);
 
 				
 			
 			%>        
-            <img src="<%=imagenPerfil %>" alt="usMen" class="imagenPerfil" style="width: 50px; height: 50px;">
+            <img src="<%=imagenPerfilOrg %>" alt="usMen" class="imagenPerfil" style="width: 50px; height: 50px;">
         </div>
     </div>
 </div>
@@ -354,8 +354,14 @@ if (msg==null) msg="";
            
             
             <div style="display: flex; align-items: center; justify-content:center ;">
-            
-                <img src="<%=imagenPerfil %>" alt="usMen" class="imagenPerfil" style="width: 40px; height: 40px;">
+            	<%
+            	UsuarioDTO usuario = fabric.getUsuarioDAO().buscarUsuario(idUsuarioPersona);
+                InputStream imagenUsuario = userOrganizador.getImagenUsuario(); // Obtener el InputStream de la imagen del objeto EventoDTO
+                
+                String imagenPerfilUser = fabric.getUsuarioDAO().ConvertirIMG(imagenUsuario);
+            	%>
+            	
+                <img src="<%=imagenPerfilUser %>" alt="usMen" class="imagenPerfil" style="width: 40px; height: 40px;">
                 
                 <form action="comentario" method="post">                
                 	

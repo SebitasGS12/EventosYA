@@ -300,17 +300,16 @@ public class MySQLEventoDAO implements EventoDAO {
 		Connection con = null;
 		try {
 			con = MysqlConector.getConexion();
-			String sql = " UPDATE evento SET nombreEvento= ?, descripcionEvento= ?, ubicacionEvento= ?, imagenEvento = ? , fechaInicio = ? ,fechaFin = ? , idCategoria = ? WHERE idEvento = ? ";
+			String sql = " UPDATE evento SET nombreEvento= ?, descripcionEvento= ?, ubicacionEvento= ? , fechaInicio = ? ,fechaFin = ? , idCategoria = ? WHERE idEvento = ? ";
 			pst = con.prepareStatement(sql);
 			
 			pst.setString(1, u.getNombreEvento());
 			pst.setString(2, u.getDescripcionEvento());
 			pst.setString(3, u.getUbicacionEvento());
-			pst.setBlob(4, u.getImagenEvento());
-			pst.setString(5, u.getFechaIncio());
-			pst.setString(6, u.getFechaFin());
-			pst.setInt(7, u.getIdCategoria());
-			pst.setInt(8, u.getIdEvento());
+			pst.setString(4, u.getFechaIncio());
+			pst.setString(5, u.getFechaFin());
+			pst.setInt(6, u.getIdCategoria());
+			pst.setInt(7, u.getIdEvento());
 			
 			
 			

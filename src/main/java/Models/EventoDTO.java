@@ -28,6 +28,21 @@ public class EventoDTO {
 	
 	
 	
+	public EventoDTO(int idEvento, String nombreEvento, String descripcionEvento, String ubicacionEvento,
+			String fechaIncio, String fechaFin, int idCategoria) {
+		this.idEvento = idEvento;
+		this.nombreEvento = nombreEvento;
+		this.descripcionEvento = descripcionEvento;
+		this.ubicacionEvento = ubicacionEvento;
+		this.fechaIncio = fechaIncio;
+		this.fechaFin = fechaFin;
+		this.idCategoria = idCategoria;
+	}
+
+
+
+
+
 	public EventoDTO(int idEvento, String nombreEvento, String descripcionEvento, String ubicacionEvento, InputStream imagenEvento
 			,String fechaIncio, String fechaFin, int idCategoria) {
 		this.idEvento = idEvento;
@@ -46,6 +61,8 @@ public class EventoDTO {
 
 	public EventoDTO() {
 	}
+
+
 
 
 

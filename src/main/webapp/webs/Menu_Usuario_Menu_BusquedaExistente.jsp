@@ -253,26 +253,18 @@ int codigo = (int) request.getAttribute("usuario");
 								<a href="/EventosYa/evento?opcion=bus&org=<%=org.getIdOrganizador() %>&url=ver&usuario=<%=codigo %>">Participar</a>
 							</div>
 						</div>
-		
-							
-							
-							
 						<%}
 					}else if(listaOrg.size() == 0){%>
 						<p> <strong>Busqueda de Evento no existe</strong> </p>
 					<%				
 					}								
 					%>
-					
-					
-					
-					
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-    <%@include file="../comun/footer.jsp" %>
+<%@include file="../comun/footer.jsp" %>
 </body>
 </html>

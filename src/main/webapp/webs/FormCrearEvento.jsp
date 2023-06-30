@@ -287,7 +287,7 @@
 	            	<div class="inputs-contenedor">
 		            	<div class="name ">
 		                    <label>Nombre</label>
-		                    <input type="text" name="txtNombre" placeholder="Ingrese el Nombre" required>
+		                    <input type="text" name="txtNombre" maxlength="30" placeholder="Ingrese el Nombre" required>
 		                </div>
 		                <div class="categ">
 		                   <label>Categoria</label>
@@ -304,7 +304,7 @@
 		                </div>
 		                <div class="ubica">
 		                	<label>Ubicación</label>
-		                	<input   type="text" name="txtUbicaion" placeholder="Ingrese la Ubicación" required>
+		                	<input   type="text" name="txtUbicaion" maxlength="30"  placeholder="Ingrese la Ubicación" required>
 		                </div>
 		                
 		                <div class="fechini">

@@ -224,5 +224,34 @@ public class MySQLAsistenteDAO implements AsistenteDAO {
 		return p;
 	}
 
+	@Override
+	public int eliminarFromEvento(int idEvento) {
+		int rs=0;	
+		Connection con= null;
+		PreparedStatement pst=null;
+		try {
+		 
+			
+			con=MysqlConector.getConexion();
+			String sql=" delete from  asistente   where idEvento = ?  ";
+			pst=con.prepareStatement(sql);
+			//Parametrizar en el orden de los signos de ?  inicia en 1
+			pst.setInt(1,idEvento);
+			//Ejecucion
+			rs=pst.executeUpdate();	
+		} catch (Exception e) {
+		  System.out.println("Error en la sentencia "+e.getMessage());
+		}finally{
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar "+e2.getMessage());
+			}	
+		}
+		
+		return rs;
+	}
+
 
 }

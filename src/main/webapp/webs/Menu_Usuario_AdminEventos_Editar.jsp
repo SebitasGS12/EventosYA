@@ -299,24 +299,7 @@ EventoDTO evento = (EventoDTO) request.getAttribute("evento");
 					
 					</div>
 
-		          	<div class="img-item">
-   						<label for="file" class="label-nombre">Imagen de Evento</label>
-   						<br />
-   						
-   						<%
-						
-		                    InputStream imagenInputStream = evento.getImagenEvento(); // Obtener el InputStream de la imagen del objeto EventoDTO
-		                    
-		                    String imagenBase64 = fabrica.getEventoDAO().ConvertirIMG(imagenInputStream);
-   								
-
-
-   							
-   							
-						%>
-						<input type="file"  accept="image/*" class= "flayer" name="txtImagen" id="file" alt="" >
-						<label for="file" id="preview"><img  alt="" src="<%=imagenBase64%>"></label>			            
-		            </div>
+		          	
 		        </div>
 
 	        	</div>
